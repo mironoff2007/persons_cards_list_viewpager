@@ -1,0 +1,2 @@
+rootProject.name='Persons Cards'
+include ':app'
