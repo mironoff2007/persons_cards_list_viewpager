@@ -7,6 +7,22 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
+    <EditText
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:drawableLeft="@drawable/ic_baseline_search_24"
+        android:drawableStart="@drawable/ic_baseline_search_24"
+        android:hint="@string/hint_search_field"
+        android:drawablePadding="10dp"
+        android:padding="10dp"
+        android:textColor="@color/gray_dark"
+        android:background="@drawable/shape_circular"
+        android:drawableEnd="@drawable/ic_baseline_sort_24"
+        android:drawableRight="@drawable/ic_baseline_sort_24" />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
