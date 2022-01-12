@@ -8,6 +8,6 @@ interface UsersApi {
 
     @GET("users")
     fun getUsers(
-    ): Call<JsonObject>
+    ): Call<JsonArrayUsers>
 
 }

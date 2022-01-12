@@ -1,24 +1,15 @@
 package ru.mironov.persons_cards_list_viewpager
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Debug
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-
 import androidx.viewpager2.widget.ViewPager2
-
 import com.google.android.material.tabs.TabLayout
-
-
 import com.google.android.material.tabs.TabLayoutMediator
-
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
-    private val viewModel: MainViewModel by viewModels()
 
     private var tabLayout: TabLayout? = null
     private var pager2: ViewPager2? = null
@@ -32,11 +23,13 @@ class MainActivity : AppCompatActivity() {
 
         tabLayout = findViewById(R.id.tabs);
         pager2 = findViewById(R.id.view_pager);
-        setUpViewPager();
+        setUpViewPager(tabName)
+
+        viewModel.getUsers()
 
     }
 
-    private fun setUpViewPager() {
+    private fun setUpViewPager(tabName:Array<String>) {
         val adapter = ViewPagerAdapter(this)
         adapter.tabName=tabName
         pager2!!.adapter = adapter
@@ -45,5 +38,3 @@ class MainActivity : AppCompatActivity() {
         ) { tab, position -> tab.text = tabName[position] }.attach()
     }
 }
-
-
