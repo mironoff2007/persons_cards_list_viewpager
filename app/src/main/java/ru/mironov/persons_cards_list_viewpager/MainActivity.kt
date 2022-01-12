@@ -1,6 +1,7 @@
 package ru.mironov.persons_cards_list_viewpager
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -10,6 +11,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    private val viewModel: MainViewModel by viewModels()
 
     private var tabLayout: TabLayout? = null
     private var pager2: ViewPager2? = null
@@ -23,18 +26,37 @@ class MainActivity : AppCompatActivity() {
 
         tabLayout = findViewById(R.id.tabs);
         pager2 = findViewById(R.id.view_pager);
-        setUpViewPager(tabName)
 
+        setupObserver()
         viewModel.getUsers()
 
     }
 
-    private fun setUpViewPager(tabName:Array<String>) {
+    private fun setUpViewPager(tabName: Array<String>) {
         val adapter = ViewPagerAdapter(this)
-        adapter.tabName=tabName
+        adapter.tabName = tabName
         pager2!!.adapter = adapter
         TabLayoutMediator(
             tabLayout!!, pager2!!
         ) { tab, position -> tab.text = tabName[position] }.attach()
     }
+
+    private fun setupObserver() {
+        viewModel.mutableStatus.observe(this) { status ->
+            when (status) {
+
+                is Status.DATA -> {
+                    setUpViewPager(status.departments!!)
+                }
+                is Status.LOADING -> {
+
+                }
+                is Status.ERROR -> {
+                    Toast.makeText(this.applicationContext, status.code, Toast.LENGTH_LONG)?.show()
+                }
+            }
+        }
+    }
 }
+
+
