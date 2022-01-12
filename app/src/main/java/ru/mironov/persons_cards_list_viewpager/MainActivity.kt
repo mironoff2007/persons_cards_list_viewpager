@@ -17,8 +17,6 @@ class MainActivity : AppCompatActivity() {
     private var tabLayout: TabLayout? = null
     private var pager2: ViewPager2? = null
 
-    val tabName = arrayOf("1", "2", "3")
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

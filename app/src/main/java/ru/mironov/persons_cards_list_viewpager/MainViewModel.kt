@@ -19,8 +19,6 @@ class MainViewModel @Inject constructor (protected val repository:Repository): V
 
     var mutableStatus = MutableLiveData<Status>()
 
-    var departments=HashSet<String>()
-
     fun getUsers(){
         repository.getUsers().enqueue(object : Callback<JsonArrayUsers?> {
             override fun onResponse(
@@ -32,10 +30,12 @@ class MainViewModel @Inject constructor (protected val repository:Repository): V
 
                         val list = response.body()!!.users
 
+                        val departments=HashSet<String>()
+
                         list?.forEach(){
                             departments?.add(it?.department.toString())
                         }
-                        mutableStatus.postValue(Status.RESPONSE)
+                        mutableStatus.postValue(Status.DATA(departments.toTypedArray()))
                     }
                 } else {
                     if (response.errorBody() != null) {
