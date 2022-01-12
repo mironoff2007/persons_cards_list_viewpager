@@ -8,6 +8,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import ru.mironov.persons_cards_list_viewpager.util.DepartmentNameUtil
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -36,7 +37,12 @@ class MainActivity : AppCompatActivity() {
         pager2!!.adapter = adapter
         TabLayoutMediator(
             tabLayout!!, pager2!!
-        ) { tab, position -> tab.text = tabName[position] }.attach()
+        ) { tab, position -> tab.text =
+            DepartmentNameUtil.getDepartmentName(
+                applicationContext,
+                tabName[position]
+            )
+        }.attach()
     }
 
     private fun setupObserver() {

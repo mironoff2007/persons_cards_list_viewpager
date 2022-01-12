@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">Persons Cards</string>
+
+    <string name="department_android">android</string>
+    <string name="department_android_name">Android</string>
+    <string name="department_ios">ios</string>
+    <string name="department_ios_name">iOS</string>
+    <string name="department_design">design</string>
+    <string name="department_design_name">Дизайн</string>
+    <string name="department_management">management</string>
+    <string name="department_management_name">Менеджмент</string>
+    <string name="department_qa">qa</string>
+    <string name="department_qa_name">QA</string>
+    <string name="department_back_office">back_office</string>
+    <string name="department_back_office_name">Бэк-офис</string>
+    <string name="department_frontend">frontend</string>
+    <string name="department_frontend_name">Frontend</string>
+    <string name="department_hr">hr</string>
+    <string name="department_hr_name">HR</string>
+    <string name="department_pr">pr</string>
+    <string name="department_pr_name">PR</string>
+    <string name="department_backend">backend</string>
+    <string name="department_backend_name">Backend</string>
+    <string name="department_support">support</string>
+    <string name="department_support_name">Техподдержка</string>
+    <string name="department_analytics">analytics</string>
+    <string name="department_analytics_name">Аналитика</string>
 </resources>
