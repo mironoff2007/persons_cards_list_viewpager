@@ -2,6 +2,9 @@ package ru.mironov.persons_cards_list_viewpager.ui
 
 import android.os.Bundle
 import android.os.Debug
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.viewModels
@@ -11,6 +14,8 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.mironov.persons_cards_list_viewpager.R
 import ru.mironov.persons_cards_list_viewpager.Status
+import ru.mironov.persons_cards_list_viewpager.databinding.ActivityMainBinding
+import ru.mironov.persons_cards_list_viewpager.databinding.FragmentTabBinding
 import ru.mironov.persons_cards_list_viewpager.util.DepartmentNameUtil
 import ru.mironov.persons_cards_list_viewpager.viewmodel.MainViewModel
 
@@ -22,15 +27,25 @@ class MainActivity : AppCompatActivity() {
     private var tabLayout: TabLayout? = null
     private var pager2: ViewPager2? = null
 
+    private var _binding: ActivityMainBinding? = null
+
+    private val binding get() = _binding!!
+
+    lateinit var search:EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
         //Debug.waitForDebugger()
 
         tabLayout = findViewById(R.id.tabs);
         pager2 = findViewById(R.id.view_pager);
 
         setupObserver()
+        search=findViewById(R.id.search)
+        search.addTextChangedListener(textChangeListener)
 
         viewModel.allUsersDepartment=applicationContext.getString(R.string.department_all)
         viewModel.getUsers()
@@ -66,6 +81,22 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private val textChangeListener: TextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+            viewModel.setSearchParam(s.toString().lowercase())
+        }
+
+        override fun afterTextChanged(editable: Editable) {}
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.search.removeTextChangedListener(textChangeListener)
+        _binding = null
     }
 }
 

@@ -62,4 +62,8 @@ class MainViewModel @Inject constructor (protected val repository: Repository): 
         })
     }
 
+    fun setSearchParam(param: String) {
+        repository.mutableSearchParam.postValue(param)
+    }
+
 }

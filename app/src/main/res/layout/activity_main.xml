@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <EditText
+        android:id="@+id/search"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -18,7 +19,7 @@
         android:hint="@string/hint_search_field"
         android:drawablePadding="10dp"
         android:padding="10dp"
-        android:textColor="@color/gray_dark"
+        android:textColor="@color/black"
         android:background="@drawable/shape_circular"
         android:drawableEnd="@drawable/ic_baseline_sort_24"
         android:drawableRight="@drawable/ic_baseline_sort_24" />
