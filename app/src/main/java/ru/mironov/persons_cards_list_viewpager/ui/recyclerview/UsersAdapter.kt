@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.mironov.persons_cards_list_viewpager.databinding.ItemUserBinding
 import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
+import ru.mironov.persons_cards_list_viewpager.util.DepartmentNameUtil
 
 import java.util.*
 
@@ -36,8 +37,7 @@ class UsersAdapter(
         val user = users[position]
         with(holder.binding) {
             userName.text=user?.firstName+" "+user?.lastName
-            userDepartment.text=user?.department
-
+            userDepartment.text=DepartmentNameUtil.getDepartmentName(userDepartment.context,user?.department!!)
         }
 
         val itemBinding = holder.binding
