@@ -1,4 +1,4 @@
-package ru.mironov.persons_cards_list_viewpager
+package ru.mironov.persons_cards_list_viewpager.ui
 
 import android.os.Bundle
 import android.os.Debug
@@ -9,6 +9,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import ru.mironov.persons_cards_list_viewpager.R
+import ru.mironov.persons_cards_list_viewpager.Status
 import ru.mironov.persons_cards_list_viewpager.util.DepartmentNameUtil
 import ru.mironov.persons_cards_list_viewpager.viewmodel.MainViewModel
 
