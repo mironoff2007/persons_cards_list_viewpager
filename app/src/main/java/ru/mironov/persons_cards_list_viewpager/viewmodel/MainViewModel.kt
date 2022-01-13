@@ -1,4 +1,4 @@
-package ru.mironov.persons_cards_list_viewpager
+package ru.mironov.persons_cards_list_viewpager.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,13 +9,15 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import ru.mironov.persons_cards_list_viewpager.Repository
+import ru.mironov.persons_cards_list_viewpager.Status
 import ru.mironov.persons_cards_list_viewpager.retrofit.JsonArrayUsers
 import java.util.HashSet
 import javax.inject.Inject
 
 @HiltViewModel
 
-class MainViewModel @Inject constructor (protected val repository:Repository): ViewModel(){
+class MainViewModel @Inject constructor (protected val repository: Repository): ViewModel(){
 
     var mutableStatus = MutableLiveData<Status>()
 
