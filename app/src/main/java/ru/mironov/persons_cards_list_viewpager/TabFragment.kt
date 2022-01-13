@@ -24,11 +24,11 @@ class TabFragment : Fragment() {
     }
 
     companion object {
-        val ARGS_KEY = "count"
+        val ARGS_KEY_TABNAME = "ARGS_KEY_TABNAME "
 
-        fun getInstance(count: Int): TabFragment {
+        fun getInstance(tabName: String): TabFragment {
             val args = Bundle()
-            args.putInt(ARGS_KEY, count)
+            args.putString(ARGS_KEY_TABNAME , tabName)
             val tabFragment = TabFragment()
             tabFragment.arguments = args
             return tabFragment

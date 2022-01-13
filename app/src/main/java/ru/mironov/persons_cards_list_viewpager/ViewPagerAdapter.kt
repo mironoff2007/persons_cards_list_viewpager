@@ -10,12 +10,10 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 class ViewPagerAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
 
-
     lateinit var tabName:Array<String>
 
-
     override fun createFragment(position: Int): Fragment {
-        return TabFragment.getInstance(position+1)
+        return TabFragment.getInstance(tabName[position])
     }
 
     override fun getItemCount(): Int {

@@ -30,14 +30,16 @@ class MainViewModel @Inject constructor (protected val repository:Repository): V
                 if (response.body() != null) {
                     viewModelScope.launch(Dispatchers.Default) {
 
-                        val list = response.body()!!.users
+                        val usersList = response.body()!!.users
 
                         //Departments names for tabs
                         val departments=HashSet<String>()
                         departments?.add(allUsersDepartment)
-                        list?.forEach(){
+                        usersList?.forEach(){
                             departments?.add(it?.department.toString())
                         }
+
+                        repository.usersList=usersList
                         mutableStatus.postValue(Status.DATA(departments.toTypedArray()))
                     }
                 } else {
