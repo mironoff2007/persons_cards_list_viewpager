@@ -7,6 +7,7 @@ object DepartmentNameUtil {
 
     fun getDepartmentName(context: Context, departmentName: String):String {
         return when (departmentName) {
+            context.getString(R.string.department_all) -> return context.getString(R.string.department_all_name)
             context.getString(R.string.department_analytics) -> return context.getString(R.string.department_analytics_name)
             context.getString(R.string.department_android) -> return context.getString(R.string.department_android_name)
             context.getString(R.string.department_back_office) -> return context.getString(R.string.department_back_office_name)

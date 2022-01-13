@@ -27,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         pager2 = findViewById(R.id.view_pager);
 
         setupObserver()
+
+        viewModel.allUsersDepartment=applicationContext.getString(R.string.department_all)
         viewModel.getUsers()
 
     }

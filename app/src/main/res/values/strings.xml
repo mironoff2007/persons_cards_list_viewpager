@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Persons Cards</string>
 
+    <string name="department_all">all</string>
+    <string name="department_all_name">Все</string>
     <string name="department_android">android</string>
     <string name="department_android_name">Android</string>
     <string name="department_ios">ios</string>
@@ -25,5 +27,5 @@
     <string name="department_support_name">Техподдержка</string>
     <string name="department_analytics">analytics</string>
     <string name="department_analytics_name">Аналитика</string>
-    <string name="hint_search_field"> Ведите имя,тег, почту</string>
+    <string name="hint_search_field"> Ведите имя, тег, почту</string>
 </resources>
