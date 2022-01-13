@@ -53,11 +53,10 @@ class TabFragment : Fragment() {
         if (arguments != null) {
             department = arguments!!.getString(ARGS_KEY_TABNAME, null)
         }
-        if (department == requireContext().getString(R.string.department_all)) {
-            viewModel.getUsersAll()
-        } else {
-            viewModel.getUsersByDepartment(department)
-        }
+        viewModel.allDepartmentName= requireContext().getString(R.string.department_all)
+
+        viewModel.getUsersByDepartment(department)
+
 
         setupObserver()
     }

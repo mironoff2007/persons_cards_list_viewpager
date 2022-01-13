@@ -17,6 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class TabFragmentViewModel @Inject constructor(protected val repository: Repository) : ViewModel() {
 
+    lateinit var allDepartmentName:String
+
     var mutableStatus = MutableLiveData<Status>()
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -29,17 +31,9 @@ class TabFragmentViewModel @Inject constructor(protected val repository: Reposit
             val status = Status.DATA(null)
 
             status.usersList =
-                list?.filter { s -> s?.department == department } as ArrayList<JsonUser?>?
+                list?.filter { s -> s?.department == department||department==allDepartmentName} as ArrayList<JsonUser?>?
             mutableStatus.postValue(status)
         }
     }
 
-    fun getUsersAll() {
-        val list = repository.usersList
-
-        val status = Status.DATA(null)
-
-        status.usersList = list
-        mutableStatus.postValue(status)
-    }
 }
