@@ -17,6 +17,12 @@ class UsersAdapter(
 
     var users: ArrayList<JsonUser?> = ArrayList()
 
+    @SuppressLint("NotifyDataSetChanged")
+    set(newValue) {
+        field = newValue
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemUserBinding.inflate(inflater, parent, false)
@@ -48,8 +54,6 @@ class UsersAdapter(
     }
 
     override fun onClick(v: View?) {}
-    fun notifyUpdate() {
-        notifyItemRangeChanged(0,users.size)
-    }
+
 
 }

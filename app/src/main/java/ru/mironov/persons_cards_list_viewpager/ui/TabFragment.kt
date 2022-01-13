@@ -42,7 +42,7 @@ class TabFragment : Fragment() {
 
         adapterSetup()
 
-        return inflater.inflate(R.layout.fragment_tab, container, false)
+        return binding.root
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -81,7 +81,6 @@ class TabFragment : Fragment() {
 
                 is Status.DATA -> {
                     adapter.users = status.usersList!!.clone() as ArrayList<JsonUser?>
-                    adapter.notifyUpdate()
                 }
                 is Status.LOADING -> {
 

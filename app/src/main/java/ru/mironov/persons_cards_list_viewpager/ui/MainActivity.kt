@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Debug.waitForDebugger()
+        //Debug.waitForDebugger()
 
         tabLayout = findViewById(R.id.tabs);
         pager2 = findViewById(R.id.view_pager);
