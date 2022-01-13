@@ -15,7 +15,7 @@ class UsersAdapter(
 ) :
     RecyclerView.Adapter<UserViewHolder>(), View.OnClickListener {
 
-    var users: ArrayList<JsonUser> = ArrayList()
+    var users: ArrayList<JsonUser?> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -25,13 +25,12 @@ class UsersAdapter(
         return UserViewHolder(binding)
     }
 
-    @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
 
         val user = users[position]
         with(holder.binding) {
-            userName.text=user.firstName+" "+user.lastName
-            userDepartment.text=user.department
+            userName.text=user?.firstName+" "+user?.lastName
+            userDepartment.text=user?.department
 
         }
 
@@ -39,7 +38,9 @@ class UsersAdapter(
         itemBinding.root.setOnClickListener { listener.onClickListener(holder) }
     }
 
-    override fun getItemCount(): Int = users.size
+    override fun getItemCount(): Int {
+        return users.size
+    }
 
     interface ItemClickListener<I> {
         fun onClickListener(item: UserViewHolder) {
@@ -47,5 +48,8 @@ class UsersAdapter(
     }
 
     override fun onClick(v: View?) {}
+    fun notifyUpdate() {
+        notifyItemRangeChanged(0,users.size)
+    }
 
 }

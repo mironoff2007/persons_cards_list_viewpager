@@ -1,28 +1,47 @@
 package ru.mironov.persons_cards_list_viewpager.ui
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import ru.mironov.persons_cards_list_viewpager.R
+import ru.mironov.persons_cards_list_viewpager.Status
+import ru.mironov.persons_cards_list_viewpager.databinding.FragmentTabBinding
+import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
+import ru.mironov.persons_cards_list_viewpager.ui.recyclerview.UserViewHolder
+import ru.mironov.persons_cards_list_viewpager.ui.recyclerview.UsersAdapter
 import ru.mironov.persons_cards_list_viewpager.viewmodel.TabFragmentViewModel
+import java.util.ArrayList
 
 @AndroidEntryPoint
 class TabFragment : Fragment() {
 
     private val viewModel: TabFragmentViewModel by viewModels()
 
+    private lateinit var adapter: UsersAdapter
+
+    private var _binding: FragmentTabBinding? = null
+
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        _binding = FragmentTabBinding.inflate(inflater, container, false)
+
+        adapterSetup()
+
         return inflater.inflate(R.layout.fragment_tab, container, false)
     }
 
@@ -32,13 +51,15 @@ class TabFragment : Fragment() {
 
         var department: String? = null
         if (arguments != null) {
-            department = arguments!!.getString(ARGS_KEY_TABNAME, null);
+            department = arguments!!.getString(ARGS_KEY_TABNAME, null)
         }
         if (department == requireContext().getString(R.string.department_all)) {
             viewModel.getUsersAll()
         } else {
             viewModel.getUsersByDepartment(department)
         }
+
+        setupObserver()
     }
 
     companion object {
@@ -53,5 +74,46 @@ class TabFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private fun setupObserver() {
+        viewModel.mutableStatus.observe(this) { status ->
+            when (status) {
+
+                is Status.DATA -> {
+                    adapter.users = status.usersList!!.clone() as ArrayList<JsonUser?>
+                    adapter.notifyUpdate()
+                }
+                is Status.LOADING -> {
+
+                }
+                is Status.ERROR -> {
+                    Toast.makeText(this.requireContext(), status.code, Toast.LENGTH_LONG)?.show()
+                }
+            }
+        }
+    }
+
+    private fun adapterSetup() {
+        adapter = UsersAdapter(object : UsersAdapter.ItemClickListener<UserViewHolder> {
+            override fun onClickListener(clickedItem: UserViewHolder) {
+                //On Recycler Item Clicked
+            }
+        })
+
+        val layoutManager = LinearLayoutManager(this.requireContext())
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                binding.recyclerView.context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 
 }

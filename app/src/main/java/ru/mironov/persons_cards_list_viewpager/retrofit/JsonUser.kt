@@ -2,7 +2,7 @@ package ru.mironov.persons_cards_list_viewpager.retrofit
 
 import com.google.gson.annotations.SerializedName
 
-class JsonUser {
+class JsonUser:Cloneable {
     @SerializedName("id")
     var id: String? = null
 
