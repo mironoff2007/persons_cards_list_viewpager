@@ -10,6 +10,18 @@
         <item name="windowActionBar">false</item>
     </style>
 
+    <style name="MRadioButton.Purple" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+        <item name="android:colorPressedHighlight">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+    </style>
 
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
 
 </resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="@string/sort"
+        android:textColor="@color/black"
+        android:layout_marginTop="5dp"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:gravity="center_horizontal" />
+
+    <RadioGroup
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RadioButton
+        android:id="@+id/radio_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:text="@string/alphabet_sort"
+        android:textSize="20sp"
+        android:buttonTint="@color/colorPrimary"
+        android:checked="true" />
+
+    <RadioButton
+        android:layout_marginTop="10dp"
+        android:id="@+id/radio_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:text="@string/birthday_sort"
+        android:textSize="20sp"
+        android:buttonTint="@color/colorPrimary"/>
+
+    </RadioGroup>
+
+</LinearLayout>

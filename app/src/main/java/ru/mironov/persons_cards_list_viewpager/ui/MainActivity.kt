@@ -1,25 +1,27 @@
 package ru.mironov.persons_cards_list_viewpager.ui
 
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
+import android.view.*
+import android.view.View.OnTouchListener
+import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.viewModels
-import dagger.hilt.android.AndroidEntryPoint
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import ru.mironov.persons_cards_list_viewpager.R
 import ru.mironov.persons_cards_list_viewpager.Status
 import ru.mironov.persons_cards_list_viewpager.databinding.ActivityMainBinding
 import ru.mironov.persons_cards_list_viewpager.util.DepartmentNameUtil
 import ru.mironov.persons_cards_list_viewpager.viewmodel.MainViewModel
-import android.view.MotionEvent
-
-import android.view.View.OnTouchListener
 
 
 @AndroidEntryPoint
@@ -67,6 +69,7 @@ class MainActivity : AppCompatActivity() {
                 ) {
 
                     //Bottom Sheets Dialog
+                    showDialog()
                     binding.search.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_search, 0, R.drawable.ic_baseline_sort_on, 0);
 
                     return@OnTouchListener true
@@ -121,6 +124,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun afterTextChanged(editable: Editable) {}
+    }
+
+    private fun showDialog() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.bottomsheetlayout)
+
+
+        dialog.show()
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        dialog.window?.setGravity(Gravity.BOTTOM)
     }
 
     override fun onDestroy() {
