@@ -11,7 +11,7 @@ open class Repository @Inject constructor(protected val retrofit: UsersApi) {
 
     var usersList:ArrayList<JsonUser?>?=null
 
-    var mutableSearchParam = MutableLiveData<String>()
+    var mutableSearchParam = MutableLiveData<SortParams>()
 
     fun getUsers(): Call<JsonArrayUsers> {
         return retrofit.getUsers()

@@ -11,6 +11,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.mironov.persons_cards_list_viewpager.Repository
+import ru.mironov.persons_cards_list_viewpager.SortBy
+import ru.mironov.persons_cards_list_viewpager.SortParams
 import ru.mironov.persons_cards_list_viewpager.Status
 import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
 import java.util.*
@@ -25,47 +27,49 @@ class TabFragmentViewModel @Inject constructor(protected val repository: Reposit
 
     var observer: Observer? = null
 
-    var usersList:ArrayList<JsonUser?>?=null
+    //var usersList: ArrayList<JsonUser?>? = null
 
-    init {
-        listenSearchParam()
+
+    fun getParams(): SortParams? {
+        return repository.mutableSearchParam.value
     }
 
-    fun getUsersByDepartment(department: String?) {
+    private fun getUsersWithSort(department: String,params:SortParams) {
+
         val list = repository.usersList
 
         viewModelScope.launch(Dispatchers.Default) {
 
             val status = Status.DATA(null)
 
+            //Filter by departments and search
             status.usersList =
-                list?.filter { user -> user?.department == department || department == allDepartmentName } as ArrayList<JsonUser?>?
+                list?.filter { user ->
+                    (user?.department == department ||
+                            department == allDepartmentName )&&
+                            (user?.lastName!!.lowercase().contains(params.searchBy) ||
+                            user?.firstName!!.lowercase().contains(params.searchBy) ||
+                            user?.userTag!!.lowercase().contains(params.searchBy) ||
+                            params.searchBy.isEmpty())
+                } as ArrayList<JsonUser?>?
 
-            usersList=status.usersList
+            //Sort
+            if(params.sortBy==SortBy.ALPHABET_SORT){
+                status.usersList?.sortBy { it?.firstName }
+            }
+            else{
+                status.usersList?.sortBy { it?.birthday }
+            }
+
             mutableStatus.postValue(status)
         }
     }
 
-    private fun listenSearchParam() {
-        repository.mutableSearchParam.observeForever() { param ->
 
-
-            viewModelScope.launch(Dispatchers.Default) {
-
-                val status = Status.DATA(null)
-
-                status.usersList =
-                    usersList?.filter { user ->
-                        user?.lastName!!.lowercase().contains(param) ||
-                                user?.firstName!!.lowercase().contains(param) ||
-                                user?.userTag!!.lowercase().contains(param) ||
-                                param.isEmpty()
-
-                    } as ArrayList<JsonUser?>?
-                mutableStatus.postValue(status)
-            }
+    fun listenSearchParam(department:String) {
+        repository.mutableSearchParam.observeForever() { params ->
+            getUsersWithSort(department,params)
         }
     }
-
 
 }

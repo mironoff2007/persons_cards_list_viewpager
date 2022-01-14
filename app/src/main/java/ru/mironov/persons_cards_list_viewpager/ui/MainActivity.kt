@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import ru.mironov.persons_cards_list_viewpager.R
+import ru.mironov.persons_cards_list_viewpager.SortBy
 import ru.mironov.persons_cards_list_viewpager.Status
 import ru.mironov.persons_cards_list_viewpager.databinding.ActivityMainBinding
 import ru.mironov.persons_cards_list_viewpager.util.DepartmentNameUtil
@@ -35,6 +36,9 @@ class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
 
     private val binding get() = _binding!!
+
+    var searchBy:String=""
+    var sortBy=SortBy.ALPHABET_SORT
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,6 +103,7 @@ class MainActivity : AppCompatActivity() {
             when (status) {
 
                 is Status.DATA -> {
+                    viewModel.setSearchParam(searchBy,sortBy)
                     setUpViewPager(status.departments!!)
                 }
                 is Status.LOADING -> {
@@ -120,7 +125,8 @@ class MainActivity : AppCompatActivity() {
             } else {
                 binding.cancelSearch.visibility = View.VISIBLE
             }
-            viewModel.setSearchParam(s.toString().lowercase())
+            searchBy=s.toString().lowercase()
+            viewModel.setSearchParam(searchBy,sortBy)
         }
 
         override fun afterTextChanged(editable: Editable) {}

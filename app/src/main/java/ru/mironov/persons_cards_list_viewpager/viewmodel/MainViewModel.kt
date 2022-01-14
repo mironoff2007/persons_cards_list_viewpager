@@ -10,6 +10,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ru.mironov.persons_cards_list_viewpager.Repository
+import ru.mironov.persons_cards_list_viewpager.SortBy
+import ru.mironov.persons_cards_list_viewpager.SortParams
 import ru.mironov.persons_cards_list_viewpager.Status
 import ru.mironov.persons_cards_list_viewpager.retrofit.JsonArrayUsers
 import java.util.HashSet
@@ -62,8 +64,8 @@ class MainViewModel @Inject constructor (protected val repository: Repository): 
         })
     }
 
-    fun setSearchParam(param: String) {
-        repository.mutableSearchParam.postValue(param)
+    fun setSearchParam(param: String,sortBy:SortBy) {
+        repository.mutableSearchParam.postValue(SortParams(param,sortBy))
     }
 
 }
