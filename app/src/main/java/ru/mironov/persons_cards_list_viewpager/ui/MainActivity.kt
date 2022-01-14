@@ -21,6 +21,7 @@ import ru.mironov.persons_cards_list_viewpager.R
 import ru.mironov.persons_cards_list_viewpager.SortBy
 import ru.mironov.persons_cards_list_viewpager.Status
 import ru.mironov.persons_cards_list_viewpager.databinding.ActivityMainBinding
+import ru.mironov.persons_cards_list_viewpager.databinding.BottomsheetlayoutBinding
 import ru.mironov.persons_cards_list_viewpager.util.DepartmentNameUtil
 import ru.mironov.persons_cards_list_viewpager.viewmodel.MainViewModel
 
@@ -34,8 +35,10 @@ class MainActivity : AppCompatActivity() {
     private var pager2: ViewPager2? = null
 
     private var _binding: ActivityMainBinding? = null
+    private var _bindingDialog: BottomsheetlayoutBinding? = null
 
     private val binding get() = _binding!!
+    private val bindingDialog get() = _bindingDialog!!
 
     var searchBy:String=""
     var sortBy=SortBy.ALPHABET_SORT
@@ -71,11 +74,7 @@ class MainActivity : AppCompatActivity() {
             if (event.action == MotionEvent.ACTION_UP) {
                 if (event.rawX >= binding.search.right - binding.search.compoundDrawables[DRAWABLE_RIGHT].bounds.width()
                 ) {
-
-                    //Bottom Sheets Dialog
                     showDialog()
-                    binding.search.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_search, 0, R.drawable.ic_baseline_sort_on, 0);
-
                     return@OnTouchListener true
                 }
             }
@@ -134,21 +133,44 @@ class MainActivity : AppCompatActivity() {
 
     private fun showDialog() {
         val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.bottomsheetlayout)
+        _bindingDialog = BottomsheetlayoutBinding.inflate(layoutInflater)
 
+        bindingDialog.radioAlphabetSort.isChecked=SortBy.ALPHABET_SORT==sortBy
+        bindingDialog.radioBirthDaySort.isChecked=SortBy.BIRTHDAY_SORT==sortBy
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(bindingDialog.root)//R.layout.bottomsheetlayout)
 
         dialog.show()
         dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
         dialog.window?.setGravity(Gravity.BOTTOM)
+
+        bindingDialog.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.radio_alphabetSort -> {
+                    sortBy=SortBy.ALPHABET_SORT
+                    binding.search.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_search, 0, R.drawable.ic_baseline_sort_off, 0);
+
+                }
+                R.id.radio_birthDaySort -> {
+                    sortBy=SortBy.BIRTHDAY_SORT
+                    binding.search.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_search, 0, R.drawable.ic_baseline_sort_on, 0);
+                }
+            }
+            viewModel.setSearchParam(searchBy,sortBy)
+            dialog.dismiss()
+        }
+
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
         binding.search.removeTextChangedListener(textChangeListener)
         _binding = null
+        _bindingDialog=null
     }
 }
 

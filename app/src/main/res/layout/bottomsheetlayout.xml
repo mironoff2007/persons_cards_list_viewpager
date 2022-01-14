@@ -23,31 +23,31 @@
         android:gravity="center_horizontal" />
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <RadioButton
-        android:id="@+id/radio_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:text="@string/alphabet_sort"
-        android:textSize="20sp"
-        android:buttonTint="@color/colorPrimary"
-        android:checked="true" />
 
-    <RadioButton
-        android:layout_marginTop="10dp"
-        android:id="@+id/radio_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:text="@string/birthday_sort"
-        android:textSize="20sp"
-        android:buttonTint="@color/colorPrimary"/>
+        <RadioButton
+            android:id="@+id/radio_alphabetSort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:buttonTint="@color/colorPrimary"
+            android:checked="true"
+            android:text="@string/alphabet_sort"
+            android:textSize="20sp" />
 
+        <RadioButton
+            android:id="@+id/radio_birthDaySort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginTop="10dp"
+            android:buttonTint="@color/colorPrimary"
+            android:text="@string/birthday_sort"
+            android:textSize="20sp" />
     </RadioGroup>
-
 </LinearLayout>

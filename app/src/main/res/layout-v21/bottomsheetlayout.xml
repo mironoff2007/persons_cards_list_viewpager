@@ -1,53 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="15dp"
     android:layout_marginStart="15dp"
-    android:layout_marginRight="15dp"
+    android:layout_marginLeft="15dp"
     android:layout_marginEnd="15dp"
+    android:layout_marginRight="15dp"
     android:background="@drawable/bottom_dialog_shape"
-    >
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="@string/sort"
-        android:textColor="@color/black"
         android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
+        android:text="@string/sort"
+        android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="25dp"
-        android:textStyle="bold"
-        android:gravity="center_horizontal" />
+        android:textStyle="bold" />
 
     <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_marginBottom="20dp">
+
         <RadioButton
-            android:id="@+id/radio_1"
+            android:id="@+id/radio_alphabetSort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:text="@string/alphabet_sort"
-            android:textSize="20sp"
             android:buttonTint="@color/colorPrimary"
-            android:checked="true" />
+            android:checked="true"
+            android:text="@string/alphabet_sort"
+            android:textSize="20sp" />
 
         <RadioButton
-            android:layout_marginTop="10dp"
-            android:id="@+id/radio_2"
+            android:id="@+id/radio_birthDaySort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
+            android:layout_marginTop="10dp"
+            android:buttonTint="@color/colorPrimary"
             android:text="@string/birthday_sort"
-            android:textSize="20sp"
-            android:buttonTint="@color/colorPrimary"/>
-
+            android:textSize="20sp" />
     </RadioGroup>
-
 </LinearLayout>
