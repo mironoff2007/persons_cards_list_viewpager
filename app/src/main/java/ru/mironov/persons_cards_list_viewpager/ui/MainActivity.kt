@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Debug
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -31,23 +32,21 @@ class MainActivity : AppCompatActivity() {
 
     private val binding get() = _binding!!
 
-    lateinit var search:EditText
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-
         //Debug.waitForDebugger()
+
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         tabLayout = findViewById(R.id.tabs);
         pager2 = findViewById(R.id.view_pager);
 
         setupObserver()
-        search=findViewById(R.id.search)
-        search.addTextChangedListener(textChangeListener)
+        binding.search.addTextChangedListener(textChangeListener)
+        binding.cancelSearch.setOnClickListener { binding.search.text.clear() }
 
-        viewModel.allUsersDepartment=applicationContext.getString(R.string.department_all)
+        viewModel.allUsersDepartment = applicationContext.getString(R.string.department_all)
         viewModel.getUsers()
 
     }
@@ -58,11 +57,12 @@ class MainActivity : AppCompatActivity() {
         pager2!!.adapter = adapter
         TabLayoutMediator(
             tabLayout!!, pager2!!
-        ) { tab, position -> tab.text =
-            DepartmentNameUtil.getDepartmentName(
-                applicationContext,
-                tabName[position]
-            )
+        ) { tab, position ->
+            tab.text =
+                DepartmentNameUtil.getDepartmentName(
+                    applicationContext,
+                    tabName[position]
+                )
         }.attach()
     }
 
@@ -87,6 +87,11 @@ class MainActivity : AppCompatActivity() {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+            if (s.isEmpty()) {
+                binding.cancelSearch.visibility = View.GONE
+            } else {
+                binding.cancelSearch.visibility = View.VISIBLE
+            }
             viewModel.setSearchParam(s.toString().lowercase())
         }
 
