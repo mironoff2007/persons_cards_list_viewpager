@@ -28,25 +28,25 @@
         android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <RadioButton
-        android:id="@+id/radio_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:text="@string/alphabet_sort"
-        android:textSize="20sp"
-        android:buttonTint="@color/colorPrimary"
-        android:checked="true" />
+        <RadioButton
+            android:id="@+id/radio_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:text="@string/alphabet_sort"
+            android:textSize="20sp"
+            android:buttonTint="@color/colorPrimary"
+            android:checked="true" />
 
-    <RadioButton
-        android:layout_marginTop="10dp"
-        android:id="@+id/radio_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:text="@string/birthday_sort"
-        android:textSize="20sp"
-        android:buttonTint="@color/colorPrimary"/>
+        <RadioButton
+            android:layout_marginTop="10dp"
+            android:id="@+id/radio_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:text="@string/birthday_sort"
+            android:textSize="20sp"
+            android:buttonTint="@color/colorPrimary"/>
 
     </RadioGroup>
 
