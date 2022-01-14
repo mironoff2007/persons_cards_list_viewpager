@@ -19,15 +19,15 @@
         android:layout_marginRight="15dp"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:drawableLeft="@drawable/ic_baseline_search_24"
-        android:drawableStart="@drawable/ic_baseline_search_24"
+        android:drawableLeft="@drawable/ic_baseline_search"
+        android:drawableStart="@drawable/ic_baseline_search"
         android:hint="@string/hint_search_field"
         android:drawablePadding="10dp"
         android:padding="10dp"
         android:textColor="@color/black"
         android:background="@drawable/shape_circular"
-        android:drawableEnd="@drawable/ic_baseline_sort_24"
-        android:drawableRight="@drawable/ic_baseline_sort_24"
+        android:drawableEnd="@drawable/ic_baseline_sort_off"
+        android:drawableRight="@drawable/ic_baseline_sort_off"
         android:layout_weight="1"/>
 
     <TextView
@@ -38,7 +38,7 @@
         android:textColor="@color/colorPrimary"
         android:text="@string/cancel"
         android:textSize="20dp"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_gravity="center"/>
 </LinearLayout>
 

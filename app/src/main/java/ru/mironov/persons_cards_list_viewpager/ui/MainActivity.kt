@@ -1,11 +1,10 @@
 package ru.mironov.persons_cards_list_viewpager.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Debug
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.viewModels
@@ -16,9 +15,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 import ru.mironov.persons_cards_list_viewpager.R
 import ru.mironov.persons_cards_list_viewpager.Status
 import ru.mironov.persons_cards_list_viewpager.databinding.ActivityMainBinding
-import ru.mironov.persons_cards_list_viewpager.databinding.FragmentTabBinding
 import ru.mironov.persons_cards_list_viewpager.util.DepartmentNameUtil
 import ru.mironov.persons_cards_list_viewpager.viewmodel.MainViewModel
+import android.view.MotionEvent
+
+import android.view.View.OnTouchListener
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -32,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     private val binding get() = _binding!!
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //Debug.waitForDebugger()
@@ -43,12 +46,34 @@ class MainActivity : AppCompatActivity() {
         pager2 = findViewById(R.id.view_pager);
 
         setupObserver()
-        binding.search.addTextChangedListener(textChangeListener)
-        binding.cancelSearch.setOnClickListener { binding.search.text.clear() }
+        setupListeners()
 
         viewModel.allUsersDepartment = applicationContext.getString(R.string.department_all)
         viewModel.getUsers()
 
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun setupListeners() {
+        binding.search.addTextChangedListener(textChangeListener)
+        binding.cancelSearch.setOnClickListener { binding.search.text.clear() }
+        binding.search.setOnTouchListener(OnTouchListener { v, event ->
+            val DRAWABLE_LEFT = 0
+            val DRAWABLE_TOP = 1
+            val DRAWABLE_RIGHT = 2
+            val DRAWABLE_BOTTOM = 3
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (event.rawX >= binding.search.right - binding.search.compoundDrawables[DRAWABLE_RIGHT].bounds.width()
+                ) {
+
+                    //Bottom Sheets Dialog
+                    binding.search.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_search, 0, R.drawable.ic_baseline_sort_on, 0);
+
+                    return@OnTouchListener true
+                }
+            }
+            false
+        })
     }
 
     private fun setUpViewPager(tabName: Array<String>) {
