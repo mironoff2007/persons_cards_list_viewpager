@@ -14,6 +14,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import ru.mironov.persons_cards_list_viewpager.R
 import ru.mironov.persons_cards_list_viewpager.SortBy
@@ -95,8 +96,13 @@ class TabFragment : Fragment() {
     private fun adapterSetup() {
         adapter = UsersAdapter(object : UsersAdapter.ItemClickListener<UserViewHolder> {
             override fun onClickListener(clickedItem: UserViewHolder) {
+
+                val fragment= DetailsFragment()
+                val arguments = Bundle()
+                arguments.putString(DetailsFragment.ARG_DETAILS_FRAGMENT, Gson().toJson(adapter.users[clickedItem.adapterPosition]))
+                fragment.arguments = arguments
                 parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainer,DetailsFragment())
+                    .replace(R.id.fragmentContainer,fragment)
                     .addToBackStack(null)
                     .commit()
             }

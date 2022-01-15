@@ -46,7 +46,7 @@ class UsersAdapter(
 
             //Show or not birthday according to sort param
             if (sortBy == SortBy.BIRTHDAY_SORT) {
-                userBirthday.text = DateFormatter.convertDate(user.birthday!!)
+                userBirthday.text = DateFormatter.convertDateWithoutYear(user.birthday!!)
             } else {
                 userBirthday.text = ""
             }
