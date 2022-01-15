@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,7 +47,6 @@ class TabFragment : Fragment() {
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -95,7 +95,10 @@ class TabFragment : Fragment() {
     private fun adapterSetup() {
         adapter = UsersAdapter(object : UsersAdapter.ItemClickListener<UserViewHolder> {
             override fun onClickListener(clickedItem: UserViewHolder) {
-                //On Recycler Item Clicked
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.activityMainLayout,DetailsFragment())
+                    .addToBackStack(null)
+                    .commit()
             }
         })
 
