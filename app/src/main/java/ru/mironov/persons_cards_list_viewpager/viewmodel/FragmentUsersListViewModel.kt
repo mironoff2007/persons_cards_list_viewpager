@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 
-class MainViewModel @Inject constructor (protected val repository: Repository): ViewModel(){
+class FragmentUsersListViewModel @Inject constructor (protected val repository: Repository): ViewModel(){
 
     var mutableStatus = MutableLiveData<Status>()
 

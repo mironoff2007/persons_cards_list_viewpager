@@ -96,7 +96,7 @@ class TabFragment : Fragment() {
         adapter = UsersAdapter(object : UsersAdapter.ItemClickListener<UserViewHolder> {
             override fun onClickListener(clickedItem: UserViewHolder) {
                 parentFragmentManager.beginTransaction()
-                    .replace(R.id.activityMainLayout,DetailsFragment())
+                    .replace(R.id.fragmentContainer,DetailsFragment())
                     .addToBackStack(null)
                     .commit()
             }
