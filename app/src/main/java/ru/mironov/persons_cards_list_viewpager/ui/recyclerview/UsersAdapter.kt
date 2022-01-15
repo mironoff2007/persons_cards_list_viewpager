@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.mironov.persons_cards_list_viewpager.SortBy
 import ru.mironov.persons_cards_list_viewpager.databinding.ItemUserBinding
 import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
+import ru.mironov.persons_cards_list_viewpager.util.DateFormatter
 import ru.mironov.persons_cards_list_viewpager.util.DepartmentNameUtil
-
 import java.util.*
 
 class UsersAdapter(
@@ -19,13 +19,12 @@ class UsersAdapter(
 
     var users: ArrayList<JsonUser?> = ArrayList()
 
-    var sortBy: SortBy?=null
-
+    var sortBy: SortBy? = null
         @SuppressLint("NotifyDataSetChanged")
-    set(newValue) {
-        field = newValue
-        notifyDataSetChanged()
-    }
+        set(newValue) {
+            field = newValue
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -35,18 +34,21 @@ class UsersAdapter(
         return UserViewHolder(binding)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
 
         val user = users[position]
         with(holder.binding) {
-            userName.text=user?.firstName+" "+user?.lastName
-            userDepartment.text=DepartmentNameUtil.getDepartmentName(userDepartment.context,user?.department!!)
-            userTag.text=user.userTag
+            userName.text = user?.firstName + " " + user?.lastName
+            userDepartment.text =
+                DepartmentNameUtil.getDepartmentName(userDepartment.context, user?.department!!)
+            userTag.text = user.userTag
 
-            if(sortBy==SortBy.BIRTHDAY_SORT){
-            userBirthday.text=user.birthday}
-            else{
-                userBirthday.text=""
+            //Show or not birthday according to sort param
+            if (sortBy == SortBy.BIRTHDAY_SORT) {
+                userBirthday.text = DateFormatter.convertDate(user.birthday!!)
+            } else {
+                userBirthday.text = ""
             }
 
         }
