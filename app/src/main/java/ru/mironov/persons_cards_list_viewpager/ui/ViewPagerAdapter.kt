@@ -12,7 +12,7 @@ class ViewPagerAdapter(fragmentActivity: FragmentActivity) :
     lateinit var tabName:Array<String>
 
     override fun createFragment(position: Int): Fragment {
-        return TabFragment.getInstance(tabName[position])
+        return UsersListFragment.getInstance(tabName[position])
     }
 
     override fun getItemCount(): Int {

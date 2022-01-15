@@ -19,15 +19,13 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class TabFragmentViewModel @Inject constructor(protected val repository: Repository) : ViewModel() {
+class UsersListFragmentViewModel @Inject constructor(protected val repository: Repository) : ViewModel() {
 
     lateinit var allDepartmentName: String
 
     var mutableStatus = MutableLiveData<Status>()
 
     var observer: Observer? = null
-
-    //var usersList: ArrayList<JsonUser?>? = null
 
 
     fun getParams(): SortParams? {

@@ -1,57 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/fragment_users_list">
+    android:gravity="center"
+    android:id="@+id/root_layout"
+    tools:context=".ui.UsersListFragment">
 
-    <LinearLayout
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="5dp"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent" />
 
-        <EditText
-            android:id="@+id/search"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/shape_circular"
-            android:drawableStart="@drawable/ic_baseline_search"
-            android:drawableLeft="@drawable/ic_baseline_search"
-            android:drawableEnd="@drawable/ic_baseline_sort_off"
-            android:drawableRight="@drawable/ic_baseline_sort_off"
-            android:drawablePadding="10dp"
-            android:hint="@string/hint_search_field"
-            android:padding="10dp"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/cancel_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginRight="15dp"
-            android:text="@string/cancel"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20dp"
-            android:visibility="gone" />
-    </LinearLayout>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabMode="scrollable" />
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
 
 </LinearLayout>
