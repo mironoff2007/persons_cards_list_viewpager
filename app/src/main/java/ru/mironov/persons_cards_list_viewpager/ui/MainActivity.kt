@@ -139,7 +139,7 @@ class MainActivity : AppCompatActivity() {
         bindingDialog.radioBirthDaySort.isChecked=SortBy.BIRTHDAY_SORT==sortBy
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(bindingDialog.root)//R.layout.bottomsheetlayout)
+        dialog.setContentView(bindingDialog.root)
 
         dialog.show()
         dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -169,6 +169,7 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         binding.search.removeTextChangedListener(textChangeListener)
+        bindingDialog.radioGroup.setOnCheckedChangeListener(null)
         _binding = null
         _bindingDialog=null
     }

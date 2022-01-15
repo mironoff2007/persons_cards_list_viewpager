@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import ru.mironov.persons_cards_list_viewpager.R
+import ru.mironov.persons_cards_list_viewpager.SortBy
 import ru.mironov.persons_cards_list_viewpager.Status
 import ru.mironov.persons_cards_list_viewpager.databinding.FragmentTabBinding
 import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
@@ -78,6 +79,7 @@ class TabFragment : Fragment() {
             when (status) {
 
                 is Status.DATA -> {
+                    adapter.sortBy=viewModel.getParams()!!.sortBy
                     adapter.users = status.usersList!!.clone() as ArrayList<JsonUser?>
                 }
                 is Status.LOADING -> {
