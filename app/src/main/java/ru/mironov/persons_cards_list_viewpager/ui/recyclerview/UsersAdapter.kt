@@ -13,7 +13,7 @@ import ru.mironov.persons_cards_list_viewpager.util.DepartmentNameUtil
 import java.util.*
 
 class UsersAdapter(
-    private val listener: ItemClickListener<UserViewHolder>,
+    val listener: ItemClickListener<UserViewHolder>,
 ) :
     RecyclerView.Adapter<UserViewHolder>(), View.OnClickListener {
 
@@ -55,7 +55,9 @@ class UsersAdapter(
 
         val itemBinding = holder.binding
         itemBinding.root.setOnClickListener { listener.onClickListener(holder) }
+
     }
+
 
     override fun getItemCount(): Int {
         return users.size
@@ -67,6 +69,5 @@ class UsersAdapter(
     }
 
     override fun onClick(v: View?) {}
-
 
 }

@@ -39,23 +39,7 @@ class TabsFragment : Fragment() {
 
     var searchBy: String = ""
     var sortBy = SortBy.ALPHABET_SORT
-        set(value) {
-            field = value
-            if (value == SortBy.ALPHABET_SORT) {
-                binding.search.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.ic_baseline_search,
-                    0,
-                    R.drawable.ic_baseline_sort_off,
-                    0
-                )
-            } else {
-                bindingDialog.radioGroup.check(R.id.radio_birthDaySort)
-                binding.search.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.ic_baseline_search, 0,
-                    R.drawable.ic_baseline_sort_on, 0
-                )
-            }
-        }
+
 
     var position = 0
 
@@ -64,6 +48,8 @@ class TabsFragment : Fragment() {
 
         if (savedInstanceState != null) {
             position = savedInstanceState.getInt(ARG_POSITION_TAB)
+            sortBy= savedInstanceState.getSerializable(ARG_SORT) as SortBy
+            searchBy=savedInstanceState.getString(ARG_SEARCH)!!
         }
 
         setupObserver()
@@ -86,19 +72,10 @@ class TabsFragment : Fragment() {
         viewModel.allUsersDepartment = requireContext().getString(R.string.department_all)
         viewModel.getUsers()
 
-        sortBy=sortBy
 
-        if (savedInstanceState != null) {
-            position = savedInstanceState.getInt(ARG_POSITION_TAB)
+        binding.search.setText(searchBy)
+        setSort(sortBy)
 
-            binding.search.setText(savedInstanceState.getString(ARG_SEARCH))
-
-            if (savedInstanceState.getSerializable(ARG_SORT) == SortBy.ALPHABET_SORT) {
-                bindingDialog.radioGroup.check(R.id.radio_alphabetSort)
-            } else {
-                bindingDialog.radioGroup.check(R.id.radio_birthDaySort)
-            }
-        }
 
         return binding.root
     }
@@ -121,6 +98,24 @@ class TabsFragment : Fragment() {
             }
             false
         })
+    }
+
+    fun setSort(value: SortBy){
+        if (value == SortBy.ALPHABET_SORT) {
+            bindingDialog.radioGroup.check(R.id.radio_alphabetSort)
+            binding.search.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.ic_baseline_search,
+                0,
+                R.drawable.ic_baseline_sort_off,
+                0
+            )
+        } else {
+            bindingDialog.radioGroup.check(R.id.radio_birthDaySort)
+            binding.search.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.ic_baseline_search, 0,
+                R.drawable.ic_baseline_sort_on, 0
+            )
+        }
     }
 
     private fun setUpViewPager(tabName: Array<String>) {
@@ -196,9 +191,11 @@ class TabsFragment : Fragment() {
             when (checkedId) {
                 R.id.radio_alphabetSort -> {
                     sortBy = SortBy.ALPHABET_SORT
+                    setSort(sortBy)
                 }
                 R.id.radio_birthDaySort -> {
                     sortBy = SortBy.BIRTHDAY_SORT
+                    setSort(sortBy)
                 }
             }
             viewModel.setSearchParam(searchBy, sortBy)
@@ -207,8 +204,8 @@ class TabsFragment : Fragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt(ARG_POSITION_TAB, binding.viewPager.currentItem)
-        outState.putString(ARG_SEARCH, binding.search.text.toString())
+        outState.putInt(ARG_POSITION_TAB, position)
+        outState.putString(ARG_SEARCH, searchBy)
         outState.putSerializable(ARG_SORT, sortBy);
         super.onSaveInstanceState(outState)
     }
@@ -218,8 +215,8 @@ class TabsFragment : Fragment() {
         position = binding.viewPager.currentItem
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         binding.search.removeTextChangedListener(textChangeListener)
         bindingDialog.radioGroup.setOnCheckedChangeListener(null)
         _binding = null

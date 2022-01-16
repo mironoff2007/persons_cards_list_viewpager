@@ -119,7 +119,4 @@ class UsersListFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
-
-
 }

@@ -25,7 +25,11 @@ class MainActivity : AppCompatActivity() {
                 .add(R.id.fragmentContainer, TabsFragment())
                 .commit()
         }
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
 

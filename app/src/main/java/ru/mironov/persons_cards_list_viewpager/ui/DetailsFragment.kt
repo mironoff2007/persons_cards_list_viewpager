@@ -21,6 +21,8 @@ class DetailsFragment : Fragment() {
 
     private val binding get() = _binding!!
 
+    lateinit var user: JsonUser
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,20 +34,49 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val user:JsonUser= Gson().fromJson(requireArguments().getString(ARG_DETAILS_FRAGMENT)!!,JsonUser().javaClass)
-
-        binding.userName.text=user.firstName+" "+user.lastName
-        binding.userTag.text=user.userTag
-        binding.userDepartment.text=DepartmentNameUtil.getDepartmentName(requireContext(),user.department!!)
-        binding.userPhone.text=PhoneNumberFormatUtil.formatNumber(user.phone!!)
-        binding.userBirthday.text=DateFormatter.convertDate(user.birthday!!)
-        binding.userAge.text=DateFormatter.getAge(user.birthday!!)//года/лет --TODO--
-
+        if (arguments != null) {
+            user = Gson().fromJson(
+                requireArguments().getString(ARG_DETAILS_FRAGMENT)!!,
+                JsonUser().javaClass
+            )
+        }
+        if (savedInstanceState != null) {
+            user = Gson().fromJson(
+                savedInstanceState.getString(ARG_DETAILS_FRAGMENT)!!,
+                JsonUser().javaClass
+            )
+        }
+        updateUser(user)
+        setBackListener()
     }
 
-    companion object{
-        const val ARG_DETAILS_FRAGMENT="ARG_DETAILS_FRAGMENT"
+    private fun updateUser(user: JsonUser) {
+        binding.userName.text = user.firstName + " " + user.lastName
+        binding.userTag.text = user.userTag
+        binding.userDepartment.text =
+            DepartmentNameUtil.getDepartmentName(requireContext(), user.department!!)
+        binding.userPhone.text = PhoneNumberFormatUtil.formatNumber(user.phone!!)
+        binding.userBirthday.text = DateFormatter.convertDate(user.birthday!!)
+        binding.userAge.text = DateFormatter.getAge(user.birthday!!)//года/лет --TODO--
+    }
+
+    private fun setBackListener() {
+        binding.back.setOnClickListener { parentFragmentManager.popBackStack() }
+    }
+
+    companion object {
+        const val ARG_DETAILS_FRAGMENT = "ARG_DETAILS_FRAGMENT"
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.back.setOnClickListener(null)
+        _binding = null
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(ARG_DETAILS_FRAGMENT, Gson().toJson(user))
+        super.onSaveInstanceState(outState)
     }
 
 }
