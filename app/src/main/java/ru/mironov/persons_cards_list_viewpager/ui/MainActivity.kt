@@ -1,11 +1,11 @@
 package ru.mironov.persons_cards_list_viewpager.ui
 
 import android.os.Bundle
+import android.os.Debug
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import ru.mironov.persons_cards_list_viewpager.R
 import ru.mironov.persons_cards_list_viewpager.databinding.ActivityMainBinding
-
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

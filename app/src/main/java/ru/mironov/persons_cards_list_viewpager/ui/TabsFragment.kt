@@ -206,7 +206,7 @@ class TabsFragment : Fragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putInt(ARG_POSITION_TAB, position)
         outState.putString(ARG_SEARCH, searchBy)
-        outState.putSerializable(ARG_SORT, sortBy);
+        outState.putSerializable(ARG_SORT, sortBy)
         super.onSaveInstanceState(outState)
     }
 
