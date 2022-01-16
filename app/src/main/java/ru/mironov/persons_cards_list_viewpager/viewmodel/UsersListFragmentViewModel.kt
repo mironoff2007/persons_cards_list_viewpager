@@ -9,6 +9,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ru.mironov.persons_cards_list_viewpager.Repository
 import ru.mironov.persons_cards_list_viewpager.SortBy
@@ -61,9 +63,11 @@ class UsersListFragmentViewModel @Inject constructor(protected val repository: R
 
 
     fun listenSearchParam(department: String) {
-        repository.mutableSearchParam.observeForever() { params ->
-            getUsersWithSort(department, params)
-        }
+        repository.mutableSearchParam.onEach { params ->
+            if (params != null) {
+                getUsersWithSort(department, params)
+            }
+        }.launchIn(viewModelScope)
     }
 
 }
