@@ -15,7 +15,7 @@
 
         <EditText
             android:id="@+id/search"
-
+            android:inputType="text"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginLeft="15dp"
@@ -47,7 +47,8 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="scrollable" />
+        app:tabMode="scrollable"
+        app:tabIndicatorColor="@color/colorPrimary"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
