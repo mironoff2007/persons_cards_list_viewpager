@@ -44,14 +44,13 @@ class UsersListFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         var department: String? = null
         if (arguments != null) {
             department = arguments!!.getString(ARGS_KEY_TABNAME, null)
         }
-
 
         viewModel.allDepartmentName= requireContext().getString(R.string.department_all)
         viewModel.listenSearchParam(department!!)
@@ -84,7 +83,7 @@ class UsersListFragment : Fragment() {
 
                 }
                 is Status.ERROR -> {
-                    Toast.makeText(this.requireContext(), status.code, Toast.LENGTH_LONG)?.show()
+                    Toast.makeText(this.requireContext(), status.message, Toast.LENGTH_LONG)?.show()
                 }
             }
         }
@@ -121,8 +120,6 @@ class UsersListFragment : Fragment() {
         _binding = null
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-    }
+
 
 }
