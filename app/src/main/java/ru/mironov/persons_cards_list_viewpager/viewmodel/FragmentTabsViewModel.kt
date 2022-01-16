@@ -38,9 +38,9 @@ class FragmentTabsViewModel @Inject constructor (protected val repository: Repos
 
                         //Departments names for tabs
                         val departments=HashSet<String>()
-                        departments?.add(allUsersDepartment)
-                        usersList?.forEach(){
-                            departments?.add(it?.department.toString())
+                        departments.add(allUsersDepartment)
+                        usersList?.forEach {
+                            departments.add(it?.department.toString())
                         }
 
                         repository.usersList=usersList
@@ -65,7 +65,7 @@ class FragmentTabsViewModel @Inject constructor (protected val repository: Repos
     }
 
     fun setSearchParam(param: String,sortBy:SortBy) {
-        repository.mutableSearchParam.postValue(SortParams(param,sortBy))
+        repository.mutableSearchParam.value= SortParams(param,sortBy)
     }
 
 }
