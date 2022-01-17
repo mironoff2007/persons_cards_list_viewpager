@@ -33,5 +33,4 @@ class RetrofitUnitTest {
 
         assertEquals(true, body != null)
     }
-
 }

@@ -8,6 +8,7 @@
     android:id="@+id/root_layout"
     tools:context=".ui.UsersListFragment">
 
+    <include layout="@layout/part_result" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="5dp"

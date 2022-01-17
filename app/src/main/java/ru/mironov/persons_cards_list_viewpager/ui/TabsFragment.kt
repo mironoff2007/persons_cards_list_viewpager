@@ -15,6 +15,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.part_result.view.*
 import ru.mironov.persons_cards_list_viewpager.R
 import ru.mironov.persons_cards_list_viewpager.SortBy
 import ru.mironov.persons_cards_list_viewpager.Status
@@ -138,14 +139,17 @@ class TabsFragment : Fragment() {
             when (status) {
 
                 is Status.DATA -> {
+                    ResultRenderer.renderResult(status,binding.root.part_result)
                     viewModel.setSearchParam(searchBy, sortBy)
                     setUpViewPager(status.departments!!)
                     binding.viewPager.setCurrentItem(position, false)
                 }
                 is Status.LOADING -> {
+                    ResultRenderer.renderResult(status,binding.root.part_result)
 
                 }
                 is Status.ERROR -> {
+                    ResultRenderer.renderResult(status,binding.root.part_result)
                     Toast.makeText(requireContext(), status.message, Toast.LENGTH_LONG).show()
                 }
             }

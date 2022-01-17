@@ -32,4 +32,11 @@
     <string name="sort">Сортировка</string>
     <string name="alphabet_sort">По алфавиту</string>
     <string name="birthday_sort">По дню рождения</string>
+    <string name="someone_broke_everything">Какой-то сверхразум все сломал</string>
+    <string name="we_will_fix">Постараемся быстро починить</string>
+    <string name="try_again">Попробовать снова</string>
+    <string name="nobody_found">Мы никого не нашли</string>
+    <string name="correct_your_search">Попробуй скорректировать запрос</string>
+    <string name="empty"> </string>
+
 </resources>

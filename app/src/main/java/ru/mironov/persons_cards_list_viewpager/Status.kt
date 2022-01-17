@@ -10,5 +10,5 @@ sealed class Status {
         var usersList:ArrayList<JsonUser?>?=null
 
     }
-    object RESPONSE : Status()
+    object EMPTY : Status()
 }

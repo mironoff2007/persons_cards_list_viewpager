@@ -26,6 +26,7 @@ class FragmentTabsViewModel @Inject constructor (protected val repository: Repos
     lateinit var allUsersDepartment:String
 
     fun getUsers(){
+        mutableStatus.postValue(Status.LOADING)
         repository.getUsers().enqueue(object : Callback<JsonArrayUsers?> {
             override fun onResponse(
                 call: Call<JsonArrayUsers?>,

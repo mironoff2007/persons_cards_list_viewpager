@@ -34,6 +34,8 @@ class UsersListFragmentViewModel @Inject constructor(protected val repository: R
 
     private fun getUsersWithSort(department: String, params: SortParams) {
 
+        mutableStatus.postValue(Status.LOADING)
+
         val list = repository.usersList
 
         viewModelScope.launch(Dispatchers.Default) {
@@ -43,9 +45,9 @@ class UsersListFragmentViewModel @Inject constructor(protected val repository: R
             //Filter by departments and search
             status.usersList =
                 list?.filter { user ->
-                    (user?.department == department ||
-                            department == allDepartmentName) &&
-                            ((user?.firstName!! + " " + user.lastName!!).lowercase().contains(params.searchBy) ||
+                    (user?.department == department || department == allDepartmentName) &&
+                            ((user?.firstName!! + " " + user.lastName!!).lowercase()
+                                .contains(params.searchBy) ||
                                     user.userTag!!.lowercase().contains(params.searchBy) ||
                                     params.searchBy.isEmpty())
                 } as ArrayList<JsonUser?>?
@@ -56,11 +58,13 @@ class UsersListFragmentViewModel @Inject constructor(protected val repository: R
             } else {
                 status.usersList?.sortBy { it?.birthday }
             }
-
-            mutableStatus.postValue(status)
+            if (status.usersList!!.isEmpty()) {
+                mutableStatus.postValue(Status.EMPTY)
+            } else {
+                mutableStatus.postValue(status)
+            }
         }
     }
-
 
     fun listenSearchParam(department: String) {
         repository.mutableSearchParam.onEach { params ->
