@@ -33,9 +33,6 @@ class UsersListFragment : Fragment() {
     private var _binding: FragmentUsersListBinding? = null
     private val binding get() = _binding!!
 
-    private var _bindingResult: PartResultBinding? = null
-    private val bindingResult get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -81,11 +78,10 @@ class UsersListFragment : Fragment() {
                 is Status.DATA -> {
                     ResultRenderer.renderResult(status,binding.rootLayout.part_result)
                     adapter.sortBy=viewModel.getParams()!!.sortBy
-                    adapter.users = status.usersList!!.clone() as ArrayList<JsonUser?>
+                    adapter.users = status.usersList!!
                 }
                 is Status.LOADING -> {
                     ResultRenderer.renderResult(status,binding.rootLayout.part_result)
-                    //progressbar
                 }
                 is Status.ERROR -> {
                     ResultRenderer.renderResult(status,binding.rootLayout.part_result)
@@ -93,7 +89,6 @@ class UsersListFragment : Fragment() {
                 }
                 is Status.EMPTY ->{
                     ResultRenderer.renderResult(status,binding.rootLayout.part_result)
-
                     adapter.users = ArrayList()
                 }
             }

@@ -52,9 +52,7 @@ class TabsFragment : Fragment() {
             sortBy= savedInstanceState.getSerializable(ARG_SORT) as SortBy
             searchBy=savedInstanceState.getString(ARG_SEARCH)!!
         }
-
         setupObserver()
-
     }
 
 
@@ -73,10 +71,8 @@ class TabsFragment : Fragment() {
         viewModel.allUsersDepartment = requireContext().getString(R.string.department_all)
         viewModel.getUsers()
 
-
         binding.search.setText(searchBy)
         setSort(sortBy)
-
 
         return binding.root
     }
@@ -137,7 +133,6 @@ class TabsFragment : Fragment() {
     private fun setupObserver() {
         viewModel.mutableStatus.observe(this) { status ->
             when (status) {
-
                 is Status.DATA -> {
                     ResultRenderer.renderResult(status,binding.root.part_result)
                     viewModel.setSearchParam(searchBy, sortBy)
@@ -146,9 +141,11 @@ class TabsFragment : Fragment() {
                 }
                 is Status.LOADING -> {
                     ResultRenderer.renderResult(status,binding.root.part_result)
+                    binding.root.part_result.resultTextBottom.setOnClickListener(null)
 
                 }
                 is Status.ERROR -> {
+                    binding.root.part_result.resultTextBottom.setOnClickListener { viewModel.getUsers() }
                     ResultRenderer.renderResult(status,binding.root.part_result)
                     Toast.makeText(requireContext(), status.message, Toast.LENGTH_LONG).show()
                 }
@@ -223,15 +220,14 @@ class TabsFragment : Fragment() {
         super.onDestroyView()
         binding.search.removeTextChangedListener(textChangeListener)
         bindingDialog.radioGroup.setOnCheckedChangeListener(null)
+        binding.root.part_result.resultTextBottom.setOnClickListener(null)
         _binding = null
         _bindingDialog = null
     }
-
 
     companion object {
         const val ARG_POSITION_TAB = "ARG_POSITION_TAB"
         const val ARG_SEARCH = "ARG_SEARCH"
         const val ARG_SORT = "ARG_SORT"
-
     }
 }
