@@ -8,13 +8,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import ru.mironov.persons_cards_list_viewpager.data.Repository
 import ru.mironov.persons_cards_list_viewpager.data.SortBy
 import ru.mironov.persons_cards_list_viewpager.data.SortParams
-import ru.mironov.persons_cards_list_viewpager.retrofit.JsonArrayUsers
 import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
 import java.util.*
 import javax.inject.Inject

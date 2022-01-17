@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, TabsFragment())
+                .add(R.id.fragmentContainer, TabsFragment(),TabsFragment.TABS_FRAGMENT_TAG)
                 .commit()
         }
     }

@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Persons Cards</string>
-
-    <string name="department_all">all</string>
+    <string name="department_all">_all</string>
     <string name="department_all_name">Все</string>
     <string name="department_android">android</string>
     <string name="department_android_name">Android</string>

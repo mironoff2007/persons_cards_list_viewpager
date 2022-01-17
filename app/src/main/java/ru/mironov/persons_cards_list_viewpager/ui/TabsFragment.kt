@@ -49,8 +49,8 @@ class TabsFragment : Fragment() {
 
         if (savedInstanceState != null) {
             position = savedInstanceState.getInt(ARG_POSITION_TAB)
-            sortBy= savedInstanceState.getSerializable(ARG_SORT) as SortBy
-            searchBy=savedInstanceState.getString(ARG_SEARCH)!!
+            sortBy = savedInstanceState.getSerializable(ARG_SORT) as SortBy
+            searchBy = savedInstanceState.getString(ARG_SEARCH)!!
         }
         setupObserver()
     }
@@ -59,7 +59,7 @@ class TabsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentTabsBinding.inflate(inflater, container, false)
         _bindingDialog = BottomsheetlayoutBinding.inflate(inflater, container, false)
 
@@ -82,10 +82,6 @@ class TabsFragment : Fragment() {
         binding.search.addTextChangedListener(textChangeListener)
         binding.cancelSearch.setOnClickListener { binding.search.text.clear() }
         binding.search.setOnTouchListener(View.OnTouchListener { v, event ->
-            val DRAWABLE_LEFT = 0
-            val DRAWABLE_TOP = 1
-            val DRAWABLE_RIGHT = 2
-            val DRAWABLE_BOTTOM = 3
             if (event.action == MotionEvent.ACTION_UP) {
                 if (event.rawX >= binding.search.right - binding.search.compoundDrawables[DRAWABLE_RIGHT].bounds.width()
                 ) {
@@ -97,7 +93,7 @@ class TabsFragment : Fragment() {
         })
     }
 
-    fun setSort(value: SortBy){
+    fun setSort(value: SortBy) {
         if (value == SortBy.ALPHABET_SORT) {
             bindingDialog.radioGroup.check(R.id.radio_alphabetSort)
             binding.search.setCompoundDrawablesWithIntrinsicBounds(
@@ -130,23 +126,27 @@ class TabsFragment : Fragment() {
         }.attach()
     }
 
+    fun update() {
+        viewModel.getUsers()
+    }
+
     private fun setupObserver() {
         viewModel.mutableStatus.observe(this) { status ->
             when (status) {
                 is Status.DATA -> {
-                    ResultRenderer.renderResult(status,binding.root.part_result)
+                    ResultRenderer.renderResult(status, binding.root.part_result)
                     viewModel.setSearchParam(searchBy, sortBy)
                     setUpViewPager(status.departments!!)
                     binding.viewPager.setCurrentItem(position, false)
                 }
                 is Status.LOADING -> {
-                    ResultRenderer.renderResult(status,binding.root.part_result)
+                    ResultRenderer.renderResult(status, binding.root.part_result)
                     binding.root.part_result.resultTextBottom.setOnClickListener(null)
 
                 }
                 is Status.ERROR -> {
                     binding.root.part_result.resultTextBottom.setOnClickListener { viewModel.getUsers() }
-                    ResultRenderer.renderResult(status,binding.root.part_result)
+                    ResultRenderer.renderResult(status, binding.root.part_result)
                     Toast.makeText(requireContext(), status.message, Toast.LENGTH_LONG).show()
                 }
             }
@@ -229,5 +229,7 @@ class TabsFragment : Fragment() {
         const val ARG_POSITION_TAB = "ARG_POSITION_TAB"
         const val ARG_SEARCH = "ARG_SEARCH"
         const val ARG_SORT = "ARG_SORT"
+        const val TABS_FRAGMENT_TAG = "TABS_FRAGMENT_TAG"
+        const val DRAWABLE_RIGHT = 2
     }
 }

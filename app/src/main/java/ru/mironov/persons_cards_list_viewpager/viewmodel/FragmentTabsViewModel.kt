@@ -13,7 +13,7 @@ import ru.mironov.persons_cards_list_viewpager.data.Repository
 import ru.mironov.persons_cards_list_viewpager.data.SortBy
 import ru.mironov.persons_cards_list_viewpager.data.SortParams
 import ru.mironov.persons_cards_list_viewpager.retrofit.JsonArrayUsers
-import java.util.HashSet
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,7 +37,7 @@ class FragmentTabsViewModel @Inject constructor (protected val repository: Repos
                         val usersList = response.body()!!.users
 
                         //Departments names for tabs
-                        val departments=HashSet<String>()
+                        val departments= TreeSet<String>()
                         departments.add(allUsersDepartment)
                         usersList?.forEach {
                             departments.add(it?.department.toString())
