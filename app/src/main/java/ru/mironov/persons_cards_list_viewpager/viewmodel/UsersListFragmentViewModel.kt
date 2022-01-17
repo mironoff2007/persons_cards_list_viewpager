@@ -1,21 +1,16 @@
 package ru.mironov.persons_cards_list_viewpager.viewmodel
 
-import android.os.Build
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import ru.mironov.persons_cards_list_viewpager.Repository
-import ru.mironov.persons_cards_list_viewpager.SortBy
-import ru.mironov.persons_cards_list_viewpager.SortParams
-import ru.mironov.persons_cards_list_viewpager.Status
+import ru.mironov.persons_cards_list_viewpager.data.Repository
+import ru.mironov.persons_cards_list_viewpager.data.SortBy
+import ru.mironov.persons_cards_list_viewpager.data.SortParams
 import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
 import java.util.*
 import javax.inject.Inject

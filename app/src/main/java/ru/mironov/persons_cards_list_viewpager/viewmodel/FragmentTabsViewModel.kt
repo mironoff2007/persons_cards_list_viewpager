@@ -9,10 +9,9 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import ru.mironov.persons_cards_list_viewpager.Repository
-import ru.mironov.persons_cards_list_viewpager.SortBy
-import ru.mironov.persons_cards_list_viewpager.SortParams
-import ru.mironov.persons_cards_list_viewpager.Status
+import ru.mironov.persons_cards_list_viewpager.data.Repository
+import ru.mironov.persons_cards_list_viewpager.data.SortBy
+import ru.mironov.persons_cards_list_viewpager.data.SortParams
 import ru.mironov.persons_cards_list_viewpager.retrofit.JsonArrayUsers
 import java.util.HashSet
 import javax.inject.Inject
@@ -65,7 +64,7 @@ class FragmentTabsViewModel @Inject constructor (protected val repository: Repos
         })
     }
 
-    fun setSearchParam(param: String,sortBy:SortBy) {
+    fun setSearchParam(param: String,sortBy: SortBy) {
         repository.mutableSearchParam.value= SortParams(param,sortBy)
     }
 

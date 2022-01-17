@@ -1,4 +1,4 @@
-package ru.mironov.persons_cards_list_viewpager
+package ru.mironov.persons_cards_list_viewpager.data
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import retrofit2.Call

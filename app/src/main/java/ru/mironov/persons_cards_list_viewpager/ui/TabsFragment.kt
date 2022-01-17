@@ -17,8 +17,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.part_result.view.*
 import ru.mironov.persons_cards_list_viewpager.R
-import ru.mironov.persons_cards_list_viewpager.SortBy
-import ru.mironov.persons_cards_list_viewpager.Status
+import ru.mironov.persons_cards_list_viewpager.data.SortBy
+import ru.mironov.persons_cards_list_viewpager.viewmodel.Status
 import ru.mironov.persons_cards_list_viewpager.databinding.*
 import ru.mironov.persons_cards_list_viewpager.util.DepartmentNameUtil
 import ru.mironov.persons_cards_list_viewpager.viewmodel.FragmentTabsViewModel

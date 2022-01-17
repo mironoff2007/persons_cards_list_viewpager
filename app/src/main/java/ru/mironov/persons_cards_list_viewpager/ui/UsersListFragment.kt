@@ -14,7 +14,7 @@ import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.part_result.view.*
 import ru.mironov.persons_cards_list_viewpager.R
-import ru.mironov.persons_cards_list_viewpager.Status
+import ru.mironov.persons_cards_list_viewpager.viewmodel.Status
 import ru.mironov.persons_cards_list_viewpager.databinding.FragmentUsersListBinding
 import ru.mironov.persons_cards_list_viewpager.databinding.PartResultBinding
 import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser

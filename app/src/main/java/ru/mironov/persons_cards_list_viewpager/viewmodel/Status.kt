@@ -1,4 +1,4 @@
-package ru.mironov.persons_cards_list_viewpager
+package ru.mironov.persons_cards_list_viewpager.viewmodel
 
 import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
 import java.util.*

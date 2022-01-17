@@ -5,7 +5,7 @@ import android.widget.LinearLayout
 import androidx.appcompat.content.res.AppCompatResources
 import kotlinx.android.synthetic.main.part_result.view.*
 import ru.mironov.persons_cards_list_viewpager.R
-import ru.mironov.persons_cards_list_viewpager.Status
+import ru.mironov.persons_cards_list_viewpager.viewmodel.Status
 
 object ResultRenderer {
     fun renderResult(status: Status, partResult: LinearLayout) {
