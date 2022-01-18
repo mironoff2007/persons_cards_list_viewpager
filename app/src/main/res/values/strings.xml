@@ -37,5 +37,6 @@
     <string name="nobody_found">Мы никого не нашли</string>
     <string name="correct_your_search">Попробуй скорректировать запрос</string>
     <string name="empty"> </string>
+    <string name="no_internet">Не могу обновить данные. Проверьте интернет соединение</string>
 
 </resources>

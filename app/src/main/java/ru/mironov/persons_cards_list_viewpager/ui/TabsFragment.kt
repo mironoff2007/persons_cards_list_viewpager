@@ -126,15 +126,15 @@ class TabsFragment : Fragment() {
     }
 
     fun update() {
-        position=0
-        viewModel.getUsers()
+        position = 0
+        viewModel.getUsersCheckCache()
     }
 
     private fun setupObserver() {
         viewModel.mutableStatus.observe(this) { status ->
             when (status) {
                 is Status.DATA -> {
-                    ResultRenderer.renderResult(status, binding.root.part_result)
+                    ResultRenderer.renderResult(status, binding.root.partResult)
                     viewModel.setSearchParam(searchBy, sortBy)
                     if (status.departments != null) {
                         setUpViewPager(status.departments)
@@ -142,14 +142,25 @@ class TabsFragment : Fragment() {
                     binding.viewPager.setCurrentItem(position, false)
                 }
                 is Status.LOADING -> {
-                    ResultRenderer.renderResult(status, binding.root.part_result)
-                    binding.root.part_result.resultTextBottom.setOnClickListener(null)
+                    ResultRenderer.renderResult(status, binding.root.partResult)
+                    binding.root.partResult.resultTextBottom.setOnClickListener(null)
 
                 }
                 is Status.ERROR -> {
-                    binding.root.part_result.resultTextBottom.setOnClickListener { viewModel.getUsers() }
-                    ResultRenderer.renderResult(status, binding.root.part_result)
-                    Toast.makeText(requireContext(), status.message, Toast.LENGTH_LONG).show()
+                    binding.root.partResult.resultTextBottom.setOnClickListener { viewModel.getUsers() }
+
+                    if (status.code == 0) {
+                        Toast.makeText(
+                            requireContext(),
+                            requireContext().getString(R.string.no_internet),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        Toast.makeText(requireContext(), status.message, Toast.LENGTH_LONG).show()
+                    }
+                    if (viewModel.isUsersEmpty()) {
+                        ResultRenderer.renderResult(status, binding.root.partResult)
+                    }
                 }
             }
         }
@@ -222,7 +233,7 @@ class TabsFragment : Fragment() {
         super.onDestroyView()
         binding.search.removeTextChangedListener(textChangeListener)
         bindingDialog.radioGroup.setOnCheckedChangeListener(null)
-        binding.root.part_result.resultTextBottom.setOnClickListener(null)
+        binding.root.partResult.resultTextBottom.setOnClickListener(null)
         _binding = null
         _bindingDialog = null
     }

@@ -82,19 +82,19 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             when (status) {
 
                 is Status.DATA -> {
-                    ResultRenderer.renderResult(status, binding.rootLayout.part_result)
+                    ResultRenderer.renderResult(status, binding.rootLayout.partResult)
                     adapter.sortBy = viewModel.getParams()!!.sortBy
                     adapter.users = status.usersList!!
                 }
                 is Status.LOADING -> {
-                    ResultRenderer.renderResult(status, binding.rootLayout.part_result)
+                    ResultRenderer.renderResult(status, binding.rootLayout.partResult)
                 }
                 is Status.ERROR -> {
-                    ResultRenderer.renderResult(status, binding.rootLayout.part_result)
+                    ResultRenderer.renderResult(status, binding.rootLayout.partResult)
                     Toast.makeText(this.requireContext(), status.message, Toast.LENGTH_LONG)?.show()
                 }
                 is Status.EMPTY -> {
-                    ResultRenderer.renderResult(status, binding.rootLayout.part_result)
+                    ResultRenderer.renderResult(status, binding.rootLayout.partResult)
                     adapter.users = ArrayList()
                 }
             }

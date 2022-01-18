@@ -78,4 +78,8 @@ class FragmentTabsViewModel @Inject constructor (protected val repository: Repos
         repository.mutableSearchParam.value= SortParams(param,sortBy)
     }
 
+    fun isUsersEmpty(): Boolean {
+        return repository.usersList?.isEmpty()==true||repository.usersList==null
+    }
+
 }
