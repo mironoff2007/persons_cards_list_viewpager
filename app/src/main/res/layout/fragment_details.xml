@@ -17,23 +17,23 @@
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="65dp"
             android:src="@drawable/ic_baseline_arrow_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/user_avatar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="104dp"
+            android:layout_height="104dp"
             android:layout_marginTop="40dp"
             android:src="@drawable/ic_baseline_person_24"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <TextView
             android:id="@+id/user_name"
