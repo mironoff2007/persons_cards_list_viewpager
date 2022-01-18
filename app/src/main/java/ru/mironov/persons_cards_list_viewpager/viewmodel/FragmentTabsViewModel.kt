@@ -24,6 +24,15 @@ class FragmentTabsViewModel @Inject constructor (protected val repository: Repos
 
     lateinit var allUsersDepartment:String
 
+    fun getUsersCheckCache(){
+        if(repository.usersList?.isEmpty()==true||repository.usersList==null){
+            getUsers()
+        }
+        else{
+            mutableStatus.postValue(Status.DATA(repository.departments!!.toTypedArray()))
+        }
+    }
+
     fun getUsers(){
         mutableStatus.postValue(Status.LOADING)
         repository.getUsers().enqueue(object : Callback<JsonArrayUsers?> {
@@ -44,6 +53,7 @@ class FragmentTabsViewModel @Inject constructor (protected val repository: Repos
                         }
 
                         repository.usersList=usersList
+                        repository.departments=departments
                         mutableStatus.postValue(Status.DATA(departments.toTypedArray()))
                     }
                 } else {

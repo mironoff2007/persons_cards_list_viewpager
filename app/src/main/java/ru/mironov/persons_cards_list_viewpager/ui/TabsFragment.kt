@@ -41,7 +41,6 @@ class TabsFragment : Fragment() {
     var searchBy: String = ""
     var sortBy = SortBy.ALPHABET_SORT
 
-
     var position = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +51,7 @@ class TabsFragment : Fragment() {
             sortBy = savedInstanceState.getSerializable(ARG_SORT) as SortBy
             searchBy = savedInstanceState.getString(ARG_SEARCH)!!
         }
-        setupObserver()
+        viewModel.allUsersDepartment = requireContext().getString(R.string.department_all)
     }
 
 
@@ -67,9 +66,9 @@ class TabsFragment : Fragment() {
         pager2 = binding.viewPager
 
         setupListeners()
+        setupObserver()
 
-        viewModel.allUsersDepartment = requireContext().getString(R.string.department_all)
-        viewModel.getUsers()
+        viewModel.getUsersCheckCache()
 
         binding.search.setText(searchBy)
         setSort(sortBy)
@@ -127,6 +126,7 @@ class TabsFragment : Fragment() {
     }
 
     fun update() {
+        position=0
         viewModel.getUsers()
     }
 
@@ -136,7 +136,9 @@ class TabsFragment : Fragment() {
                 is Status.DATA -> {
                     ResultRenderer.renderResult(status, binding.root.part_result)
                     viewModel.setSearchParam(searchBy, sortBy)
-                    setUpViewPager(status.departments!!)
+                    if (status.departments != null) {
+                        setUpViewPager(status.departments)
+                    }
                     binding.viewPager.setCurrentItem(position, false)
                 }
                 is Status.LOADING -> {
