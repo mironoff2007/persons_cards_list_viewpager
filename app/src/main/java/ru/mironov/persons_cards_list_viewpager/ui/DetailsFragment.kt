@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.RequestManager
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import ru.mironov.persons_cards_list_viewpager.R
 import ru.mironov.persons_cards_list_viewpager.databinding.FragmentDetailsBinding
 import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
 import ru.mironov.persons_cards_list_viewpager.util.DateFormatter
 import ru.mironov.persons_cards_list_viewpager.util.DepartmentNameUtil
 import ru.mironov.persons_cards_list_viewpager.util.PhoneNumberFormatUtil
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
@@ -22,6 +25,9 @@ class DetailsFragment : Fragment() {
     private val binding get() = _binding!!
 
     lateinit var user: JsonUser
+
+    @Inject
+    lateinit var glide: RequestManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,13 +57,21 @@ class DetailsFragment : Fragment() {
     }
 
     private fun updateUser(user: JsonUser) {
-        binding.userName.text = user.firstName + " " + user.lastName
-        binding.userTag.text = user.userTag!!.lowercase()
-        binding.userDepartment.text =
-            DepartmentNameUtil.getDepartmentName(requireContext(), user.department!!)
-        binding.userPhone.text = PhoneNumberFormatUtil.formatNumber(user.phone!!)
-        binding.userBirthday.text = DateFormatter.convertDate(user.birthday!!)
-        binding.userAge.text = DateFormatter.getAge(user.birthday!!)//года/лет --TODO--
+        with(binding) {
+            glide.asDrawable()
+                .placeholder(R.drawable.ic_time)
+                .error(R.drawable.ic_error)
+                .load(user.avatarUrl)
+                .into(userAvatar)
+
+            userName.text = user.firstName + " " + user.lastName
+            userTag.text = user.userTag!!.lowercase()
+            userDepartment.text =
+                DepartmentNameUtil.getDepartmentName(requireContext(), user.department!!)
+            userPhone.text = PhoneNumberFormatUtil.formatNumber(user.phone!!)
+            userBirthday.text = DateFormatter.convertDate(user.birthday!!)
+            userAge.text = DateFormatter.getAge(user.birthday!!)//года/лет --TODO--
+        }
     }
 
     private fun setBackListener() {

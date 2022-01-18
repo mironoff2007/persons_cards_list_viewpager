@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.RequestManager
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.part_result.view.*
@@ -22,6 +23,7 @@ import ru.mironov.persons_cards_list_viewpager.ui.recyclerview.UserViewHolder
 import ru.mironov.persons_cards_list_viewpager.ui.recyclerview.UsersAdapter
 import ru.mironov.persons_cards_list_viewpager.viewmodel.UsersListFragmentViewModel
 import java.util.ArrayList
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
@@ -32,6 +34,9 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private var _binding: FragmentUsersListBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var glide: RequestManager
 
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
@@ -118,6 +123,8 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                     .commit()
             }
         })
+
+        adapter.glide=glide
 
         val layoutManager = LinearLayoutManager(this.requireContext())
         binding.recyclerView.layoutManager = layoutManager

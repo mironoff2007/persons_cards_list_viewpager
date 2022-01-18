@@ -13,6 +13,7 @@ import ru.mironov.persons_cards_list_viewpager.data.Repository
 import ru.mironov.persons_cards_list_viewpager.data.SortBy
 import ru.mironov.persons_cards_list_viewpager.data.SortParams
 import ru.mironov.persons_cards_list_viewpager.retrofit.JsonArrayUsers
+import ru.mironov.persons_cards_list_viewpager.util.AvatarUrlFaker
 import java.util.*
 import javax.inject.Inject
 
@@ -51,6 +52,9 @@ class FragmentTabsViewModel @Inject constructor (protected val repository: Repos
                         usersList?.forEach {
                             departments.add(it?.department.toString())
                         }
+
+                        //KODE api provides images url from expired domain
+                        usersList?.forEach { it->it?.avatarUrl=AvatarUrlFaker.getUrl() }
 
                         repository.usersList=usersList
                         repository.departments=departments
