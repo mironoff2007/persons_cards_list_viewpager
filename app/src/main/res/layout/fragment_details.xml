@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:text="name"
             android:textColor="@color/black"
-            android:textSize="28sp"
+            android:textSize="17sp"
             android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,7 @@
             android:layout_marginBottom="12dp"
             android:text="department"
             android:textColor="@color/gray_dark"
-            android:textSize="16sp"
+            android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +69,7 @@
             android:gravity="center"
             android:text="tag"
             android:textColor="@color/gray_dark"
-            android:textSize="22sp"
+            android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="@+id/user_name"
             app:layout_constraintStart_toEndOf="@+id/user_name"
             app:layout_constraintTop_toTopOf="@+id/user_name"
@@ -97,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:text="1 jun 1990" />
 
             <View
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:layout_gravity="right"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:text="30"
                 android:layout_marginRight="20dp"
                 android:layout_marginEnd="20dp" />
@@ -129,14 +129,14 @@
             android:layout_height="20dp"
             android:src="@drawable/ic_baseline_phone"
             android:layout_marginLeft="18dp"
-            android:layout_marginRight="18p"/>
+            android:layout_marginRight="18dp"/>
 
         <TextView
             android:id="@+id/user_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:text="+7(999) 999 99 99" />
         </LinearLayout>
 

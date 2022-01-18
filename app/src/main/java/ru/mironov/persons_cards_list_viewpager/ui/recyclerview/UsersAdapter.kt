@@ -42,7 +42,7 @@ class UsersAdapter(
             userName.text = user?.firstName + " " + user?.lastName
             userDepartment.text =
                 DepartmentNameUtil.getDepartmentName(userDepartment.context, user?.department!!)
-            userTag.text = user.userTag
+            userTag.text = user.userTag?.lowercase()
 
             //Show or not birthday according to sort param
             if (sortBy == SortBy.BIRTHDAY_SORT) {
@@ -58,7 +58,6 @@ class UsersAdapter(
 
     }
 
-
     override fun getItemCount(): Int {
         return users.size
     }
@@ -69,5 +68,4 @@ class UsersAdapter(
     }
 
     override fun onClick(v: View?) {}
-
 }

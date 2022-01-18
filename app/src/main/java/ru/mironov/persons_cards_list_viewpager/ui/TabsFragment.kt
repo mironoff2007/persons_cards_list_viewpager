@@ -96,16 +96,16 @@ class TabsFragment : Fragment() {
         if (value == SortBy.ALPHABET_SORT) {
             bindingDialog.radioGroup.check(R.id.radio_alphabetSort)
             binding.search.setCompoundDrawablesWithIntrinsicBounds(
-                R.drawable.ic_baseline_search,
+                R.drawable.ic_search,
                 0,
-                R.drawable.ic_baseline_sort_off,
+                R.drawable.ic_sort_off,
                 0
             )
         } else {
             bindingDialog.radioGroup.check(R.id.radio_birthDaySort)
             binding.search.setCompoundDrawablesWithIntrinsicBounds(
-                R.drawable.ic_baseline_search, 0,
-                R.drawable.ic_baseline_sort_on, 0
+                R.drawable.ic_search, 0,
+                R.drawable.ic_sort_on, 0
             )
         }
     }

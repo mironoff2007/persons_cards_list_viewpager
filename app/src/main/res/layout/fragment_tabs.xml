@@ -25,14 +25,15 @@
             android:layout_marginRight="15dp"
             android:layout_weight="1"
             android:background="@drawable/shape_circular"
-            android:drawableStart="@drawable/ic_baseline_search"
-            android:drawableLeft="@drawable/ic_baseline_search"
-            android:drawableEnd="@drawable/ic_baseline_sort_off"
-            android:drawableRight="@drawable/ic_baseline_sort_off"
+            android:drawableStart="@drawable/ic_search"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawableEnd="@drawable/ic_sort_off"
+            android:drawableRight="@drawable/ic_sort_off"
             android:drawablePadding="10dp"
             android:hint="@string/hint_search_field"
             android:padding="10dp"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            />
 
         <TextView
             android:id="@+id/cancel_search"

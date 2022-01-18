@@ -52,7 +52,7 @@ class DetailsFragment : Fragment() {
 
     private fun updateUser(user: JsonUser) {
         binding.userName.text = user.firstName + " " + user.lastName
-        binding.userTag.text = user.userTag
+        binding.userTag.text = user.userTag!!.lowercase()
         binding.userDepartment.text =
             DepartmentNameUtil.getDepartmentName(requireContext(), user.department!!)
         binding.userPhone.text = PhoneNumberFormatUtil.formatNumber(user.phone!!)
