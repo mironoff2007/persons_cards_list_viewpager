@@ -138,5 +138,8 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     override fun onRefresh() {
         val fragment = parentFragmentManager.findFragmentByTag(TABS_FRAGMENT_TAG) as TabsFragment
         fragment.update()
+        if (binding.swipeContainer.isRefreshing) {
+            binding.swipeContainer.isRefreshing = false;
+        }
     }
 }
