@@ -127,7 +127,7 @@ class TabsFragment : Fragment() {
 
     fun update() {
         position = 0
-        viewModel.getUsersCheckCache()
+        viewModel.getUsers()
     }
 
     private fun setupObserver() {
@@ -144,7 +144,6 @@ class TabsFragment : Fragment() {
                 is Status.LOADING -> {
                     ResultRenderer.renderResult(status, binding.root.partResult)
                     binding.root.partResult.resultTextBottom.setOnClickListener(null)
-
                 }
                 is Status.ERROR -> {
                     binding.root.partResult.resultTextBottom.setOnClickListener { viewModel.getUsers() }
@@ -160,6 +159,9 @@ class TabsFragment : Fragment() {
                     }
                     if (viewModel.isUsersEmpty()) {
                         ResultRenderer.renderResult(status, binding.root.partResult)
+                    }
+                    else{
+                        ResultRenderer.renderResult(Status.DATA(null), binding.root.partResult)
                     }
                 }
             }
