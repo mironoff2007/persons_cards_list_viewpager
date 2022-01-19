@@ -26,6 +26,8 @@ class DetailsFragment : Fragment() {
 
     lateinit var user: JsonUser
 
+    var position = 0
+
     @Inject
     lateinit var glide: RequestManager
 
@@ -42,18 +44,24 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (arguments != null) {
             user = Gson().fromJson(
-                requireArguments().getString(ARG_DETAILS_FRAGMENT)!!,
+                requireArguments().getString(ARG_DETAILS_FRAGMENT),
                 JsonUser().javaClass
             )
+            position = requireArguments().getInt(UsersListFragment.ARG_USERS_LIST_FRAGMENT_POSITION)
         }
         if (savedInstanceState != null) {
             user = Gson().fromJson(
-                savedInstanceState.getString(ARG_DETAILS_FRAGMENT)!!,
+                savedInstanceState.getString(ARG_DETAILS_FRAGMENT),
                 JsonUser().javaClass
             )
         }
+        parentFragmentManager.findFragmentByTag(UsersListFragment.TAG_USERS_LIST_FRAGMENT)!!.arguments!!.putInt(
+            UsersListFragment.ARG_USERS_LIST_FRAGMENT_POSITION,
+            position
+        )
         updateUser(user)
         setBackListener()
+
     }
 
     private fun updateUser(user: JsonUser) {
@@ -78,10 +86,6 @@ class DetailsFragment : Fragment() {
         binding.back.setOnClickListener { parentFragmentManager.popBackStack() }
     }
 
-    companion object {
-        const val ARG_DETAILS_FRAGMENT = "ARG_DETAILS_FRAGMENT"
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         binding.back.setOnClickListener(null)
@@ -91,6 +95,10 @@ class DetailsFragment : Fragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString(ARG_DETAILS_FRAGMENT, Gson().toJson(user))
         super.onSaveInstanceState(outState)
+    }
+
+    companion object {
+        const val ARG_DETAILS_FRAGMENT = "ARG_DETAILS_FRAGMENT"
     }
 
 }

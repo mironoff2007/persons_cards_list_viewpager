@@ -31,6 +31,7 @@ class TabsFragment : Fragment() {
 
     private var tabLayout: TabLayout? = null
     private var pager2: ViewPager2? = null
+    private lateinit var adapter:ViewPagerAdapter
 
     private var _binding: FragmentTabsBinding? = null
     private var _bindingDialog: BottomsheetlayoutBinding? = null
@@ -67,6 +68,7 @@ class TabsFragment : Fragment() {
 
         setupListeners()
         setupObserver()
+        setUpViewPager()
 
         viewModel.getUsersCheckCache()
 
@@ -110,9 +112,8 @@ class TabsFragment : Fragment() {
         }
     }
 
-    private fun setUpViewPager(tabName: Array<String>) {
-        val adapter = ViewPagerAdapter(activity!!)
-        adapter.tabNames = tabName
+    private fun setUpViewPager() {
+        adapter = ViewPagerAdapter(this)
         pager2!!.adapter = adapter
         TabLayoutMediator(
             tabLayout!!, pager2!!
@@ -120,7 +121,7 @@ class TabsFragment : Fragment() {
             tab.text =
                 DepartmentNameUtil.getDepartmentName(
                     requireContext(),
-                    tabName[position]
+                    adapter.tabNames[position]
                 )
         }.attach()
     }
@@ -130,6 +131,7 @@ class TabsFragment : Fragment() {
         viewModel.getUsers()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setupObserver() {
         viewModel.mutableStatus.observe(this) { status ->
             when (status) {
@@ -137,7 +139,8 @@ class TabsFragment : Fragment() {
                     ResultRenderer.renderResult(status, binding.root.partResult)
                     viewModel.setSearchParam(searchBy, sortBy)
                     if (status.departments != null) {
-                        setUpViewPager(status.departments)
+                        adapter.tabNames=status.departments
+                        adapter.notifyDataSetChanged()
                     }
                     binding.viewPager.setCurrentItem(position, false)
                 }

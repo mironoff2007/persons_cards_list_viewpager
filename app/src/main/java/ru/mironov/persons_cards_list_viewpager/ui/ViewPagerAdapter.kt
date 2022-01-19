@@ -6,10 +6,10 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 
-class ViewPagerAdapter(fragmentActivity: FragmentActivity) :
-    FragmentStateAdapter(fragmentActivity) {
+class ViewPagerAdapter(fragment: Fragment) :
+    FragmentStateAdapter(fragment) {
 
-    lateinit var tabNames:Array<String>
+    var tabNames= emptyArray<String>()
 
     override fun createFragment(position: Int): Fragment {
         return UsersListFragment.getInstance(tabNames[position])

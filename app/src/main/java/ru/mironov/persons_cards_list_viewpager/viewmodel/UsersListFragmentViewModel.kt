@@ -16,8 +16,17 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class UsersListFragmentViewModel @Inject constructor(protected val repository: Repository) :
+open class UsersListFragmentViewModel @Inject constructor(protected val repository: Repository) :
     ViewModel() {
+
+    var position: Int = 0
+        set(newValue) {
+            field = newValue
+            repository.recyclerViewPosition = newValue
+        }
+        get() {
+            return repository.recyclerViewPosition
+        }
 
     lateinit var allDepartmentName: String
 
