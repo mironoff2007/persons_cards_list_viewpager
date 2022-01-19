@@ -129,12 +129,7 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         val layoutManager = LinearLayoutManager(this.requireContext())
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.addItemDecoration(
-            DividerItemDecoration(
-                binding.recyclerView.context,
-                DividerItemDecoration.VERTICAL
-            )
-        )
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(context, 0))
     }
 
     override fun onDestroy() {
@@ -146,7 +141,7 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         val fragment = parentFragmentManager.findFragmentByTag(TABS_FRAGMENT_TAG) as TabsFragment
         fragment.update()
         if (binding.swipeContainer.isRefreshing) {
-            binding.swipeContainer.isRefreshing = false;
+            binding.swipeContainer.isRefreshing = false
         }
     }
 }

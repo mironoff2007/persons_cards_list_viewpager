@@ -16,12 +16,19 @@ object DateFormatter {
         return SimpleDateFormat(UI_DATE_FORMAT, Locale.getDefault()).format(date)
     }
 
-
     fun convertDate(date: String): String {
         val date = SimpleDateFormat(API_DATE_FORMAT).parse(date)
         return SimpleDateFormat(UI_DATE_FORMAT_FULL, Locale.getDefault()).format(date)
     }
 
+    @SuppressLint("SimpleDateFormat")
+    fun getYear(dateString: String?): Int {
+        return try {
+            SimpleDateFormat(API_DATE_FORMAT).parse(dateString).year+1900
+        } catch (e: java.text.ParseException) {
+            0
+        }
+    }
 
     @SuppressLint("SimpleDateFormat")
     fun getAge(dateString: String): String {

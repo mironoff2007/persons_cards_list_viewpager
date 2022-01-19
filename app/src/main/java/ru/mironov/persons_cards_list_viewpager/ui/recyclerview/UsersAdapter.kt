@@ -5,29 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
-import dagger.hilt.EntryPoint
 import ru.mironov.persons_cards_list_viewpager.R
 import ru.mironov.persons_cards_list_viewpager.data.SortBy
 import ru.mironov.persons_cards_list_viewpager.databinding.ItemUserBinding
 import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
-import ru.mironov.persons_cards_list_viewpager.util.AvatarUrlFaker
 import ru.mironov.persons_cards_list_viewpager.util.DateFormatter
 import ru.mironov.persons_cards_list_viewpager.util.DepartmentNameUtil
 import java.util.*
 import javax.inject.Inject
 
 class UsersAdapter(
-    val listener: ItemClickListener<UserViewHolder>,
+    private val listener: ItemClickListener<UserViewHolder>,
 ) :
     RecyclerView.Adapter<UserViewHolder>(), View.OnClickListener {
 
     @Inject
     lateinit var glide: RequestManager
-
-    class GlideWrapper() {
-    }
 
     var users: ArrayList<JsonUser?> = ArrayList()
 
@@ -50,6 +44,7 @@ class UsersAdapter(
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
 
         val user = users[position]
+
         with(holder.binding) {
 
             glide.asDrawable()
@@ -66,15 +61,30 @@ class UsersAdapter(
             //Show or not birthday according to sort param
             if (sortBy == SortBy.BIRTHDAY_SORT) {
                 userBirthday.text = DateFormatter.convertDateWithoutYear(user.birthday!!)
+
+                //Draw year divider
+                if(users.size>position+1){
+                    val yearPrev=DateFormatter.getYear(users[position]?.birthday)
+                    val yearNext=DateFormatter.getYear(users[position+1]?.birthday)
+                    if(yearNext>yearPrev){
+                        yearRow.visibility=View.VISIBLE
+                        yearText.text=yearPrev.toString()
+                    }
+                    else{
+                        yearRow.visibility=View.GONE
+                    }
+                }
+                else{
+                    yearRow.visibility=View.GONE
+                }
             } else {
                 userBirthday.text = ""
+                yearRow.visibility=View.GONE
             }
-
         }
 
         val itemBinding = holder.binding
         itemBinding.root.setOnClickListener { listener.onClickListener(holder) }
-
     }
 
     override fun getItemCount(): Int {
