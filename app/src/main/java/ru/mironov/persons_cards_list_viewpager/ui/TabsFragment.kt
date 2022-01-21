@@ -18,10 +18,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.part_result.view.*
 import ru.mironov.persons_cards_list_viewpager.R
 import ru.mironov.persons_cards_list_viewpager.data.SortBy
-import ru.mironov.persons_cards_list_viewpager.viewmodel.Status
 import ru.mironov.persons_cards_list_viewpager.databinding.*
 import ru.mironov.persons_cards_list_viewpager.util.DepartmentNameUtil
 import ru.mironov.persons_cards_list_viewpager.viewmodel.FragmentTabsViewModel
+import ru.mironov.persons_cards_list_viewpager.viewmodel.Status
 
 
 @AndroidEntryPoint
@@ -31,13 +31,15 @@ class TabsFragment : Fragment() {
 
     private var tabLayout: TabLayout? = null
     private var pager2: ViewPager2? = null
-    private lateinit var adapter:ViewPagerAdapter
+    private lateinit var adapter: ViewPagerAdapter
 
     private var _binding: FragmentTabsBinding? = null
     private var _bindingDialog: BottomsheetlayoutBinding? = null
 
     private val binding get() = _binding!!
     private val bindingDialog get() = _bindingDialog!!
+
+    var first = true;
 
     var searchBy: String = ""
     var sortBy = SortBy.ALPHABET_SORT
@@ -113,14 +115,18 @@ class TabsFragment : Fragment() {
     }
 
     private fun setUpViewPager() {
+
         adapter = ViewPagerAdapter(this)
+        if (viewModel.tabNames.isNotEmpty()) {
+            adapter.tabNames = viewModel.tabNames
+        }
         pager2!!.adapter = adapter
         TabLayoutMediator(
             tabLayout!!, pager2!!
         ) { tab, position ->
             tab.text =
                 DepartmentNameUtil.getDepartmentName(
-                    requireContext(),
+                    context!!,
                     adapter.tabNames[position]
                 )
         }.attach()
@@ -139,8 +145,12 @@ class TabsFragment : Fragment() {
                     ResultRenderer.renderResult(status, binding.root.partResult)
                     viewModel.setSearchParam(searchBy, sortBy)
                     if (status.departments != null) {
-                        adapter.tabNames=status.departments
-                        adapter.notifyDataSetChanged()
+                        adapter.tabNames = status.departments
+                        viewModel.tabNames = status.departments
+                        if (first) {
+                            adapter.notifyDataSetChanged()
+                            first = false
+                        }
                     }
                     binding.viewPager.setCurrentItem(position, false)
                 }
@@ -162,8 +172,7 @@ class TabsFragment : Fragment() {
                     }
                     if (viewModel.isUsersEmpty()) {
                         ResultRenderer.renderResult(status, binding.root.partResult)
-                    }
-                    else{
+                    } else {
                         ResultRenderer.renderResult(Status.DATA(null), binding.root.partResult)
                     }
                 }
@@ -241,6 +250,10 @@ class TabsFragment : Fragment() {
         binding.root.partResult.resultTextBottom.setOnClickListener(null)
         _binding = null
         _bindingDialog = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
     companion object {

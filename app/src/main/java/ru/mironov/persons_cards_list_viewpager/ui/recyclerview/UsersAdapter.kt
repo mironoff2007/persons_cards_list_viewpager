@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import ru.mironov.persons_cards_list_viewpager.R
 import ru.mironov.persons_cards_list_viewpager.data.SortBy
+import ru.mironov.persons_cards_list_viewpager.databinding.FragmentDetailsBinding
 import ru.mironov.persons_cards_list_viewpager.databinding.ItemUserBinding
 import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
 import ru.mironov.persons_cards_list_viewpager.util.DateFormatter
@@ -23,6 +24,10 @@ class UsersAdapter(
     @Inject
     lateinit var glide: RequestManager
 
+    private var _binding: ItemUserBinding? = null
+
+    private val binding get() = _binding!!
+
     var users: ArrayList<JsonUser?> = ArrayList()
 
     var sortBy: SortBy? = null
@@ -34,7 +39,7 @@ class UsersAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemUserBinding.inflate(inflater, parent, false)
+        _binding = ItemUserBinding.inflate(inflater, parent, false)
         binding.root.setOnClickListener(this)
 
         return UserViewHolder(binding)

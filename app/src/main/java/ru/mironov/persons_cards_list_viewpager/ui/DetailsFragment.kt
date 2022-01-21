@@ -35,6 +35,7 @@ class DetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -55,10 +56,7 @@ class DetailsFragment : Fragment() {
                 JsonUser().javaClass
             )
         }
-        parentFragmentManager.findFragmentByTag(UsersListFragment.TAG_USERS_LIST_FRAGMENT)!!.arguments!!.putInt(
-            UsersListFragment.ARG_USERS_LIST_FRAGMENT_POSITION,
-            position
-        )
+
         updateUser(user)
         setBackListener()
 

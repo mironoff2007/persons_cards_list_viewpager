@@ -28,6 +28,8 @@ open class UsersListFragmentViewModel @Inject constructor(protected val reposito
             return repository.recyclerViewPosition
         }
 
+    var position2=0
+
     lateinit var allDepartmentName: String
 
     var mutableStatus = MutableLiveData<Status>()

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -81,7 +82,7 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.post {
-            binding.recyclerView.layoutManager?.scrollToPosition(viewModel.position)
+           binding.recyclerView.layoutManager?.scrollToPosition(viewModel.position)
         }
     }
 
@@ -118,23 +119,25 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                 arguments?.putInt(ARG_USERS_LIST_FRAGMENT_POSITION,position)
 
                 viewModel.position=position
+                viewModel.position2=position
 
                 val fragment = DetailsFragment()
-                val arguments = Bundle()
-                arguments.putString(
+                val argumentsDetails = Bundle()
+                argumentsDetails.putString(
                     DetailsFragment.ARG_DETAILS_FRAGMENT,
                     Gson().toJson(adapter.users[item.adapterPosition])
                 )
 
-                arguments!!.putInt(
+                argumentsDetails!!.putInt(
                     ARG_USERS_LIST_FRAGMENT_POSITION,
                     position
                 )
 
-                fragment.arguments = arguments
+                fragment.arguments = argumentsDetails
+
                 activity!!.supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainer, fragment,TAG_USERS_LIST_FRAGMENT)
-                    .addToBackStack(TAG_USERS_LIST_FRAGMENT)
+                    .replace(R.id.fragmentContainer, fragment)//
+                    .addToBackStack(null)
                     .commit()
             }
         })
@@ -174,12 +177,14 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         const val ARGS_KEY_TAB_NAME = "ARGS_KEY_TAB_NAME"
         const val ARG_USERS_LIST_FRAGMENT_POSITION = "ARG_USERS_LIST_FRAGMENT_POSITION"
 
-        fun getInstance(tabName: String): UsersListFragment {
-            val args = Bundle()
-            args.putString(ARGS_KEY_TAB_NAME, tabName)
-            val tabFragment = UsersListFragment()
-            tabFragment.arguments = args
-            return tabFragment
+        fun getInstance(position:Int,tabName: String): UsersListFragment {
+
+                val args = Bundle()
+                args.putString(ARGS_KEY_TAB_NAME, tabName)
+                val fragment = UsersListFragment()
+                fragment.arguments = args
+
+            return fragment
         }
     }
 }

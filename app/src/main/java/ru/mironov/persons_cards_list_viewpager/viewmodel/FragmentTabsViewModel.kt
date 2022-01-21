@@ -25,6 +25,8 @@ open class FragmentTabsViewModel @Inject constructor (protected val repository: 
 
     lateinit var allUsersDepartment:String
 
+    var tabNames= emptyArray<String>()
+
     fun getUsersCheckCache(){
         if(repository.usersList?.isEmpty()==true||repository.usersList==null){
             getUsers()
