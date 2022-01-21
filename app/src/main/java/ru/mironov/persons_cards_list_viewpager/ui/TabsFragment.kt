@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.part_result.view.*
 import ru.mironov.persons_cards_list_viewpager.R
 import ru.mironov.persons_cards_list_viewpager.data.SortBy
+import ru.mironov.persons_cards_list_viewpager.data.SortParams
 import ru.mironov.persons_cards_list_viewpager.databinding.*
 import ru.mironov.persons_cards_list_viewpager.util.DepartmentNameUtil
 import ru.mironov.persons_cards_list_viewpager.viewmodel.FragmentTabsViewModel
@@ -38,8 +39,6 @@ class TabsFragment : Fragment() {
 
     private val binding get() = _binding!!
     private val bindingDialog get() = _bindingDialog!!
-
-    var first = true;
 
     var searchBy: String = ""
     var sortBy = SortBy.ALPHABET_SORT
@@ -134,6 +133,7 @@ class TabsFragment : Fragment() {
 
     fun update() {
         position = 0
+        viewModel.setSearchParam(null)
         viewModel.getUsers()
     }
 
@@ -143,14 +143,11 @@ class TabsFragment : Fragment() {
             when (status) {
                 is Status.DATA -> {
                     ResultRenderer.renderResult(status, binding.root.partResult)
-                    viewModel.setSearchParam(searchBy, sortBy)
+                    viewModel.setSearchParam(SortParams(searchBy, sortBy))
                     if (status.departments != null) {
                         adapter.tabNames = status.departments
                         viewModel.tabNames = status.departments
-                        if (first) {
-                            adapter.notifyDataSetChanged()
-                            first = false
-                        }
+                        adapter.notifyDataSetChanged()
                     }
                     binding.viewPager.setCurrentItem(position, false)
                 }
@@ -190,7 +187,7 @@ class TabsFragment : Fragment() {
                 binding.cancelSearch.visibility = View.VISIBLE
             }
             searchBy = s.toString().lowercase()
-            viewModel.setSearchParam(searchBy, sortBy)
+            viewModel.setSearchParam(SortParams(searchBy, sortBy))
         }
 
         override fun afterTextChanged(editable: Editable) {}
@@ -226,7 +223,7 @@ class TabsFragment : Fragment() {
                     setSort(sortBy)
                 }
             }
-            viewModel.setSearchParam(searchBy, sortBy)
+            viewModel.setSearchParam(SortParams(searchBy, sortBy))
             dialog.dismiss()
         }
     }

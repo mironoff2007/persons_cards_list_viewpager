@@ -139,6 +139,11 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     }
 
     override fun onRefresh() {
+
+        binding.recyclerView.post {
+            binding.recyclerView.layoutManager?.scrollToPosition(viewModel.position)
+        }
+
         val fragment = requireActivity().supportFragmentManager.findFragmentByTag(TABS_FRAGMENT_TAG) as TabsFragment
         fragment.update()
         if (binding.swipeContainer.isRefreshing) {

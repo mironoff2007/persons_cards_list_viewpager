@@ -80,8 +80,9 @@ open class FragmentTabsViewModel @Inject constructor (protected val repository: 
         })
     }
 
-    fun setSearchParam(param: String,sortBy: SortBy) {
-        repository.mutableSearchParam.value= SortParams(param,sortBy)
+    fun setSearchParam(param: SortParams?) {
+
+        repository.mutableSearchParam.value= param
     }
 
     fun isUsersEmpty(): Boolean {
