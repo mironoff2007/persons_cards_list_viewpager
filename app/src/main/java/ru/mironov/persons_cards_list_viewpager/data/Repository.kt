@@ -20,6 +20,4 @@ open class Repository @Inject constructor(protected val retrofit: UsersApi) {
     fun getUsers(): Call<JsonArrayUsers> {
         return retrofit.getUsers()
     }
-
-    var recyclerViewPosition=0
 }

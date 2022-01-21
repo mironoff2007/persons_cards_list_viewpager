@@ -20,15 +20,6 @@ open class UsersListFragmentViewModel @Inject constructor(protected val reposito
     ViewModel() {
 
     var position: Int = 0
-        set(newValue) {
-            field = newValue
-            repository.recyclerViewPosition = newValue
-        }
-        get() {
-            return repository.recyclerViewPosition
-        }
-
-    var position2=0
 
     lateinit var allDepartmentName: String
 

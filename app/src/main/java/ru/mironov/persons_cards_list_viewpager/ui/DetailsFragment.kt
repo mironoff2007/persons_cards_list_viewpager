@@ -26,8 +26,6 @@ class DetailsFragment : Fragment() {
 
     lateinit var user: JsonUser
 
-    var position = 0
-
     @Inject
     lateinit var glide: RequestManager
 
@@ -48,7 +46,7 @@ class DetailsFragment : Fragment() {
                 requireArguments().getString(ARG_DETAILS_FRAGMENT),
                 JsonUser().javaClass
             )
-            position = requireArguments().getInt(UsersListFragment.ARG_USERS_LIST_FRAGMENT_POSITION)
+
         }
         if (savedInstanceState != null) {
             user = Gson().fromJson(
@@ -59,7 +57,6 @@ class DetailsFragment : Fragment() {
 
         updateUser(user)
         setBackListener()
-
     }
 
     private fun updateUser(user: JsonUser) {

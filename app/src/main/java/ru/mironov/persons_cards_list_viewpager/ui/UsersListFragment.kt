@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,8 +35,6 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private var _binding: FragmentUsersListBinding? = null
     private val binding get() = _binding!!
 
-    var position=0
-
     @Inject
     lateinit var glide: RequestManager
 
@@ -49,14 +46,8 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     ): View {
         _binding = FragmentUsersListBinding.inflate(inflater, container, false)
 
-        if (savedInstanceState != null) {
-            position=savedInstanceState.getInt(ARG_USERS_LIST_FRAGMENT_POSITION)
-        }
-        if (arguments != null) {
-            position= arguments!!.getInt(ARG_USERS_LIST_FRAGMENT_POSITION)
-        }
-
         adapterSetup()
+        setupObserver()
 
         // SwipeRefreshLayout
         swipeRefreshLayout = binding.swipeContainer
@@ -76,11 +67,12 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         viewModel.allDepartmentName = requireContext().getString(R.string.department_all)
         viewModel.listenSearchParam(department!!)
 
-        setupObserver()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.recyclerView.post {
            binding.recyclerView.layoutManager?.scrollToPosition(viewModel.position)
         }
@@ -115,11 +107,7 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         adapter = UsersAdapter(object : UsersAdapter.ItemClickListener<UserViewHolder> {
             override fun onClickListener(item: UserViewHolder) {
 
-                position= item.position
-                arguments?.putInt(ARG_USERS_LIST_FRAGMENT_POSITION,position)
-
-                viewModel.position=position
-                viewModel.position2=position
+                viewModel.position=item.adapterPosition
 
                 val fragment = DetailsFragment()
                 val argumentsDetails = Bundle()
@@ -128,15 +116,10 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                     Gson().toJson(adapter.users[item.adapterPosition])
                 )
 
-                argumentsDetails!!.putInt(
-                    ARG_USERS_LIST_FRAGMENT_POSITION,
-                    position
-                )
-
                 fragment.arguments = argumentsDetails
 
                 activity!!.supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainer, fragment)//
+                    .replace(R.id.fragmentContainer, fragment)
                     .addToBackStack(null)
                     .commit()
             }
@@ -164,7 +147,6 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt(ARG_USERS_LIST_FRAGMENT_POSITION, position)
         super.onSaveInstanceState(outState)
     }
 
@@ -173,11 +155,10 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     }
 
     companion object {
-        const val TAG_USERS_LIST_FRAGMENT = "TAG_USERS_LIST_FRAGMENT"
-        const val ARGS_KEY_TAB_NAME = "ARGS_KEY_TAB_NAME"
-        const val ARG_USERS_LIST_FRAGMENT_POSITION = "ARG_USERS_LIST_FRAGMENT_POSITION"
 
-        fun getInstance(position:Int,tabName: String): UsersListFragment {
+        const val ARGS_KEY_TAB_NAME = "ARGS_KEY_TAB_NAME"
+
+        fun getInstance(tabName: String): UsersListFragment {
 
                 val args = Bundle()
                 args.putString(ARGS_KEY_TAB_NAME, tabName)
