@@ -2,3 +2,6 @@
 
 Дизайн и условие взяты из
 https://github.com/appKODE/trainee-test-android
+
+
+<img src="https://github.com/mironoff2007/persons_cards_list_viewpager/blob/master/preview.jpeg" width="300" height="550"/>
