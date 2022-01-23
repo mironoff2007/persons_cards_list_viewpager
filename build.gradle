@@ -5,6 +5,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        mavenCentral()
         
     }
     dependencies {
@@ -18,11 +19,29 @@ buildscript {
     }
 }
 
+plugins {
+    id "scabbard.gradle" version "0.5.0"
+}
+
+scabbard {
+    enabled true
+    outputFormat "svg"
+}
+
 allprojects {
     repositories {
         google()
         jcenter()
-        
+        mavenCentral()
+    }
+
+    configurations.all {
+        resolutionStrategy.eachDependency {
+            if (requested.group == "com.github.kittinunf.result" && requested.name == "result" && requested.version == "3.0.0") {
+                useVersion("3.0.1")
+                because("Transitive dependency of Scabbard, currently not available on mavenCentral()")
+            }
+        }
     }
 }
 
