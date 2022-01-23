@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.part_result.view.*
 import ru.mironov.persons_cards_list_viewpager.R
 import ru.mironov.persons_cards_list_viewpager.viewmodel.Status
 import ru.mironov.persons_cards_list_viewpager.databinding.FragmentUsersListBinding
-import ru.mironov.persons_cards_list_viewpager.ui.TabsFragment.Companion.TABS_FRAGMENT_TAG
+import ru.mironov.persons_cards_list_viewpager.ui.TabsFragment.Companion.TAG_TABS_FRAGMENT
 import ru.mironov.persons_cards_list_viewpager.ui.recyclerview.UserViewHolder
 import ru.mironov.persons_cards_list_viewpager.ui.recyclerview.UsersAdapter
 import ru.mironov.persons_cards_list_viewpager.viewmodel.UsersListFragmentViewModel
@@ -144,7 +144,7 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             binding.recyclerView.layoutManager?.scrollToPosition(viewModel.position)
         }
 
-        val fragment = requireActivity().supportFragmentManager.findFragmentByTag(TABS_FRAGMENT_TAG) as TabsFragment
+        val fragment = requireActivity().supportFragmentManager.findFragmentByTag(TAG_TABS_FRAGMENT) as TabsFragment
         fragment.update()
         if (binding.swipeContainer.isRefreshing) {
             binding.swipeContainer.isRefreshing = false

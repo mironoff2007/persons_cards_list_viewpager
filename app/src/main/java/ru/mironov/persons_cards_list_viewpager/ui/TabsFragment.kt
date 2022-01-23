@@ -257,7 +257,7 @@ class TabsFragment : Fragment() {
         const val ARG_POSITION_TAB = "ARG_POSITION_TAB"
         const val ARG_SEARCH = "ARG_SEARCH"
         const val ARG_SORT = "ARG_SORT"
-        const val TABS_FRAGMENT_TAG = "TABS_FRAGMENT_TAG"
+        const val TAG_TABS_FRAGMENT = "TAG_TABS_FRAGMENT"
         const val DRAWABLE_RIGHT = 2
     }
 }

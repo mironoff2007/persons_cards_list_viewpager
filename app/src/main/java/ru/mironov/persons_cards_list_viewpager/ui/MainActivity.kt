@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import ru.mironov.persons_cards_list_viewpager.R
 import ru.mironov.persons_cards_list_viewpager.databinding.ActivityMainBinding
+import ru.mironov.persons_cards_list_viewpager.ui.TabsFragment.Companion.TAG_TABS_FRAGMENT
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, TabsFragment(),TabsFragment.TABS_FRAGMENT_TAG)
+                .add(R.id.fragmentContainer, TabsFragment(),TAG_TABS_FRAGMENT)
                 .commit()
         }
     }
