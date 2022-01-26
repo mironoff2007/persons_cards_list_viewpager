@@ -19,6 +19,7 @@ import ru.mironov.persons_cards_list_viewpager.R
 import ru.mironov.persons_cards_list_viewpager.viewmodel.Status
 import ru.mironov.persons_cards_list_viewpager.databinding.FragmentUsersListBinding
 import ru.mironov.persons_cards_list_viewpager.ui.TabsFragment.Companion.TAG_TABS_FRAGMENT
+import ru.mironov.persons_cards_list_viewpager.ui.recyclerview.AbstractViewHolder
 import ru.mironov.persons_cards_list_viewpager.ui.recyclerview.UserViewHolder
 import ru.mironov.persons_cards_list_viewpager.ui.recyclerview.UsersAdapter
 import ru.mironov.persons_cards_list_viewpager.viewmodel.UsersListFragmentViewModel
@@ -104,8 +105,8 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     }
 
     private fun adapterSetup() {
-        adapter = UsersAdapter(object : UsersAdapter.ItemClickListener<UserViewHolder> {
-            override fun onClickListener(item: UserViewHolder) {
+        adapter = UsersAdapter(object : UsersAdapter.ItemClickListener<AbstractViewHolder> {
+            override fun onClickListener(item: AbstractViewHolder) {
 
                 viewModel.position=item.adapterPosition
 
