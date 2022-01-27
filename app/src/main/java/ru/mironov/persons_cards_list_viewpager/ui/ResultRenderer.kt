@@ -15,12 +15,7 @@ object ResultRenderer {
                 partResult.visibility= View.GONE
             }
             is Status.LOADING -> {
-                partResult.progressBar.visibility= View.VISIBLE
-                partResult.visibility= View.VISIBLE
-                partResult.resultImage.visibility= View.GONE
-                partResult.resultTextTop.visibility= View.GONE
-                partResult.resultTextMiddle.visibility= View.GONE
-                partResult.resultTextBottom.visibility= View.GONE
+                partResult.visibility = View.GONE
             }
             is Status.ERROR -> {
                 partResult.visibility= View.VISIBLE
@@ -28,7 +23,6 @@ object ResultRenderer {
                 partResult.resultTextMiddle.visibility= View.VISIBLE
                 partResult.resultTextBottom.visibility= View.VISIBLE
                 partResult.resultImage.visibility= View.VISIBLE
-                partResult.progressBar.visibility= View.GONE
                 partResult.resultImage.setImageDrawable(AppCompatResources.getDrawable(partResult.context,R.drawable.ufo))
                 partResult.resultTextTop.setText(R.string.someone_broke_everything)
                 partResult.resultTextMiddle.setText(R.string.we_will_fix)
@@ -40,7 +34,6 @@ object ResultRenderer {
                 partResult.resultTextTop.visibility= View.VISIBLE
                 partResult.resultTextMiddle.visibility= View.VISIBLE
                 partResult.resultTextBottom.visibility= View.VISIBLE
-                partResult.progressBar.visibility= View.GONE
                 partResult.resultImage.setImageDrawable(AppCompatResources.getDrawable(partResult.context,R.drawable.search_glass))
                 partResult.resultTextTop.setText(R.string.nobody_found)
                 partResult.resultTextMiddle.setText(R.string.correct_your_search)
