@@ -85,18 +85,22 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             when (status) {
 
                 is Status.DATA -> {
+                    binding.progressBar.visability = View.Gone
                     ResultRenderer.renderResult(status, binding.rootLayout.partResult)
                     adapter.sortBy = viewModel.getParams()!!.sortBy
                     adapter.users = status.usersList!!
                 }
                 is Status.LOADING -> {
                     ResultRenderer.renderResult(status, binding.rootLayout.partResult)
+                    binding.progressBar.visability = View.Visible
                 }
                 is Status.ERROR -> {
+                    binding.progressBar.visability = View.Gone
                     ResultRenderer.renderResult(status, binding.rootLayout.partResult)
                     Toast.makeText(this.requireContext(), status.message, Toast.LENGTH_LONG)?.show()
                 }
                 is Status.EMPTY -> {
+                    binding.progressBar.visability = View.Gone
                     ResultRenderer.renderResult(status, binding.rootLayout.partResult)
                     adapter.users = ArrayList()
                 }
