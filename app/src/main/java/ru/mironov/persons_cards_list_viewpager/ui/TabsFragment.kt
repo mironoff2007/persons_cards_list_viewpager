@@ -116,9 +116,7 @@ class TabsFragment : Fragment() {
     private fun setUpViewPager() {
 
         adapter = ViewPagerAdapter(this)
-        if (viewModel.tabNames.isNotEmpty()) {
-            adapter.tabNames = viewModel.tabNames
-        }
+        adapter.tabNames = context.getStringArray(R.string.department_nanmes_api)
         pager2!!.adapter = adapter
         TabLayoutMediator(
             tabLayout!!, pager2!!
@@ -144,11 +142,6 @@ class TabsFragment : Fragment() {
                 is Status.DATA -> {
                     ResultRenderer.renderResult(status, binding.root.partResult)
                     viewModel.setSearchParam(SortParams(searchBy, sortBy))
-                    if (status.departments != null) {
-                        adapter.tabNames = status.departments
-                        viewModel.tabNames = status.departments
-                        adapter.notifyDataSetChanged()
-                    }
                     binding.viewPager.setCurrentItem(position, false)
                 }
                 is Status.LOADING -> {

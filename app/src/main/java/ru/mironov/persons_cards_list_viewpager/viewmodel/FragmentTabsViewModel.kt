@@ -48,19 +48,12 @@ open class FragmentTabsViewModel @Inject constructor (protected val repository: 
 
                         val usersList = response.body()!!.users
 
-                        //Departments names for tabs
-                        val departments= TreeSet<String>()
-                        departments.add(allUsersDepartment)
-                        usersList?.forEach {
-                            departments.add(it?.department.toString())
-                        }
-
                         //KODE api provides images url from expired domain
                         usersList?.forEach { it->it?.avatarUrl=AvatarUrlFaker.getUrl() }
 
                         repository.usersList=usersList
                         repository.departments=departments
-                        mutableStatus.postValue(Status.DATA(departments.toTypedArray()))
+                        mutableStatus.postValue(Status.DATA(null)))
                     }
                 } else {
                     if (response.errorBody() != null) {
