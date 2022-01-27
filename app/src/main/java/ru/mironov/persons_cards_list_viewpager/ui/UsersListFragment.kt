@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.part_result.view.*
 import ru.mironov.persons_cards_list_viewpager.R
 import ru.mironov.persons_cards_list_viewpager.viewmodel.Status
 import ru.mironov.persons_cards_list_viewpager.databinding.FragmentUsersListBinding
+import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
 import ru.mironov.persons_cards_list_viewpager.ui.TabsFragment.Companion.TAG_TABS_FRAGMENT
 import ru.mironov.persons_cards_list_viewpager.ui.recyclerview.AbstractViewHolder
 import ru.mironov.persons_cards_list_viewpager.ui.recyclerview.UserViewHolder
@@ -62,7 +63,7 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
         var department: String? = null
         if (arguments != null) {
-            department = arguments!!.getString(ARGS_KEY_TAB_NAME, null)
+            department = requireArguments().getString(ARGS_KEY_TAB_NAME, null)
         }
 
         viewModel.allDepartmentName = requireContext().getString(R.string.department_all)
@@ -77,30 +78,32 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         binding.recyclerView.post {
            binding.recyclerView.layoutManager?.scrollToPosition(viewModel.position)
         }
+
+        binding.progressBar.visibility = View.VISIBLE
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setupObserver() {
-        viewModel.mutableStatus.observe(this) { status ->
+        viewModel.mutableStatus.observe(viewLifecycleOwner) { status ->
             when (status) {
 
                 is Status.DATA -> {
-                    binding.progressBar.visability = View.Gone
+                    binding.progressBar.visibility = View.GONE
                     ResultRenderer.renderResult(status, binding.rootLayout.partResult)
                     adapter.sortBy = viewModel.getParams()!!.sortBy
                     adapter.users = status.usersList!!
                 }
                 is Status.LOADING -> {
                     ResultRenderer.renderResult(status, binding.rootLayout.partResult)
-                    binding.progressBar.visability = View.Visible
+                    binding.progressBar.visibility = View.VISIBLE
                 }
                 is Status.ERROR -> {
-                    binding.progressBar.visability = View.Gone
+                    binding.progressBar.visibility = View.GONE
                     ResultRenderer.renderResult(status, binding.rootLayout.partResult)
                     Toast.makeText(this.requireContext(), status.message, Toast.LENGTH_LONG)?.show()
                 }
                 is Status.EMPTY -> {
-                    binding.progressBar.visability = View.Gone
+                    binding.progressBar.visibility = View.GONE
                     ResultRenderer.renderResult(status, binding.rootLayout.partResult)
                     adapter.users = ArrayList()
                 }
@@ -131,6 +134,9 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         })
 
         adapter.glide=glide
+
+        //For skeletons
+        adapter.users=arrayListOf<JsonUser?>(null,null,null,null,null,null,null,null,null,null)
 
         val layoutManager = LinearLayoutManager(this.requireContext())
         binding.recyclerView.layoutManager = layoutManager

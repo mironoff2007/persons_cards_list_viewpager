@@ -33,7 +33,7 @@
             <View
                 android:background="@drawable/skeleton"
                 android:id="@+id/user_name"
-                android:layout_width="150dp"
+                android:layout_width="144dp"
                 android:layout_height="16sp"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -42,33 +42,12 @@
             <View
                 android:background="@drawable/skeleton"
                 android:id="@+id/user_department"
-                android:layout_width="20dp"
-                android:layout_height="13dp"
+                android:layout_width="80dp"
+                android:layout_height="12dp"
+                android:layout_marginTop="6dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/user_name" />
 
-            <TextView
-                android:background="@drawable/skeleton"
-                android:id="@+id/user_tag"
-                android:layout_width="20dp"
-                android:layout_height="14dp"
-                android:layout_marginLeft="4dp"
-                android:gravity="center"
-                app:layout_constraintBottom_toBottomOf="@+id/user_name"
-                app:layout_constraintStart_toEndOf="@+id/user_name"
-                app:layout_constraintTop_toTopOf="@+id/user_name" />
-
-            <TextView
-                android:background="@drawable/skeleton"
-                android:id="@+id/user_birthday"
-                android:layout_width="20dp"
-                android:layout_height="15dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </LinearLayout>

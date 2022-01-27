@@ -25,6 +25,7 @@ open class UsersListFragmentViewModel @Inject constructor(protected val reposito
 
     var mutableStatus = MutableLiveData<Status>()
 
+
     fun getParams(): SortParams? {
         return repository.mutableSearchParam.value
     }
@@ -43,9 +44,9 @@ open class UsersListFragmentViewModel @Inject constructor(protected val reposito
             status.usersList =
                 list?.filter { user ->
                     (user?.department == department || department == allDepartmentName) &&
-                            ((user?.firstName!! + " " + user.lastName!!).lowercase()
+                            ((user?.firstName + " " + user?.lastName).lowercase()
                                 .contains(params.searchBy) ||
-                                    user.userTag!!.lowercase().contains(params.searchBy) ||
+                                    user?.userTag?.lowercase()?.contains(params.searchBy) == true ||
                                     params.searchBy.isEmpty())
                 } as ArrayList<JsonUser?>?
 
@@ -55,9 +56,9 @@ open class UsersListFragmentViewModel @Inject constructor(protected val reposito
             } else {
                 status.usersList?.sortBy { it?.birthday }
             }
-            if (status.usersList!!.isEmpty()) {
+            if (status.usersList?.isEmpty() == true) {
                 mutableStatus.postValue(Status.EMPTY)
-            } else {
+            } else if(status.usersList!=null) {
                 mutableStatus.postValue(status)
             }
         }

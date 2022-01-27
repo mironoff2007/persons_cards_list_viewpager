@@ -32,7 +32,7 @@ open class FragmentTabsViewModel @Inject constructor (protected val repository: 
             getUsers()
         }
         else{
-            mutableStatus.postValue(Status.DATA(repository.departments!!.toTypedArray()))
+            mutableStatus.postValue(Status.DATA(null))
         }
     }
 
@@ -52,8 +52,7 @@ open class FragmentTabsViewModel @Inject constructor (protected val repository: 
                         usersList?.forEach { it->it?.avatarUrl=AvatarUrlFaker.getUrl() }
 
                         repository.usersList=usersList
-                        repository.departments=departments
-                        mutableStatus.postValue(Status.DATA(null)))
+                        mutableStatus.postValue(Status.DATA(null))
                     }
                 } else {
                     if (response.errorBody() != null) {

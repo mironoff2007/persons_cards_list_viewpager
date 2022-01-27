@@ -116,14 +116,14 @@ class TabsFragment : Fragment() {
     private fun setUpViewPager() {
 
         adapter = ViewPagerAdapter(this)
-        adapter.tabNames = context.getStringArray(R.string.department_nanmes_api)
+        adapter.tabNames = requireContext().resources.getStringArray(R.array.department_names_api)
         pager2!!.adapter = adapter
         TabLayoutMediator(
             tabLayout!!, pager2!!
         ) { tab, position ->
             tab.text =
                 DepartmentNameUtil.getDepartmentName(
-                    context!!,
+                    requireContext(),
                     adapter.tabNames[position]
                 )
         }.attach()
@@ -137,7 +137,7 @@ class TabsFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setupObserver() {
-        viewModel.mutableStatus.observe(this) { status ->
+        viewModel.mutableStatus.observe(viewLifecycleOwner) { status ->
             when (status) {
                 is Status.DATA -> {
                     ResultRenderer.renderResult(status, binding.root.partResult)
@@ -180,7 +180,9 @@ class TabsFragment : Fragment() {
                 binding.cancelSearch.visibility = View.VISIBLE
             }
             searchBy = s.toString().lowercase()
-            viewModel.setSearchParam(SortParams(searchBy, sortBy))
+            if(binding.search.hasFocus()) {
+                viewModel.setSearchParam(SortParams(searchBy, sortBy))
+            }
         }
 
         override fun afterTextChanged(editable: Editable) {}
