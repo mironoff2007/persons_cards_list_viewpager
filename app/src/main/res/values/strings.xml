@@ -1,4 +1,36 @@
 <resources>
+    <string-array name ="department_names_api">
+        <item>_all</item>
+        <item>android</item>
+        <item>ios</item>
+        <item>design</item>
+        <item>management</item>
+        <item>qa</item>
+        <item>back_office</item>
+        <item>frontend</item>
+        <item>hr</item>
+        <item>pr</item>
+        <item>backend</item>
+        <item>support</item>
+        <item>analytics</item>
+    </string-array>
+
+    <string-array name ="department_names_ui">
+        <item>Все</item>
+        <item>Android</item>
+        <item>iOS</item>
+        <item>Дизайн</item>
+        <item>Менеджмент</item>
+        <item>QA</item>
+        <item>Бэк-офис</item>
+        <item>Frontend</item>
+        <item>HR</item>
+        <item>PR</item>
+        <item>Backend</item>
+        <item>Техподдержка</item>
+        <item>Аналитика</item>
+    </string-array>
+
     <string name="app_name">Persons Cards</string>
     <string name="department_all">_all</string>
     <string name="department_all_name">Все</string>

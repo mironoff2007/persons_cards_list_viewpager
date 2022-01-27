@@ -22,6 +22,10 @@ object DepartmentNameUtil {
             context.getString(R.string.department_support) -> return context.getString(R.string.department_support_name)
             else -> {""}
         }
+    }
 
+    fun getDepartmentNameFromArray(context: Context, departmentName: String):String {
+            val ind=context.getStringArray(R.string.department_nanmes_api).indexOf(departmrnt)
+        return  context.getStringArray(R.string.department_names_ui)[ind]
     }
 }
