@@ -237,6 +237,8 @@ class TabsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.cancelSearch.setOnClickListener (null)
+        binding.search.setOnTouchListener(null)
         binding.search.removeTextChangedListener(textChangeListener)
         bindingDialog.radioGroup.setOnCheckedChangeListener(null)
         binding.root.partResult.resultTextBottom.setOnClickListener(null)
