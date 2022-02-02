@@ -21,7 +21,6 @@ import ru.mironov.persons_cards_list_viewpager.databinding.FragmentUsersListBind
 import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
 import ru.mironov.persons_cards_list_viewpager.ui.TabsFragment.Companion.TAG_TABS_FRAGMENT
 import ru.mironov.persons_cards_list_viewpager.ui.recyclerview.AbstractViewHolder
-import ru.mironov.persons_cards_list_viewpager.ui.recyclerview.UserViewHolder
 import ru.mironov.persons_cards_list_viewpager.ui.recyclerview.UsersAdapter
 import ru.mironov.persons_cards_list_viewpager.viewmodel.UsersListFragmentViewModel
 import java.util.ArrayList
@@ -32,7 +31,7 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private val viewModel: UsersListFragmentViewModel by viewModels()
 
-    private lateinit var adapter: UsersAdapter
+    private var adapter: UsersAdapter?=null
 
     private var _binding: FragmentUsersListBinding? = null
     private val binding get() = _binding!!
@@ -90,8 +89,8 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                 is Status.DATA -> {
                     binding.progressBar.visibility = View.GONE
                     ResultRenderer.renderResult(status, binding.rootLayout.partResult)
-                    adapter.sortBy = viewModel.getParams()!!.sortBy
-                    adapter.users = status.usersList!!
+                    adapter!!.sortBy = viewModel.getParams()!!.sortBy
+                    adapter!!.users = status.usersList!!
                 }
                 is Status.LOADING -> {
                     ResultRenderer.renderResult(status, binding.rootLayout.partResult)
@@ -105,7 +104,7 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                 is Status.EMPTY -> {
                     binding.progressBar.visibility = View.GONE
                     ResultRenderer.renderResult(status, binding.rootLayout.partResult)
-                    adapter.users = ArrayList()
+                    adapter!!.users = ArrayList()
                 }
             }
         }
@@ -121,7 +120,7 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                 val argumentsDetails = Bundle()
                 argumentsDetails.putString(
                     DetailsFragment.ARG_DETAILS_FRAGMENT,
-                    Gson().toJson(adapter.users[item.adapterPosition])
+                    Gson().toJson(adapter!!.users[item.adapterPosition])
                 )
 
                 fragment.arguments = argumentsDetails
@@ -133,10 +132,10 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             }
         })
 
-        adapter.glide=glide
+        adapter!!.glide=glide
 
         //For skeletons
-        adapter.users=arrayListOf<JsonUser?>(null,null,null,null,null,null,null,null,null,null)
+        adapter!!.users=arrayListOf<JsonUser?>(null,null,null,null,null,null,null,null,null,null)
 
         val layoutManager = LinearLayoutManager(this.requireContext())
         binding.recyclerView.layoutManager = layoutManager
@@ -146,7 +145,6 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null
     }
 
     override fun onRefresh() {
@@ -168,6 +166,9 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        swipeRefreshLayout.setOnRefreshListener(null)
+        adapter=null
+        _binding = null
     }
 
     companion object {
