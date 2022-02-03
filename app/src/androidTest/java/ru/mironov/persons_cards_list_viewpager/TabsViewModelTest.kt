@@ -12,33 +12,38 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.TestCoroutineScope
+import okhttp3.Request
+import okio.Timeout
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 import ru.mironov.persons_cards_list_viewpager.data.Repository
 import ru.mironov.persons_cards_list_viewpager.data.SortBy
 import ru.mironov.persons_cards_list_viewpager.data.SortParams
+import ru.mironov.persons_cards_list_viewpager.retrofit.JsonArrayUsers
 import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
 import ru.mironov.persons_cards_list_viewpager.retrofit.UsersApi
+import ru.mironov.persons_cards_list_viewpager.viewmodel.FragmentTabsViewModel
 import ru.mironov.persons_cards_list_viewpager.viewmodel.Status
 import ru.mironov.persons_cards_list_viewpager.viewmodel.UsersListFragmentViewModel
 import java.lang.Thread.sleep
 import java.util.concurrent.locks.ReentrantLock
 
-/**
- * Instrumented test, which will execute on an Android device.
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
+
 @RunWith(AndroidJUnit4::class)
-class UserListViewmodelTest {
+class TabsViewModelTest {
 
     private lateinit var job: Job
 
-    private lateinit var viewModelUserList: UsersListFragmentViewModel
-    private val repository = Repository(mock(UsersApi::class.java))
+    private lateinit var viewModelUserTabs: FragmentTabsViewModel
+
+    val repository=MockRepository()
 
     private lateinit var resultData: Status.DATA
     private lateinit var resultStatus: Status
@@ -51,73 +56,22 @@ class UserListViewmodelTest {
     fun setUp() {
 
         context = InstrumentationRegistry.getInstrumentation().targetContext
-        val jsonString = context.resources.openRawResource(R.raw.users_response).bufferedReader()
-            .use { it.readText() }
 
-        repository.usersList = Gson().fromJson<ArrayList<JsonUser?>>(
-            jsonString,
-            object : TypeToken<ArrayList<JsonUser?>>() {}.type
-        )
-
-        viewModelUserList = UsersListFragmentViewModel(repository)
+        viewModelUserTabs = FragmentTabsViewModel(repository)
         setupObserver()
-        viewModelUserList.allDepartmentName = context.getString(R.string.department_all)
-        viewModelUserList.listenSearchParam(viewModelUserList.allDepartmentName)
+
     }
 
     @Test
-    fun checkListSize() {
+    fun checkError() {
 
-        repository.mutableSearchParam.value = SortParams("", SortBy.ALPHABET_SORT)
+        viewModelUserTabs.getUsers()
 
         while (locked) {
             sleep(100)
         }
 
-        assert(resultData.usersList!!.size==80)
-    }
-
-    @Test
-    fun testSearchByDepartment() {
-        viewModelUserList.allDepartmentName = context.getString(R.string.department_android)
-
-        locked=true
-        repository.mutableSearchParam.value = SortParams("", SortBy.ALPHABET_SORT)
-
-        while (locked) {
-            sleep(100)
-        }
-
-        assert(resultData.usersList!!.size==10)
-    }
-
-    @Test
-    fun testSearchByName() {
-        viewModelUserList.allDepartmentName = context.getString(R.string.department_android)
-
-        locked=true
-        repository.mutableSearchParam.value = SortParams("Hanna", SortBy.ALPHABET_SORT)
-
-        while (locked) {
-            sleep(100)
-        }
-        val lastName= resultData!!.usersList!![0]!!.lastName
-
-        assert(resultData.usersList!!.size==1&& lastName=="Kling")
-    }
-
-    @Test
-    fun testEmpty() {
-        viewModelUserList.allDepartmentName = context.getString(R.string.department_android)
-
-        locked=true
-        repository.mutableSearchParam.value = SortParams("not_match", SortBy.ALPHABET_SORT)
-
-        while (locked) {
-            sleep(100)
-        }
-
-        assert(resultStatus.equals(Status.EMPTY))
+        assert(resultStatus is Status.ERROR)
     }
 
     @After
@@ -128,7 +82,7 @@ class UserListViewmodelTest {
 
     private fun setupObserver() {
         job = TestCoroutineScope().launch(Dispatchers.Default) {
-            viewModelUserList.mutableStatus.observeForever() { status ->
+            viewModelUserTabs.mutableStatus.observeForever() { status ->
                 when (status) {
 
                     is Status.DATA -> {
