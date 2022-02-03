@@ -32,7 +32,7 @@ class TabsFragment : Fragment() {
 
     private var tabLayout: TabLayout? = null
     private var pager2: ViewPager2? = null
-    private lateinit var adapter: ViewPagerAdapter
+    private var adapter: ViewPagerAdapter?=null
 
     private var _binding: FragmentTabsBinding? = null
     private var _bindingDialog: BottomsheetlayoutBinding? = null
@@ -116,7 +116,7 @@ class TabsFragment : Fragment() {
     private fun setUpViewPager() {
 
         adapter = ViewPagerAdapter(this)
-        adapter.tabNames = requireContext().resources.getStringArray(R.array.department_names_api)
+        adapter!!.tabNames = requireContext().resources.getStringArray(R.array.department_names_api)
         pager2!!.adapter = adapter
         TabLayoutMediator(
             tabLayout!!, pager2!!
@@ -124,7 +124,7 @@ class TabsFragment : Fragment() {
             tab.text =
                 DepartmentNameUtil.getDepartmentName(
                     requireContext(),
-                    adapter.tabNames[position]
+                    adapter!!.tabNames[position]
                 )
         }.attach()
     }
@@ -235,6 +235,7 @@ class TabsFragment : Fragment() {
         position = binding.viewPager.currentItem
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onDestroyView() {
         super.onDestroyView()
         binding.cancelSearch.setOnClickListener (null)
@@ -242,6 +243,9 @@ class TabsFragment : Fragment() {
         binding.search.removeTextChangedListener(textChangeListener)
         bindingDialog.radioGroup.setOnCheckedChangeListener(null)
         binding.root.partResult.resultTextBottom.setOnClickListener(null)
+        tabLayout = null
+        pager2 = null
+        adapter =null
         _binding = null
         _bindingDialog = null
     }
