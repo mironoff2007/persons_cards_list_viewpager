@@ -96,11 +96,6 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                     ResultRenderer.renderResult(status, binding.rootLayout.partResult)
                     binding.progressBar.visibility = View.VISIBLE
                 }
-                is Status.ERROR -> {
-                    binding.progressBar.visibility = View.GONE
-                    ResultRenderer.renderResult(status, binding.rootLayout.partResult)
-                    Toast.makeText(this.requireContext(), status.message, Toast.LENGTH_LONG)?.show()
-                }
                 is Status.EMPTY -> {
                     binding.progressBar.visibility = View.GONE
                     ResultRenderer.renderResult(status, binding.rootLayout.partResult)

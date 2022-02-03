@@ -39,6 +39,7 @@ class ExampleInstrumentedTest {
     private val repository = Repository(mock(UsersApi::class.java))
 
     private lateinit var resultData: Status.DATA
+    private lateinit var resultStatus: Status
 
     var locked = true
 
@@ -72,6 +73,49 @@ class ExampleInstrumentedTest {
         assert(resultData.usersList!!.size==80)
     }
 
+    @Test
+    fun testSearchByDepartment() {
+        viewModelUserList.allDepartmentName = context.getString(R.string.department_android)
+
+        locked=true
+        repository.mutableSearchParam.value = SortParams("", SortBy.ALPHABET_SORT)
+
+        while (locked) {
+            sleep(100)
+        }
+
+        assert(resultData.usersList!!.size==10)
+    }
+
+    @Test
+    fun testSearchByName() {
+        viewModelUserList.allDepartmentName = context.getString(R.string.department_android)
+
+        locked=true
+        repository.mutableSearchParam.value = SortParams("Hanna", SortBy.ALPHABET_SORT)
+
+        while (locked) {
+            sleep(100)
+        }
+        val lastName= resultData!!.usersList!![0].lastName
+
+        assert(resultData.usersList!!.size==1&& lastName=="Kling")
+    }
+
+    @Test
+    fun testEmpty() {
+        viewModelUserList.allDepartmentName = context.getString(R.string.department_android)
+
+        locked=true
+        repository.mutableSearchParam.value = SortParams("not_match", SortBy.ALPHABET_SORT)
+
+        while (locked) {
+            sleep(100)
+        }
+
+        assert(resultStatus.equals(Status.EMPTY))
+    }
+
     @After
     fun closeJob() {
         job.cancel()
@@ -91,10 +135,12 @@ class ExampleInstrumentedTest {
 
                     }
                     is Status.ERROR -> {
-
+                        resultStatus=status
+                        locked=false
                     }
                     is Status.EMPTY -> {
-
+                        resultStatus=status
+                        locked=false
                     }
                 }
             }
