@@ -98,4 +98,6 @@ dependencies {
     // Hilt testing
     androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+    //Corotines test
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0'
 }

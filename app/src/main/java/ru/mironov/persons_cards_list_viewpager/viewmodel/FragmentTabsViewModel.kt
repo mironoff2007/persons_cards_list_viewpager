@@ -48,7 +48,6 @@ open class FragmentTabsViewModel @Inject constructor (protected val repository: 
 
                         val usersList = response.body()!!.users
 
-
                         //KODE api provides images url from expired domain
                         usersList?.forEach { it->it?.avatarUrl=AvatarUrlFaker.getUrl() }
 

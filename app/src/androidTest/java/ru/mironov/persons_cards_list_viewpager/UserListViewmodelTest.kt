@@ -1,6 +1,7 @@
 package ru.mironov.persons_cards_list_viewpager
 
 
+import android.content.Context
 import android.util.Log
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -10,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.TestCoroutineScope
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -43,10 +45,12 @@ class UserListViewmodelTest {
 
     var locked = true
 
+    lateinit var context: Context
+
     @Before
     fun setUp() {
 
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        context = InstrumentationRegistry.getInstrumentation().targetContext
         val jsonString = context.resources.openRawResource(R.raw.users_response).bufferedReader()
             .use { it.readText() }
 
@@ -97,7 +101,7 @@ class UserListViewmodelTest {
         while (locked) {
             sleep(100)
         }
-        val lastName= resultData!!.usersList!![0].lastName
+        val lastName= resultData!!.usersList!![0]!!.lastName
 
         assert(resultData.usersList!!.size==1&& lastName=="Kling")
     }
@@ -123,7 +127,7 @@ class UserListViewmodelTest {
 
 
     private fun setupObserver() {
-        job = GlobalScope.launch(Dispatchers.Main) {
+        job = TestCoroutineScope().launch(Dispatchers.Default) {
             viewModelUserList.mutableStatus.observeForever() { status ->
                 when (status) {
 
