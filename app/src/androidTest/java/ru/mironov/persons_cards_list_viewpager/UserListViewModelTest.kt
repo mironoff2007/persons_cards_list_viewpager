@@ -58,11 +58,12 @@ class UserListViewModelTest {
         viewModelUserList = UsersListFragmentViewModel(repository)
         setupObserver()
         viewModelUserList.allDepartmentName = context.getString(R.string.department_all)
-        viewModelUserList.listenSearchParam(viewModelUserList.allDepartmentName)
     }
 
     @Test
     fun checkListSize() {
+
+        viewModelUserList.listenSearchParam(viewModelUserList.allDepartmentName)
 
         repository.mutableSearchParam.value = SortParams("", SortBy.ALPHABET_SORT)
 
@@ -73,23 +74,10 @@ class UserListViewModelTest {
         assert(resultData.usersList!!.size==80)
     }
 
-    @Test
-    fun testSearchByDepartment() {
-        viewModelUserList.allDepartmentName = context.getString(R.string.department_android)
-
-        locked=true
-        repository.mutableSearchParam.value = SortParams("", SortBy.ALPHABET_SORT)
-
-        while (locked) {
-            sleep(100)
-        }
-
-        assert(resultData.usersList!!.size==10)
-    }
 
     @Test
-    fun testSearchByName() {
-        viewModelUserList.allDepartmentName = context.getString(R.string.department_android)
+    fun testSearchByNameAndDepartment() {
+        viewModelUserList.listenSearchParam(context.getString(R.string.department_android))
 
         locked=true
         repository.mutableSearchParam.value = SortParams("Hanna", SortBy.ALPHABET_SORT)
@@ -104,7 +92,7 @@ class UserListViewModelTest {
 
     @Test
     fun testEmpty() {
-        viewModelUserList.allDepartmentName = context.getString(R.string.department_android)
+        viewModelUserList.listenSearchParam(viewModelUserList.allDepartmentName)
 
         locked=true
         repository.mutableSearchParam.value = SortParams("not_match", SortBy.ALPHABET_SORT)
@@ -113,7 +101,22 @@ class UserListViewModelTest {
             sleep(100)
         }
 
-        assert(resultStatus.equals(Status.EMPTY))
+        assert(resultStatus == Status.EMPTY)
+    }
+
+    @Test
+    fun testSearchByDepartment() {
+
+        viewModelUserList.listenSearchParam(context.getString(R.string.department_android))
+
+        locked=true
+        repository.mutableSearchParam.value = SortParams("", SortBy.ALPHABET_SORT)
+
+        while (locked) {
+            sleep(100)
+        }
+
+        assert(resultData.usersList!!.size==10)
     }
 
     @After
@@ -123,13 +126,14 @@ class UserListViewModelTest {
 
 
     private fun setupObserver() {
-        job = TestCoroutineScope().launch(Dispatchers.Default) {
+        job = TestCoroutineScope().launch(Dispatchers.Main) {
             viewModelUserList.mutableStatus.observeForever() { status ->
                 when (status) {
 
                     is Status.DATA -> {
                         resultData = status
                         locked=false
+                        job.cancel()
                     }
                     is Status.LOADING -> {
 
@@ -137,10 +141,12 @@ class UserListViewModelTest {
                     is Status.ERROR -> {
                         resultStatus=status
                         locked=false
+                        job.cancel()
                     }
                     is Status.EMPTY -> {
                         resultStatus=status
                         locked=false
+                        job.cancel()
                     }
                 }
             }

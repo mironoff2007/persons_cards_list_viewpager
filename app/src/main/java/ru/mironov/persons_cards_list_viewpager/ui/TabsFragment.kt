@@ -179,7 +179,7 @@ class TabsFragment : Fragment() {
             } else {
                 binding.cancelSearch.visibility = View.VISIBLE
             }
-            searchBy = s.toString().lowercase()
+            searchBy = s.toString()
             if(binding.search.hasFocus()) {
                 viewModel.setSearchParam(SortParams(searchBy, sortBy))
             }

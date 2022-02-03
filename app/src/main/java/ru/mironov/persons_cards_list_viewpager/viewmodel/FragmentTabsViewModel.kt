@@ -59,7 +59,7 @@ open class FragmentTabsViewModel @Inject constructor (protected val repository: 
                         mutableStatus.postValue(
                             Status.ERROR(
                                 response.errorBody().toString(),
-                                response.raw().code()
+                                response.raw().code
                             )
                         )
                     }

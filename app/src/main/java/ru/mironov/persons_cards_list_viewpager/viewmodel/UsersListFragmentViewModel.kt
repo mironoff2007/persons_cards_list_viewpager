@@ -45,7 +45,7 @@ open class UsersListFragmentViewModel @Inject constructor(protected val reposito
                 list?.filter { user ->
                     (user?.department == department || department == allDepartmentName) &&
                             ((user?.firstName + " " + user?.lastName).lowercase()
-                                .contains(params.searchBy) ||
+                                .contains(params.searchBy.lowercase()) ||
                                     user?.userTag?.lowercase()?.contains(params.searchBy) == true ||
                                     params.searchBy.isEmpty())
                 } as ArrayList<JsonUser?>?
