@@ -31,7 +31,7 @@ import java.util.concurrent.locks.ReentrantLock
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
+class UserListViewmodelTest {
 
     private lateinit var job: Job
 
