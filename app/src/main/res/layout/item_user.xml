@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="6dp"
-    android:layout_marginBottom="6dp"
+    android:layout_marginTop="@dimen/user_item_marginTop"
+    android:layout_marginBottom="@dimen/user_item_marginBottom"
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,10 +14,10 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/user_avatar"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
+            android:layout_width="@dimen/avatar_width"
+            android:layout_height="@dimen/avatar_height"
+            android:layout_marginStart="@dimen/avatar_marginStart"
+            android:layout_marginLeft="@dimen/avatar_marginLeft"
             android:src="@drawable/ic_baseline_person_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,10 +25,11 @@
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="16dp">
+            android:layout_marginLeft="@dimen/userItem_info_marginLeft">
 
             <TextView
                 android:id="@+id/user_name"
@@ -36,7 +37,7 @@
                 android:layout_height="0dp"
                 android:text="name"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="@dimen/user_name_textSize"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,7 +47,7 @@
                 android:layout_height="0dp"
                 android:text="department"
                 android:textColor="@color/gray_dark"
-                android:textSize="13sp"
+                android:textSize="@dimen/user_department_textSize"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/user_name" />
 
@@ -87,10 +88,10 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/year_divider_line_height"
             android:layout_gravity="center"
-            android:layout_marginStart="23dp"
-            android:layout_marginLeft="23dp"
+            android:layout_marginStart="@dimen/year_divider_line_margin"
+            android:layout_marginLeft="@dimen/year_divider_line_margin"
             android:layout_weight="1"
             android:background="@color/gray_light" />
 
@@ -104,10 +105,10 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/year_divider_line_height"
             android:layout_gravity="center"
-            android:layout_marginEnd="23dp"
-            android:layout_marginRight="23dp"
+            android:layout_marginEnd="@dimen/year_divider_line_margin"
+            android:layout_marginRight="@dimen/year_divider_line_margin"
             android:layout_weight="1"
             android:background="@color/gray_light" />
     </LinearLayout>

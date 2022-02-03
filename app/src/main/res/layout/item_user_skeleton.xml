@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="6dp"
-    android:layout_marginBottom="6dp"
+    android:layout_marginTop="@dimen/user_item_marginTop"
+    android:layout_marginBottom="@dimen/user_item_marginBottom"
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,10 +14,10 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/user_avatar"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
+            android:layout_width="@dimen/avatar_width"
+            android:layout_height="@dimen/avatar_height"
+            android:layout_marginStart="@dimen/avatar_marginStart"
+            android:layout_marginLeft="@dimen/avatar_marginLeft"
             android:src="@drawable/ic_baseline_person_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,7 @@
                 android:background="@drawable/skeleton"
                 android:id="@+id/user_name"
                 android:layout_width="144dp"
-                android:layout_height="16sp"
+                android:layout_height="@dimen/user_name_textSize"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +43,7 @@
                 android:background="@drawable/skeleton"
                 android:id="@+id/user_department"
                 android:layout_width="80dp"
-                android:layout_height="12dp"
+                android:layout_height="@dimen/user_department_textSize"
                 android:layout_marginTop="6dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/user_name" />

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="avatar_width">72dp</dimen>
+    <dimen name="avatar_height">72dp</dimen>
+    <dimen name="avatar_marginStart">16dp</dimen>
+    <dimen name="avatar_marginLeft">16dp</dimen>
+    <dimen name="user_name_textSize">16sp</dimen>
+    <dimen name="user_department_textSize">13sp</dimen>
+    <dimen name="user_item_marginTop">6dp</dimen>
+    <dimen name="user_item_marginBottom">6dp</dimen>
+    <dimen name="userItem_info_marginLeft">16dp</dimen>
+    <dimen name="year_divider_line_margin">23dp</dimen>
+    <dimen name="year_divider_line_height">2dp</dimen>
+    <dimen name="searchField_margins">15dp</dimen>
+    <dimen name="dialog_sortCases_textSize">20sp</dimen>
+    <dimen name="dialog_sortCases_margins">20dp</dimen>
+    <dimen name="dialog_layout_margins">15dp</dimen>
+    <dimen name="part_result_items_marginTop">20dp</dimen>
+    <dimen name="part_result_textSize">20sp</dimen>
+</resources>

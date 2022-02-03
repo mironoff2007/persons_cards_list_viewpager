@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="15dp"
-    android:layout_marginStart="15dp"
-    android:layout_marginRight="15dp"
-    android:layout_marginEnd="15dp"
-    android:background="@drawable/bottom_dialog_shape"
-    >
+    android:layout_marginLeft="@dimen/dialog_layout_margins"
+    android:layout_marginStart="@dimen/dialog_layout_margins"
+    android:layout_marginRight="@dimen/dialog_layout_margins"
+    android:layout_marginEnd="@dimen/dialog_layout_margins"
+    android:background="@drawable/bottom_dialog_shape">
 
     <TextView
         android:layout_width="match_parent"
@@ -24,9 +22,9 @@
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="@dimen/dialog_sortCases_margins"
+        android:layout_marginTop="@dimen/dialog_sortCases_margins"
+        android:layout_marginBottom="@dimen/dialog_sortCases_margins"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -38,7 +36,7 @@
             android:buttonTint="@color/colorPrimary"
             android:checked="true"
             android:text="@string/alphabet_sort"
-            android:textSize="20sp" />
+            android:textSize="@dimen/dialog_sortCases_textSize" />
 
         <RadioButton
             android:id="@+id/radio_birthDaySort"
@@ -48,6 +46,6 @@
             android:layout_marginTop="10dp"
             android:buttonTint="@color/colorPrimary"
             android:text="@string/birthday_sort"
-            android:textSize="20sp" />
+            android:textSize="@dimen/dialog_sortCases_textSize" />
     </RadioGroup>
 </LinearLayout>

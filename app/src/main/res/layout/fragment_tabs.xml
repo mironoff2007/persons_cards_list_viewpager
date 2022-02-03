@@ -13,7 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/searchField_margins"
         android:orientation="horizontal">
 
         <EditText
@@ -21,15 +21,14 @@
             android:inputType="text"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginLeft="@dimen/searchField_margins"
+            android:layout_marginRight="@dimen/searchField_margins"
             android:layout_weight="1"
             android:background="@drawable/shape_circular"
             android:drawableStart="@drawable/ic_search"
             android:drawableLeft="@drawable/ic_search"
             android:drawableEnd="@drawable/ic_sort_off"
             android:drawableRight="@drawable/ic_sort_off"
-            android:drawablePadding="10dp"
             android:hint="@string/hint_search_field"
             android:padding="10dp"
             android:textColor="@color/black"
@@ -40,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="@dimen/searchField_margins"
             android:text="@string/cancel"
             android:textColor="@color/colorPrimary"
             android:textSize="20dp"
