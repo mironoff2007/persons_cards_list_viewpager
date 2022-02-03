@@ -6,13 +6,11 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.part_result.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -24,6 +22,8 @@ import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
 import ru.mironov.persons_cards_list_viewpager.retrofit.UsersApi
 import ru.mironov.persons_cards_list_viewpager.viewmodel.Status
 import ru.mironov.persons_cards_list_viewpager.viewmodel.UsersListFragmentViewModel
+import java.lang.Thread.sleep
+import java.util.concurrent.locks.ReentrantLock
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -37,6 +37,10 @@ class ExampleInstrumentedTest {
 
     private lateinit var viewModelUserList: UsersListFragmentViewModel
     private val repository = Repository(mock(UsersApi::class.java))
+
+    private lateinit var resultData: Status.DATA
+
+    var locked = true
 
     @Before
     fun setUp() {
@@ -57,18 +61,19 @@ class ExampleInstrumentedTest {
     }
 
     @Test
-    fun useAppContext() {
-        // Context of the app under test.
+    fun checkListSize() {
 
         repository.mutableSearchParam.value = SortParams("", SortBy.ALPHABET_SORT)
 
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("ru.mironov.persons_cards_list_viewpager", appContext.packageName)
+        while (locked) {
+            sleep(100)
+        }
+
+        assert(resultData.usersList!!.size==80)
     }
 
     @After
-    fun closeJob()
-    {
+    fun closeJob() {
         job.cancel()
     }
 
@@ -79,18 +84,17 @@ class ExampleInstrumentedTest {
                 when (status) {
 
                     is Status.DATA -> {
-                        Log.d("My_tag", status.usersList.toString())
-                        job.cancel()
+                        resultData = status
+                        locked=false
                     }
                     is Status.LOADING -> {
-                        job.cancel()
 
                     }
                     is Status.ERROR -> {
-                        job.cancel()
+
                     }
                     is Status.EMPTY -> {
-                        job.cancel()
+
                     }
                 }
             }
