@@ -3,7 +3,6 @@ package ru.mironov.persons_cards_list_viewpager
 
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Request
-import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import okio.Timeout
 import retrofit2.Call
@@ -21,13 +20,11 @@ class MockApiError : UsersApi {
 
             override fun execute(): Response<JsonArrayUsers> {
                 val errorString = "error"
-                //ResponseBody.create(MediaType.parse("application/json")
-                return Response.error<JsonArrayUsers>(
-                    400, errorString.toResponseBody("application/json; charset=utf-8".toMediaTypeOrNull()))
-            }
 
-            override fun enqueue(callback: Callback<JsonArrayUsers>) {
-                TODO("Not yet implemented")
+                return Response.error<JsonArrayUsers>(
+                    400,
+                    errorString.toResponseBody("application/json; charset=utf-8".toMediaTypeOrNull())
+                )
             }
 
             override fun isExecuted(): Boolean {
@@ -49,6 +46,10 @@ class MockApiError : UsersApi {
 
             override fun timeout(): Timeout {
                 return Timeout()
+            }
+
+            override fun enqueue(callback: Callback<JsonArrayUsers>) {
+                callback.onResponse(clone(),execute())
             }
         }
     }

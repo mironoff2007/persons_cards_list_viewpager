@@ -59,7 +59,6 @@ class TabsViewModelTest {
 
         viewModelUserTabs = FragmentTabsViewModel(repository)
         setupObserver()
-
     }
 
     @Test
@@ -81,7 +80,7 @@ class TabsViewModelTest {
 
 
     private fun setupObserver() {
-        job = TestCoroutineScope().launch(Dispatchers.Default) {
+        job = TestCoroutineScope().launch(Dispatchers.Main) {
             viewModelUserTabs.mutableStatus.observeForever() { status ->
                 when (status) {
 
