@@ -2,13 +2,12 @@ package ru.mironov.persons_cards_list_viewpager
 
 
 import android.content.Context
-import android.util.Log
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.TestCoroutineScope
@@ -18,14 +17,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import ru.mironov.persons_cards_list_viewpager.data.Repository
-import ru.mironov.persons_cards_list_viewpager.data.SortBy
-import ru.mironov.persons_cards_list_viewpager.data.SortParams
-import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
-import ru.mironov.persons_cards_list_viewpager.retrofit.UsersApi
-import ru.mironov.persons_cards_list_viewpager.viewmodel.Status
-import ru.mironov.persons_cards_list_viewpager.viewmodel.UsersListFragmentViewModel
+import ru.mironov.persons_cards_list_viewpager.domain.SortBy
+import ru.mironov.persons_cards_list_viewpager.domain.SortParams
+import ru.mironov.persons_cards_list_viewpager.domain.JsonUser
+import ru.mironov.persons_cards_list_viewpager.data.retrofit.UsersApi
+import ru.mironov.persons_cards_list_viewpager.domain.Status
+import ru.mironov.persons_cards_list_viewpager.presentation.viewmodel.UsersListFragmentViewModel
 import java.lang.Thread.sleep
-import java.util.concurrent.locks.ReentrantLock
 
 
 @RunWith(AndroidJUnit4::class)
@@ -39,9 +37,9 @@ class UserListViewModelTest {
     private lateinit var resultData: Status.DATA
     private lateinit var resultStatus: Status
 
-    var locked = true
+    private var locked = true
 
-    lateinit var context: Context
+    private lateinit var context: Context
 
     @Before
     fun setUp() {
@@ -85,7 +83,7 @@ class UserListViewModelTest {
         while (locked) {
             sleep(100)
         }
-        val lastName= resultData!!.usersList!![0]!!.lastName
+        val lastName= resultData.usersList!![0]!!.lastName
 
         assert(resultData.usersList!!.size==1&& lastName=="Kling")
     }
@@ -125,6 +123,7 @@ class UserListViewModelTest {
     }
 
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     private fun setupObserver() {
         job = TestCoroutineScope().launch(Dispatchers.Main) {
             viewModelUserList.mutableStatus.observeForever() { status ->

@@ -1,7 +1,6 @@
 package ru.mironov.persons_cards_list_viewpager
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
@@ -17,7 +16,6 @@ import javax.inject.Inject
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
 class RetrofitInstrumentalUnitTest {
-
 
     @get:Rule
     var hiltRule=HiltAndroidRule(this)
@@ -35,7 +33,7 @@ class RetrofitInstrumentalUnitTest {
 
         val call: Call<JsonArrayUsers> = retrofit.getUsers()
 
-        val response: Response<JsonArrayUsers> = call!!.execute()
+        val response: Response<JsonArrayUsers> = call.execute()
 
         var body: JsonArrayUsers? = null
         if (response.body() != null) {
