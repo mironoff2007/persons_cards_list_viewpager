@@ -1,4 +1,4 @@
-package ru.mironov.persons_cards_list_viewpager.util
+package ru.mironov.persons_cards_list_viewpager.domain.util
 
 import android.content.Context
 import ru.mironov.persons_cards_list_viewpager.R

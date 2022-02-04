@@ -1,4 +1,4 @@
-package ru.mironov.persons_cards_list_viewpager.retrofit
+package ru.mironov.persons_cards_list_viewpager.domain
 
 import com.google.gson.annotations.SerializedName
 

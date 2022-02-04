@@ -1,4 +1,4 @@
-package ru.mironov.persons_cards_list_viewpager.util
+package ru.mironov.persons_cards_list_viewpager.domain.util
 
 object AvatarUrlFaker {
     fun getUrl(): String {

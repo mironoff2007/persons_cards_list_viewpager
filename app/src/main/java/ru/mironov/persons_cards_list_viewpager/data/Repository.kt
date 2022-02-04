@@ -2,9 +2,10 @@ package ru.mironov.persons_cards_list_viewpager.data
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import retrofit2.Call
-import ru.mironov.persons_cards_list_viewpager.retrofit.JsonArrayUsers
-import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
-import ru.mironov.persons_cards_list_viewpager.retrofit.UsersApi
+import ru.mironov.persons_cards_list_viewpager.domain.JsonArrayUsers
+import ru.mironov.persons_cards_list_viewpager.domain.JsonUser
+import ru.mironov.persons_cards_list_viewpager.data.retrofit.UsersApi
+import ru.mironov.persons_cards_list_viewpager.domain.SortParams
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList

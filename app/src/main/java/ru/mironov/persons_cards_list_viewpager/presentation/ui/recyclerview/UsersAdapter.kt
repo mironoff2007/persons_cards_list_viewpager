@@ -1,4 +1,4 @@
-package ru.mironov.persons_cards_list_viewpager.ui.recyclerview
+package ru.mironov.persons_cards_list_viewpager.presentation.ui.recyclerview
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
-import ru.mironov.persons_cards_list_viewpager.data.SortBy
+import ru.mironov.persons_cards_list_viewpager.domain.SortBy
 import ru.mironov.persons_cards_list_viewpager.databinding.ItemUserBinding
 import ru.mironov.persons_cards_list_viewpager.databinding.ItemUserSkeletonBinding
-import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
+import ru.mironov.persons_cards_list_viewpager.domain.JsonUser
 import java.util.*
 import javax.inject.Inject
 

@@ -5,7 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.mironov.persons_cards_list_viewpager.data.Repository
-import ru.mironov.persons_cards_list_viewpager.retrofit.UsersApi
+import ru.mironov.persons_cards_list_viewpager.data.retrofit.UsersApi
 import javax.inject.Singleton
 
 @Module

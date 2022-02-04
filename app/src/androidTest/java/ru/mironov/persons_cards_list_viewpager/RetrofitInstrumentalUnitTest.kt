@@ -10,8 +10,8 @@ import org.junit.Rule
 import org.junit.runner.RunWith
 import retrofit2.Call
 import retrofit2.Response
-import ru.mironov.persons_cards_list_viewpager.retrofit.JsonArrayUsers
-import ru.mironov.persons_cards_list_viewpager.retrofit.UsersApi
+import ru.mironov.persons_cards_list_viewpager.domain.JsonArrayUsers
+import ru.mironov.persons_cards_list_viewpager.data.retrofit.UsersApi
 import javax.inject.Inject
 
 @HiltAndroidTest

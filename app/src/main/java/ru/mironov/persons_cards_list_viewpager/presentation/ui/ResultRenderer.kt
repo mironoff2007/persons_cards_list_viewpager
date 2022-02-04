@@ -1,11 +1,11 @@
-package ru.mironov.persons_cards_list_viewpager.ui
+package ru.mironov.persons_cards_list_viewpager.presentation.ui
 
 import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.content.res.AppCompatResources
 import kotlinx.android.synthetic.main.part_result.view.*
 import ru.mironov.persons_cards_list_viewpager.R
-import ru.mironov.persons_cards_list_viewpager.viewmodel.Status
+import ru.mironov.persons_cards_list_viewpager.domain.Status
 
 object ResultRenderer {
     fun renderResult(status: Status, partResult: LinearLayout) {

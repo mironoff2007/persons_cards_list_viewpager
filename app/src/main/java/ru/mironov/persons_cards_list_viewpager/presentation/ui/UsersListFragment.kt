@@ -1,11 +1,10 @@
-package ru.mironov.persons_cards_list_viewpager.ui
+package ru.mironov.persons_cards_list_viewpager.presentation.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,13 +15,13 @@ import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.part_result.view.*
 import ru.mironov.persons_cards_list_viewpager.R
-import ru.mironov.persons_cards_list_viewpager.viewmodel.Status
+import ru.mironov.persons_cards_list_viewpager.domain.Status
 import ru.mironov.persons_cards_list_viewpager.databinding.FragmentUsersListBinding
-import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
-import ru.mironov.persons_cards_list_viewpager.ui.TabsFragment.Companion.TAG_TABS_FRAGMENT
-import ru.mironov.persons_cards_list_viewpager.ui.recyclerview.AbstractViewHolder
-import ru.mironov.persons_cards_list_viewpager.ui.recyclerview.UsersAdapter
-import ru.mironov.persons_cards_list_viewpager.viewmodel.UsersListFragmentViewModel
+import ru.mironov.persons_cards_list_viewpager.domain.JsonUser
+import ru.mironov.persons_cards_list_viewpager.presentation.ui.TabsFragment.Companion.TAG_TABS_FRAGMENT
+import ru.mironov.persons_cards_list_viewpager.presentation.ui.recyclerview.AbstractViewHolder
+import ru.mironov.persons_cards_list_viewpager.presentation.ui.recyclerview.UsersAdapter
+import ru.mironov.persons_cards_list_viewpager.presentation.viewmodel.UsersListFragmentViewModel
 import java.util.ArrayList
 import javax.inject.Inject
 

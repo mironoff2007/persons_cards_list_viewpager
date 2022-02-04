@@ -1,4 +1,4 @@
-package ru.mironov.persons_cards_list_viewpager.viewmodel
+package ru.mironov.persons_cards_list_viewpager.presentation.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,11 +10,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ru.mironov.persons_cards_list_viewpager.data.Repository
-import ru.mironov.persons_cards_list_viewpager.data.SortBy
-import ru.mironov.persons_cards_list_viewpager.data.SortParams
-import ru.mironov.persons_cards_list_viewpager.retrofit.JsonArrayUsers
-import ru.mironov.persons_cards_list_viewpager.util.AvatarUrlFaker
-import java.util.*
+import ru.mironov.persons_cards_list_viewpager.domain.SortParams
+import ru.mironov.persons_cards_list_viewpager.domain.JsonArrayUsers
+import ru.mironov.persons_cards_list_viewpager.domain.Status
+import ru.mironov.persons_cards_list_viewpager.domain.util.AvatarUrlFaker
 import javax.inject.Inject
 
 @HiltViewModel

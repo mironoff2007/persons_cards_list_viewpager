@@ -1,4 +1,4 @@
-package ru.mironov.persons_cards_list_viewpager
+package ru.mironov.persons_cards_list_viewpager.mocks
 
 
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -8,8 +8,8 @@ import okio.Timeout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import ru.mironov.persons_cards_list_viewpager.retrofit.JsonArrayUsers
-import ru.mironov.persons_cards_list_viewpager.retrofit.UsersApi
+import ru.mironov.persons_cards_list_viewpager.domain.JsonArrayUsers
+import ru.mironov.persons_cards_list_viewpager.data.retrofit.UsersApi
 
 class MockApiError : UsersApi {
     override fun getUsers(): Call<JsonArrayUsers> {

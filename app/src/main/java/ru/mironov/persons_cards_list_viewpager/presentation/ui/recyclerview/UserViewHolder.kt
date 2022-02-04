@@ -1,20 +1,20 @@
-package ru.mironov.persons_cards_list_viewpager.ui.recyclerview
+package ru.mironov.persons_cards_list_viewpager.presentation.ui.recyclerview
 
 import android.annotation.SuppressLint
 import android.view.View
 import com.bumptech.glide.RequestManager
 import ru.mironov.persons_cards_list_viewpager.R
-import ru.mironov.persons_cards_list_viewpager.data.SortBy
+import ru.mironov.persons_cards_list_viewpager.domain.SortBy
 import ru.mironov.persons_cards_list_viewpager.databinding.ItemUserBinding
-import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
-import ru.mironov.persons_cards_list_viewpager.util.DateFormatter
-import ru.mironov.persons_cards_list_viewpager.util.DepartmentNameUtil
+import ru.mironov.persons_cards_list_viewpager.domain.JsonUser
+import ru.mironov.persons_cards_list_viewpager.domain.util.DateFormatter
+import ru.mironov.persons_cards_list_viewpager.domain.util.DepartmentNameUtil
 import java.util.ArrayList
 
 class UserViewHolder(private val bindingUser: ItemUserBinding ) : AbstractViewHolder(bindingUser){
 
     @SuppressLint("SetTextI18n")
-    override fun bind(glide: RequestManager, user:JsonUser?, sortBy: SortBy?, users: ArrayList<JsonUser?>){
+    override fun bind(glide: RequestManager, user: JsonUser?, sortBy: SortBy?, users: ArrayList<JsonUser?>){
         with(bindingUser) {
 
             glide.asDrawable()

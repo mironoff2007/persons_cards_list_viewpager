@@ -1,4 +1,4 @@
-package ru.mironov.persons_cards_list_viewpager.ui
+package ru.mironov.persons_cards_list_viewpager.presentation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,10 +11,10 @@ import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import ru.mironov.persons_cards_list_viewpager.R
 import ru.mironov.persons_cards_list_viewpager.databinding.FragmentDetailsBinding
-import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
-import ru.mironov.persons_cards_list_viewpager.util.DateFormatter
-import ru.mironov.persons_cards_list_viewpager.util.DepartmentNameUtil
-import ru.mironov.persons_cards_list_viewpager.util.PhoneNumberFormatUtil
+import ru.mironov.persons_cards_list_viewpager.domain.JsonUser
+import ru.mironov.persons_cards_list_viewpager.domain.util.DateFormatter
+import ru.mironov.persons_cards_list_viewpager.domain.util.DepartmentNameUtil
+import ru.mironov.persons_cards_list_viewpager.domain.util.PhoneNumberFormatUtil
 import javax.inject.Inject
 
 @AndroidEntryPoint

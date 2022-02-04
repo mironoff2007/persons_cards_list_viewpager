@@ -1,4 +1,4 @@
-package ru.mironov.persons_cards_list_viewpager.viewmodel
+package ru.mironov.persons_cards_list_viewpager.presentation.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,9 +9,10 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ru.mironov.persons_cards_list_viewpager.data.Repository
-import ru.mironov.persons_cards_list_viewpager.data.SortBy
-import ru.mironov.persons_cards_list_viewpager.data.SortParams
-import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
+import ru.mironov.persons_cards_list_viewpager.domain.SortBy
+import ru.mironov.persons_cards_list_viewpager.domain.SortParams
+import ru.mironov.persons_cards_list_viewpager.domain.JsonUser
+import ru.mironov.persons_cards_list_viewpager.domain.Status
 import java.util.*
 import javax.inject.Inject
 

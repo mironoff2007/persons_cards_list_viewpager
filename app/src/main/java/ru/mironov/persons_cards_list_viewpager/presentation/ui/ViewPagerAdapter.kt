@@ -1,4 +1,4 @@
-package ru.mironov.persons_cards_list_viewpager.ui;
+package ru.mironov.persons_cards_list_viewpager.presentation.ui;
 
 
 import androidx.fragment.app.Fragment;

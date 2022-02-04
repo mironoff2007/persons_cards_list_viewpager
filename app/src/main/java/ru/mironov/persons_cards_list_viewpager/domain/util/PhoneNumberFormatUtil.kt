@@ -1,4 +1,4 @@
-package ru.mironov.persons_cards_list_viewpager.util
+package ru.mironov.persons_cards_list_viewpager.domain.util
 
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.google.i18n.phonenumbers.Phonenumber

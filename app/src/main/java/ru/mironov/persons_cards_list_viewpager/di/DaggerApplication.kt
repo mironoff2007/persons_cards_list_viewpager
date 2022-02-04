@@ -1,4 +1,4 @@
-package ru.mironov.persons_cards_list_viewpager
+package ru.mironov.persons_cards_list_viewpager.di
 
 import android.app.Application
 import com.bumptech.glide.RequestManager

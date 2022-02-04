@@ -10,7 +10,6 @@ import dagger.Provides
 
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ru.mironov.persons_cards_list_viewpager.ui.recyclerview.UsersAdapter
 import javax.inject.Singleton
 
 @Module

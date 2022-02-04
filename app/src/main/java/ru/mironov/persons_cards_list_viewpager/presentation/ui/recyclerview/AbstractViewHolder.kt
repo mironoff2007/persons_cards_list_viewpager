@@ -1,11 +1,11 @@
-package ru.mironov.persons_cards_list_viewpager.ui.recyclerview
+package ru.mironov.persons_cards_list_viewpager.presentation.ui.recyclerview
 
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.RequestManager
-import ru.mironov.persons_cards_list_viewpager.data.SortBy
-import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
+import ru.mironov.persons_cards_list_viewpager.domain.SortBy
+import ru.mironov.persons_cards_list_viewpager.domain.JsonUser
 import java.util.ArrayList
 
 abstract class AbstractViewHolder(val binding:ViewBinding ) : RecyclerView.ViewHolder(binding.root) {

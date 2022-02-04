@@ -1,6 +1,5 @@
-package ru.mironov.persons_cards_list_viewpager.viewmodel
+package ru.mironov.persons_cards_list_viewpager.domain
 
-import ru.mironov.persons_cards_list_viewpager.retrofit.JsonUser
 import java.util.*
 
 sealed class Status {

@@ -1,4 +1,4 @@
-package ru.mironov.persons_cards_list_viewpager.ui
+package ru.mironov.persons_cards_list_viewpager.presentation.ui
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -17,12 +17,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.part_result.view.*
 import ru.mironov.persons_cards_list_viewpager.R
-import ru.mironov.persons_cards_list_viewpager.data.SortBy
-import ru.mironov.persons_cards_list_viewpager.data.SortParams
+import ru.mironov.persons_cards_list_viewpager.domain.SortBy
+import ru.mironov.persons_cards_list_viewpager.domain.SortParams
 import ru.mironov.persons_cards_list_viewpager.databinding.*
-import ru.mironov.persons_cards_list_viewpager.util.DepartmentNameUtil
-import ru.mironov.persons_cards_list_viewpager.viewmodel.FragmentTabsViewModel
-import ru.mironov.persons_cards_list_viewpager.viewmodel.Status
+import ru.mironov.persons_cards_list_viewpager.domain.util.DepartmentNameUtil
+import ru.mironov.persons_cards_list_viewpager.presentation.viewmodel.FragmentTabsViewModel
+import ru.mironov.persons_cards_list_viewpager.domain.Status
 
 
 @AndroidEntryPoint
