@@ -1,4 +1,4 @@
-package ru.mironov.persons_cards_list_viewpager.presentation.ui
+package ru.mironov.persons_cards_list_viewpager.presentation.ui.screens
 
 import android.os.Bundle
 import android.view.LayoutInflater

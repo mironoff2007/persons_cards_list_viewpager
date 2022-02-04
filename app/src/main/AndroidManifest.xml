@@ -3,14 +3,14 @@
     package="ru.mironov.persons_cards_list_viewpager">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:name=".di.DaggerApplication"
+        android:name=".DaggerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="ru.mironov.persons_cards_list_viewpager.presentation.ui.MainActivity"
+        <activity android:name="ru.mironov.persons_cards_list_viewpager.presentation.ui.screens.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

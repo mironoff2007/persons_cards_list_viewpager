@@ -1,6 +1,5 @@
 package ru.mironov.persons_cards_list_viewpager
 
-
 import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -24,7 +23,6 @@ import ru.mironov.persons_cards_list_viewpager.data.retrofit.UsersApi
 import ru.mironov.persons_cards_list_viewpager.domain.Status
 import ru.mironov.persons_cards_list_viewpager.presentation.viewmodel.UsersListFragmentViewModel
 import java.lang.Thread.sleep
-
 
 @RunWith(AndroidJUnit4::class)
 class UserListViewModelTest {
@@ -58,6 +56,12 @@ class UserListViewModelTest {
         viewModelUserList.allDepartmentName = context.getString(R.string.department_all)
     }
 
+    /**
+     * После того как вынес поиск в отдельную функцию
+     * стало возможно тестировать ее отдельно,
+     * но оставил тест вместе с моделью
+     */
+
     @Test
     fun checkListSize() {
 
@@ -65,6 +69,7 @@ class UserListViewModelTest {
 
         repository.mutableSearchParam.value = SortParams("", SortBy.ALPHABET_SORT)
 
+        //да, костыль, но работает
         while (locked) {
             sleep(100)
         }

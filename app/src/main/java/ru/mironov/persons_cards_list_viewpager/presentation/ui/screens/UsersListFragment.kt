@@ -1,4 +1,4 @@
-package ru.mironov.persons_cards_list_viewpager.presentation.ui
+package ru.mironov.persons_cards_list_viewpager.presentation.ui.screens
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -18,7 +18,8 @@ import ru.mironov.persons_cards_list_viewpager.R
 import ru.mironov.persons_cards_list_viewpager.domain.Status
 import ru.mironov.persons_cards_list_viewpager.databinding.FragmentUsersListBinding
 import ru.mironov.persons_cards_list_viewpager.domain.JsonUser
-import ru.mironov.persons_cards_list_viewpager.presentation.ui.TabsFragment.Companion.TAG_TABS_FRAGMENT
+import ru.mironov.persons_cards_list_viewpager.presentation.ui.ResultRenderer
+import ru.mironov.persons_cards_list_viewpager.presentation.ui.screens.TabsFragment.Companion.TAG_TABS_FRAGMENT
 import ru.mironov.persons_cards_list_viewpager.presentation.ui.recyclerview.AbstractViewHolder
 import ru.mironov.persons_cards_list_viewpager.presentation.ui.recyclerview.UsersAdapter
 import ru.mironov.persons_cards_list_viewpager.presentation.viewmodel.UsersListFragmentViewModel
@@ -38,7 +39,7 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     @Inject
     lateinit var glide: RequestManager
 
-    lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -3,6 +3,7 @@ package ru.mironov.persons_cards_list_viewpager.presentation.ui;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+import ru.mironov.persons_cards_list_viewpager.presentation.ui.screens.UsersListFragment
 
 class ViewPagerAdapter(fragment: Fragment) :
     FragmentStateAdapter(fragment) {

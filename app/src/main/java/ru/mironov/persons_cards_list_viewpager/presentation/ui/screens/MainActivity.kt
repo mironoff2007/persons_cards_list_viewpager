@@ -1,11 +1,11 @@
-package ru.mironov.persons_cards_list_viewpager.presentation.ui
+package ru.mironov.persons_cards_list_viewpager.presentation.ui.screens
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import ru.mironov.persons_cards_list_viewpager.R
 import ru.mironov.persons_cards_list_viewpager.databinding.ActivityMainBinding
-import ru.mironov.persons_cards_list_viewpager.presentation.ui.TabsFragment.Companion.TAG_TABS_FRAGMENT
+import ru.mironov.persons_cards_list_viewpager.presentation.ui.screens.TabsFragment.Companion.TAG_TABS_FRAGMENT
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package ru.mironov.persons_cards_list_viewpager.presentation.ui
+package ru.mironov.persons_cards_list_viewpager.presentation.ui.screens
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -23,7 +23,8 @@ import ru.mironov.persons_cards_list_viewpager.databinding.*
 import ru.mironov.persons_cards_list_viewpager.domain.util.DepartmentNameUtil
 import ru.mironov.persons_cards_list_viewpager.presentation.viewmodel.FragmentTabsViewModel
 import ru.mironov.persons_cards_list_viewpager.domain.Status
-
+import ru.mironov.persons_cards_list_viewpager.presentation.ui.ResultRenderer
+import ru.mironov.persons_cards_list_viewpager.presentation.ui.ViewPagerAdapter
 
 @AndroidEntryPoint
 class TabsFragment : Fragment() {
@@ -34,6 +35,7 @@ class TabsFragment : Fragment() {
     private var pager2: ViewPager2? = null
     private var adapter: ViewPagerAdapter?=null
 
+    //да, можно базовый фрагмент написать и туда это завернуть
     private var _binding: FragmentTabsBinding? = null
     private var _bindingDialog: BottomsheetlayoutBinding? = null
 
@@ -43,7 +45,7 @@ class TabsFragment : Fragment() {
     var searchBy: String = ""
     var sortBy = SortBy.ALPHABET_SORT
 
-    var position = 0
+    private var position = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
