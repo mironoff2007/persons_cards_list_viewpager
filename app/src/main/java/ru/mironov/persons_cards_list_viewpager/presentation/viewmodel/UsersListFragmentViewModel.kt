@@ -11,9 +11,8 @@ import kotlinx.coroutines.launch
 import ru.mironov.persons_cards_list_viewpager.data.Repository
 import ru.mironov.persons_cards_list_viewpager.domain.SortBy
 import ru.mironov.persons_cards_list_viewpager.domain.SortParams
-import ru.mironov.persons_cards_list_viewpager.domain.JsonUser
 import ru.mironov.persons_cards_list_viewpager.domain.Status
-import java.util.*
+import ru.mironov.persons_cards_list_viewpager.domain.util.SearchUtil
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,15 +40,8 @@ open class UsersListFragmentViewModel @Inject constructor(protected val reposito
 
             val status = Status.DATA(null)
 
-            //Filter by departments and search
-            status.usersList =
-                list?.filter { user ->
-                    (user?.department == department || department == allDepartmentName) &&
-                            ((user?.firstName + " " + user?.lastName).lowercase()
-                                .contains(params.searchBy.lowercase()) ||
-                                    user?.userTag?.lowercase()?.contains(params.searchBy) == true ||
-                                    params.searchBy.isEmpty())
-                } as ArrayList<JsonUser?>?
+            //Filter by departments and search by params
+            status.usersList = SearchUtil.search(list,department,allDepartmentName,params)
 
             //Sort
             if (params.sortBy == SortBy.ALPHABET_SORT) {
@@ -72,5 +64,4 @@ open class UsersListFragmentViewModel @Inject constructor(protected val reposito
             }
         }.launchIn(viewModelScope)
     }
-
 }
