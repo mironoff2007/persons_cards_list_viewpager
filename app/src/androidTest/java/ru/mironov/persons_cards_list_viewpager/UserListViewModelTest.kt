@@ -10,7 +10,6 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.*
 import org.junit.After
 import org.junit.Before
-import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,7 +21,6 @@ import ru.mironov.persons_cards_list_viewpager.domain.SortBy
 import ru.mironov.persons_cards_list_viewpager.domain.SortParams
 import ru.mironov.persons_cards_list_viewpager.domain.Status
 import ru.mironov.persons_cards_list_viewpager.presentation.viewmodel.UsersListFragmentViewModel
-import java.lang.Thread.sleep
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
@@ -33,8 +31,7 @@ class UserListViewModelTest {
     private lateinit var viewModelUserList: UsersListFragmentViewModel
     private val repository = Repository(mock(UsersApi::class.java))
 
-    private lateinit var resultData: Status.DATA
-    private lateinit var resultStatus: Status
+    private var result: Status?=null
     private lateinit var observer: Observer<Status>
 
     private lateinit var context: Context
@@ -52,6 +49,8 @@ class UserListViewModelTest {
 
     @Before
     fun setUp() {
+        result = null
+
         context = InstrumentationRegistry.getInstrumentation().targetContext
         val jsonString = context.resources.openRawResource(R.raw.users_response).bufferedReader()
             .use { it.readText() }
@@ -85,7 +84,7 @@ class UserListViewModelTest {
         //Wait
         if (!latch.await(TIME_STEP, timeUnit)) { throw TimeoutException(ERROR_MESSAGE) }
 
-        assert(resultData.usersList!!.size==80)
+        assert((result as Status.DATA).usersList!!.size==80)
     }
 
 
@@ -100,8 +99,8 @@ class UserListViewModelTest {
         //Wait
         if (!latch.await(TIME_STEP, timeUnit)) { throw TimeoutException(ERROR_MESSAGE) }
 
-        val lastName = resultData.usersList!![0]!!.lastName
-        assert(resultData.usersList!!.size == 1 && lastName == "Kling")
+        val lastName = (result as Status.DATA).usersList!![0]!!.lastName
+        assert((result as Status.DATA).usersList!!.size == 1 && lastName == "Kling")
     }
 
     @Test
@@ -114,7 +113,7 @@ class UserListViewModelTest {
         //Wait
         if (!latch.await(TIME_STEP, timeUnit)) { throw TimeoutException(ERROR_MESSAGE) }
 
-        assert(resultStatus == Status.EMPTY)
+        assert(result == Status.EMPTY)
     }
 
     @Test
@@ -127,23 +126,23 @@ class UserListViewModelTest {
         //Wait
         if (!latch.await(TIME_STEP, timeUnit)) { throw TimeoutException(ERROR_MESSAGE) }
 
-        assert(resultData.usersList!!.size==10)
+        assert((result as Status.DATA)?.usersList!!.size==10)
     }
 
     private fun setupObserver() {
         observer = Observer<Status> { status ->
             when (status) {
                 is Status.DATA -> {
-                    resultData = status
+                    result = status
                     latch.countDown()
                 }
                 is Status.LOADING -> {}
                 is Status.ERROR -> {
-                    resultStatus = status
+                    result = status
                     latch.countDown()
                 }
                 is Status.EMPTY -> {
-                    resultStatus = status
+                    result = status
                     latch.countDown()
                 }
             }
