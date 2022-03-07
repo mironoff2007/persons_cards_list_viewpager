@@ -1,43 +1,38 @@
 package ru.mironov.persons_cards_list_viewpager
 
-
 import android.content.Context
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.TestCoroutineScope
+import kotlinx.coroutines.*
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import ru.mironov.persons_cards_list_viewpager.mocks.MockRepository
 import ru.mironov.persons_cards_list_viewpager.presentation.viewmodel.FragmentTabsViewModel
 import ru.mironov.persons_cards_list_viewpager.domain.Status
-import java.lang.Thread.sleep
-
 
 @RunWith(AndroidJUnit4::class)
 class TabsViewModelTest {
 
-    private lateinit var job: Job
-
     private lateinit var viewModelUserTabs: FragmentTabsViewModel
 
-    val repository= MockRepository()
+    private val repository= MockRepository()
 
     private lateinit var resultData: Status.DATA
     private lateinit var resultStatus: Status
-
-    var locked = true
+    private lateinit var observer:Observer<Status>
 
     lateinit var context: Context
 
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
+
     @Before
     fun setUp() {
-
         context = InstrumentationRegistry.getInstrumentation().targetContext
 
         viewModelUserTabs = FragmentTabsViewModel(repository)
@@ -46,45 +41,25 @@ class TabsViewModelTest {
 
     @Test
     fun checkError() {
-
-        viewModelUserTabs.getUsers()
-
-        while (locked) {
-            sleep(100)
-        }
+        runBlocking { viewModelUserTabs.getUsers() }
 
         assert(resultStatus is Status.ERROR)
     }
 
-    @After
-    fun closeJob() {
-        job.cancel()
-    }
-
-
-    @OptIn(ExperimentalCoroutinesApi::class)
     private fun setupObserver() {
-        job = TestCoroutineScope().launch(Dispatchers.Main) {
-            viewModelUserTabs.mutableStatus.observeForever() { status ->
-                when (status) {
-
-                    is Status.DATA -> {
-                        resultData = status
-                        locked=false
-                    }
-                    is Status.LOADING -> {
-
-                    }
-                    is Status.ERROR -> {
-                        resultStatus=status
-                        locked=false
-                    }
-                    is Status.EMPTY -> {
-                        resultStatus=status
-                        locked=false
-                    }
-                }
+        observer = Observer<Status> { status ->
+            when (status) {
+                is Status.DATA -> { resultData = status }
+                is Status.LOADING -> {}
+                is Status.ERROR -> { resultStatus = status }
+                is Status.EMPTY -> { resultStatus = status }
             }
         }
+        viewModelUserTabs.mutableStatus.observeForever(observer)
+    }
+
+    @After
+    fun after(){
+        viewModelUserTabs.mutableStatus.removeObserver(observer)
     }
 }

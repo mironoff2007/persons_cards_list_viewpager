@@ -96,6 +96,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     implementation 'org.mockito:mockito-android:4.3.1'
     testImplementation "io.mockk:mockk:1.12.2"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
 
     // Hilt testing
     androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
