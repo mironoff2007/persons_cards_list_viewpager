@@ -8,7 +8,7 @@ import ru.mironov.persons_cards_list_viewpager.presentation.ui.screens.UsersList
 class ViewPagerAdapter(fragment: Fragment) :
     FragmentStateAdapter(fragment) {
 
-    var tabNames= emptyArray<String>()
+    var tabNames = emptyArray<String>()
 
     override fun createFragment(position: Int): Fragment {
         return UsersListFragment.getInstance(tabNames[position])

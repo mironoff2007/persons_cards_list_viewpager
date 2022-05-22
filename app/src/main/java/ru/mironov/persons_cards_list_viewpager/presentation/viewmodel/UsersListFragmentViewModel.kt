@@ -58,10 +58,6 @@ open class UsersListFragmentViewModel @Inject constructor(protected val reposito
     }
 
     fun listenSearchParam(department: String) {
-        repository.mutableSearchParam.onEach { params ->
-            if (params != null) {
-                getUsersWithSort(department, params)
-            }
-        }.launchIn(viewModelScope)
+        repository.mutableSearchParam.onEach { params -> if (params != null) { getUsersWithSort(department, params) } }.launchIn(viewModelScope)
     }
 }

@@ -15,15 +15,14 @@ import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.part_result.view.*
 import ru.mironov.persons_cards_list_viewpager.R
-import ru.mironov.persons_cards_list_viewpager.domain.Status
 import ru.mironov.persons_cards_list_viewpager.databinding.FragmentUsersListBinding
 import ru.mironov.persons_cards_list_viewpager.domain.JsonUser
+import ru.mironov.persons_cards_list_viewpager.domain.Status
 import ru.mironov.persons_cards_list_viewpager.presentation.ui.ResultRenderer
-import ru.mironov.persons_cards_list_viewpager.presentation.ui.screens.TabsFragment.Companion.TAG_TABS_FRAGMENT
 import ru.mironov.persons_cards_list_viewpager.presentation.ui.recyclerview.AbstractViewHolder
 import ru.mironov.persons_cards_list_viewpager.presentation.ui.recyclerview.UsersAdapter
+import ru.mironov.persons_cards_list_viewpager.presentation.ui.screens.TabsFragment.Companion.TAG_TABS_FRAGMENT
 import ru.mironov.persons_cards_list_viewpager.presentation.viewmodel.UsersListFragmentViewModel
-import java.util.ArrayList
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -31,7 +30,7 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private val viewModel: UsersListFragmentViewModel by viewModels()
 
-    private var adapter: UsersAdapter?=null
+    private var adapter: UsersAdapter? = null
 
     private var _binding: FragmentUsersListBinding? = null
     private val binding get() = _binding!!
@@ -109,7 +108,7 @@ class UsersListFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         adapter = UsersAdapter(object : UsersAdapter.ItemClickListener<AbstractViewHolder> {
             override fun onClickListener(item: AbstractViewHolder) {
 
-                viewModel.position=item.adapterPosition
+                viewModel.position = item.adapterPosition
 
                 val fragment = DetailsFragment()
                 val argumentsDetails = Bundle()

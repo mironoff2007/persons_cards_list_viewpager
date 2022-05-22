@@ -10,8 +10,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ru.mironov.persons_cards_list_viewpager.data.Repository
-import ru.mironov.persons_cards_list_viewpager.domain.SortParams
 import ru.mironov.persons_cards_list_viewpager.domain.JsonArrayUsers
+import ru.mironov.persons_cards_list_viewpager.domain.SortParams
 import ru.mironov.persons_cards_list_viewpager.domain.Status
 import ru.mironov.persons_cards_list_viewpager.domain.util.AvatarUrlFaker
 import javax.inject.Inject
@@ -24,10 +24,8 @@ open class FragmentTabsViewModel @Inject constructor (protected val repository: 
 
     lateinit var allUsersDepartment:String
 
-    var tabNames= emptyArray<String>()
-
     fun getUsersCheckCache(){
-        if(repository.usersList?.isEmpty()==true||repository.usersList==null){
+        if(repository.usersList?.isEmpty() == true || repository.usersList == null){
             getUsers()
         }
         else{
@@ -73,11 +71,11 @@ open class FragmentTabsViewModel @Inject constructor (protected val repository: 
 
     fun setSearchParam(param: SortParams?) {
 
-        repository.mutableSearchParam.value= param
+        repository.mutableSearchParam.value = param
     }
 
     fun isUsersEmpty(): Boolean {
-        return repository.usersList?.isEmpty()==true||repository.usersList==null
+        return repository.usersList?.isEmpty() == true || repository.usersList == null
     }
 
 }

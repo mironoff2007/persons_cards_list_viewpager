@@ -9,7 +9,6 @@ import ru.mironov.persons_cards_list_viewpager.domain.SortParams
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-//да, можно сделать интерфейс и не надо делать open для затычки в тестах
 open class Repository @Inject constructor(protected val retrofit: UsersApi) {
 
     var usersList:ArrayList<JsonUser?>?=null

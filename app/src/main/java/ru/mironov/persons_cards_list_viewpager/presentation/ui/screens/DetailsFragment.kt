@@ -69,8 +69,7 @@ class DetailsFragment : Fragment() {
 
             userName.text = user.firstName + " " + user.lastName
             userTag.text = user.userTag!!.lowercase()
-            userDepartment.text =
-                DepartmentNameUtil.getDepartmentName(requireContext(), user.department!!)
+            userDepartment.text = DepartmentNameUtil.getDepartmentName(requireContext(), user.department!!)
             userPhone.text = PhoneNumberFormatUtil.formatNumber(user.phone!!)
             userBirthday.text = DateFormatter.convertDate(user.birthday!!)
             userAge.text = DateFormatter.getAge(user.birthday!!)//года/лет --TODO--

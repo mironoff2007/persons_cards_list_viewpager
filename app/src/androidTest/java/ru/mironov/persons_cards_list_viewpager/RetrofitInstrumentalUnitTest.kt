@@ -18,7 +18,7 @@ import javax.inject.Inject
 class RetrofitInstrumentalUnitTest {
 
     @get:Rule
-    var hiltRule=HiltAndroidRule(this)
+    var hiltRule = HiltAndroidRule(this)
 
     @Before
     fun init(){

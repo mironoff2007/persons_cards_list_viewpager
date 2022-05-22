@@ -17,14 +17,15 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.part_result.view.*
 import ru.mironov.persons_cards_list_viewpager.R
+import ru.mironov.persons_cards_list_viewpager.databinding.BottomsheetlayoutBinding
+import ru.mironov.persons_cards_list_viewpager.databinding.FragmentTabsBinding
 import ru.mironov.persons_cards_list_viewpager.domain.SortBy
 import ru.mironov.persons_cards_list_viewpager.domain.SortParams
-import ru.mironov.persons_cards_list_viewpager.databinding.*
-import ru.mironov.persons_cards_list_viewpager.domain.util.DepartmentNameUtil
-import ru.mironov.persons_cards_list_viewpager.presentation.viewmodel.FragmentTabsViewModel
 import ru.mironov.persons_cards_list_viewpager.domain.Status
+import ru.mironov.persons_cards_list_viewpager.domain.util.DepartmentNameUtil
 import ru.mironov.persons_cards_list_viewpager.presentation.ui.ResultRenderer
 import ru.mironov.persons_cards_list_viewpager.presentation.ui.ViewPagerAdapter
+import ru.mironov.persons_cards_list_viewpager.presentation.viewmodel.FragmentTabsViewModel
 
 @AndroidEntryPoint
 class TabsFragment : Fragment() {
@@ -33,9 +34,8 @@ class TabsFragment : Fragment() {
 
     private var tabLayout: TabLayout? = null
     private var pager2: ViewPager2? = null
-    private var adapter: ViewPagerAdapter?=null
+    private var adapter: ViewPagerAdapter? = null
 
-    //да, можно базовый фрагмент написать и туда это завернуть
     private var _binding: FragmentTabsBinding? = null
     private var _bindingDialog: BottomsheetlayoutBinding? = null
 
@@ -87,8 +87,7 @@ class TabsFragment : Fragment() {
         binding.cancelSearch.setOnClickListener { binding.search.text.clear() }
         binding.search.setOnTouchListener(View.OnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_UP) {
-                if (event.rawX >= binding.search.right - binding.search.compoundDrawables[DRAWABLE_RIGHT].bounds.width()
-                ) {
+                if (event.rawX >= binding.search.right - binding.search.compoundDrawables[DRAWABLE_RIGHT].bounds.width()) {
                     showDialog()
                     return@OnTouchListener true
                 }
@@ -97,21 +96,13 @@ class TabsFragment : Fragment() {
         })
     }
 
-    fun setSort(value: SortBy) {
+    private fun setSort(value: SortBy) {
         if (value == SortBy.ALPHABET_SORT) {
             bindingDialog.radioGroup.check(R.id.radio_alphabetSort)
-            binding.search.setCompoundDrawablesWithIntrinsicBounds(
-                R.drawable.ic_search,
-                0,
-                R.drawable.ic_sort_off,
-                0
-            )
+            binding.search.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_search, 0, R.drawable.ic_sort_off, 0)
         } else {
             bindingDialog.radioGroup.check(R.id.radio_birthDaySort)
-            binding.search.setCompoundDrawablesWithIntrinsicBounds(
-                R.drawable.ic_search, 0,
-                R.drawable.ic_sort_on, 0
-            )
+            binding.search.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_search, 0, R.drawable.ic_sort_on, 0)
         }
     }
 
@@ -168,6 +159,7 @@ class TabsFragment : Fragment() {
                         ResultRenderer.renderResult(Status.DATA(null), binding.root.partResult)
                     }
                 }
+                else -> {}
             }
         }
     }
@@ -201,10 +193,7 @@ class TabsFragment : Fragment() {
         dialog.setContentView(bindingDialog.root)
 
         dialog.show()
-        dialog.window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
         dialog.window?.setGravity(Gravity.BOTTOM)
